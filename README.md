@@ -2,7 +2,9 @@
 
 A Shopware 6 plugin that automates product enrichment for artwork using Google Gemini. Send product cover images to the AI and get back SEO metadata, product descriptions, and property suggestions — across multiple languages in a single API call.
 
-**Version:** 3.2.1 · **Compatibility:** Shopware 6.6 – 6.7 · **Developer:** [WEXO A/S](https://www.wexo.dk)
+**Version:** 3.2.1 · **Compatibility:** Shopware 6.6 – 6.7 · **Developer:** Christoffer Maintz, for [WEXO A/S](https://www.wexo.dk)
+
+> Built as a final exam project.
 
 ---
 
