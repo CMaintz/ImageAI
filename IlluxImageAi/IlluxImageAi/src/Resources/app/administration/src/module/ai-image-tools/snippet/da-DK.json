@@ -1,0 +1,693 @@
+{
+  "ai-image-tools": {
+    "general": {
+      "mainMenuItemGeneral": "AI-billedværktøjer",
+      "descriptionTextModule": "AI-drevet billedanalyse og generering af miljøbilleder til dine produkter"
+    },
+    "tabs": {
+      "overview": "Oversigt",
+      "settings": "Indstillinger",
+      "configuration": "Konfiguration",
+      "properties": "Egenskaber",
+      "analysisHistory": "Analyse Historik",
+      "run": "Kør Analyse",
+      "generate": "Generér Miljø",
+      "approval": "Godkendelse"
+    },
+    "properties": {
+      "cards": {
+        "propertyGroups": "AI Analyse Egenskabsgrupper",
+        "suggestedOptions": "AI-foreslåede Egenskabsmuligheder",
+        "suggestedOptionsSubtitle": "{count} nye muligheder fundet i analyser"
+      },
+      "suggestions": {
+        "selectAll": "Vælg Alle",
+        "deselectAll": "Fravælg Alle",
+        "approveSelected": "Godkend {count} Valgte",
+        "occurrences": "{count} forekomster",
+        "noSelections": "Vælg venligst mindst ét forslag",
+        "approveSuccess": "Oprettede {created} egenskabsmulighed(er), {failed} fejlede",
+        "approveError": "Kunne ikke godkende foreslåede muligheder",
+        "rejectSuccess": "Forslag afvist",
+        "rejectError": "Kunne ikke afvise forslag",
+        "rejectSelected": "Afvis {count} Valgte",
+        "rejectSelectedSuccess": "Afviste {count} forslag",
+        "rejectSelectedPartialError": "{count} forslag kunne ikke afvises",
+        "loadError": "Kunne ikke indlæse foreslåede muligheder",
+        "validationError": "Angiv venligst oversættelser for alle sprog",
+        "emptyState": {
+          "title": "Ingen Forslag",
+          "subline": "Nye egenskabsmuligheder foreslået af AI vil vises her til gennemgang"
+        },
+        "approvalModal": {
+          "title": "Tilføj oversættelser for nye valgmuligheder",
+          "tabs": {
+            "summary": "Oversigt"
+          },
+          "summaryInfo": "Du er ved at oprette {count} nye egenskabsvalgmuligheder. Angiv venligst oversættelser for hvert sprog.",
+          "missingTranslations": "Manglende oversættelser for: {options}",
+          "approve": "Opret {count} valgmulighed(er)"
+        }
+      },
+      "buttons": {
+        "addProperty": "Tilføj egenskab",
+        "addOption": "Tilføj mulighed"
+      },
+      "columns": {
+        "options": "Muligheder",
+        "groupName": "Egenskabsgruppe",
+        "displayType": "Visningstype",
+        "sortOrder": "Sorteringsrækkefølge",
+        "visible": "Synlig",
+        "filterable": "Filtrerbar"
+      },
+      "displayType": {
+        "multiSelect": "Multi-vælg",
+        "singleSelect": "Enkelt-vælg",
+        "text": "Tekst",
+        "color": "Farve",
+        "image": "Billede"
+      },
+      "sortingType": {
+        "alphanumeric": "Alfabetisk",
+        "position": "Efter Placering"
+      },
+      "actions": {
+        "edit": "Rediger",
+        "delete": "Slet",
+        "remove": "Fjern"
+      },
+      "modal": {
+        "titleCreate": "Opret egenskab",
+        "titleEdit": "Rediger egenskab",
+        "tabs": {
+          "basic": "Grundlæggende indstillinger"
+        },
+        "translations": "Oversættelser",
+        "cancel": "Annuller",
+        "save": "Gem"
+      },
+      "fields": {
+        "propertyGroupName": "Egenskabsgruppenavn",
+        "displayType": "Visningstype",
+        "sortingType": "Sorteringstype",
+        "position": "Sorteringsposition",
+        "filterable": "Vis i filtre",
+        "visibleOnProductDetailPage": "Vis på produktside",
+        "options": "Muligheder (engelsk)",
+        "groupDisplayName": "Egenskabsgruppe visningsnavn",
+        "optionTranslations": "Mulighedsoversættelser"
+      },
+      "helpText": {
+        "propertyGroupName": "Internt navn for egenskabsgruppen (f.eks. Technique)",
+        "groupDisplayName": "Oversat visningsnavn for denne egenskabsgruppe",
+        "optionsTaggedField": "Tilføj egenskabsmuligheder på engelsk. Tryk Enter for at tilføje hver mulighed.",
+        "filterable": "Vis denne egenskab i webshop-filtre",
+        "visibleOnProductDetailPage": "Vis denne egenskab på produktdetaljeside",
+        "position": "Rækkefølge for denne egenskab"
+      },
+      "placeholders": {
+        "translation": "Indtast oversættelse...",
+        "addOption": "Skriv mulighedsnavn og tryk Enter"
+      },
+      "prompts": {
+        "enterOptionName": "Indtast mulighedsnavn (på engelsk):",
+        "confirmDelete": "Er du sikker på, at du vil slette denne egenskab? Dette kan ikke fortrydes."
+      },
+      "emptyState": {
+        "noOptions": "Ingen muligheder tilføjet endnu. Klik på 'Tilføj mulighed' for at komme i gang.",
+        "addOptionsFirst": "Tilføj muligheder i fanen Grundlæggende indstillinger først, og tilføj derefter oversættelser her.",
+        "noProperties": "Ingen AI Egenskabsgrupper Fundet",
+        "noPropertiesSubline": "Opret egenskabsgrupper for at konfigurere AI-analysebegrænsninger"
+      },
+      "validation": {
+        "nameTooShort": "Egenskabsgruppenavn skal være mindst 3 tegn",
+        "noOptions": "Tilføj venligst mindst én egenskabsmulighed",
+        "missingGroupName": "Egenskabsgruppenavn er påkrævet for dette sprog",
+        "missingOptionTranslations": "Manglende oversættelser for muligheder: {options}",
+        "errorTitle": "Ret venligst valideringsfejl før gemning"
+      },
+      "notifications": {
+        "loadError": "Fejl ved indlæsning af egenskaber",
+        "saveSuccess": "Egenskab gemt",
+        "saveError": "Fejl ved gemning af egenskab",
+        "deleteSuccess": "Egenskab slettet",
+        "deleteError": "Fejl ved sletning af egenskab"
+      },
+      "detail": {
+        "title": "Detaljer",
+        "cancel": "Annuller",
+        "save": "Gem",
+        "reject": "Afvis",
+        "approve": "Godkend",
+        "sections": {
+          "productInfo": "Produktinformation",
+          "analyzedProperties": "Analyserede egenskaber",
+          "translations": "Oversættelser",
+          "seoContent": "SEO-indhold",
+          "productContent": "Produktindhold"
+        },
+        "fields": {
+          "productName": "Produktnavn",
+          "status": "Status",
+          "confidence": "Troværdighed",
+          "warnings": "Kvalitetsadvarsler",
+          "analysisDate": "Analyse dato",
+          "language": "Sprog",
+          "metaTitle": "Meta titel",
+          "metaDescription": "Meta beskrivelse",
+          "seoKeywords": "SEO-nøgleord",
+          "productDescription": "Produktbeskrivelse"
+        },
+        "loadError": "Indlæsningsfejl af analyse-resultat.",
+        "saveSuccess": "Analyse-resultatet blev gemt.",
+        "saveError": "Der opstod en fejl under gemning af analyse-resultatet.",
+        "approveSuccess": "Analysen blev godkendt.",
+        "approveError": "Der opstod en fejl under godkendelse af analysen.",
+        "rejectSuccess": "Analysen blev afvist.",
+        "rejectError": "Der opstod en fejl under afvisning af analysen."
+      }
+    },
+    "overview": {
+      "statistics": "Statistik",
+      "lastAnalysis": "Sidste analyse",
+      "productsAnalyzed": "Analyserede produkter",
+      "pendingAnalysis": "Afventende analyser",
+      "successRate": "Succesrate",
+      "neverRun": "Aldrig kørt",
+      "microservicesStatus": "Status for mikrotjenester",
+      "analysisService": "Analysetjeneste",
+      "generationService": "Genereringstjeneste",
+      "storageService": "Lagringstjeneste",
+      "quickActions": "Hurtige handlinger",
+      "runNewAnalysis": "Kør ny analyse",
+      "viewResults": "Se resultater",
+      "errorLoadingStats": "Fejl ved indlæsning af statistik",
+      "totalAnalyses": "Samlede analyser",
+      "pendingReview": "Afventer gennemgang",
+      "processing": "Behandler",
+      "approved": "Godkendt",
+      "autoApproved": "Automatisk anvendt",
+      "rejected": "Afvist",
+      "failed": "Fejlet",
+      "timeSaved": "Tid sparet",
+      "noTimeSaved": "Ingen tid sparet endnu",
+      "minutes": "minut | minutter",
+      "hours": "time | timer",
+      "days": "dag | dage",
+      "connectionSuccess": "Forbindelse oprettet",
+      "connectionFailed": "Forbindelse mislykkedes",
+      "connectionError": "Fejl ved test af forbindelse",
+      "timeSavedBreakdown": {
+        "breakdown": "Fordeling af tid sparet",
+        "properties": "Egenskaber",
+        "seo": "SEO",
+        "descriptions": "Beskrivelser"
+      }
+    },
+    "settings": {
+      "apiConfiguration": "API-konfiguration",
+      "apiKey": "API-nøgle",
+      "apiKeyPlaceholder": "Indtast din API-nøgle",
+      "apiEndpoint": "API-endpoint",
+      "apiEndpointPlaceholder": "https://api.openai.com/v1",
+      "model": "AI-model",
+      "testConnection": "Test forbindelse",
+      "analysisSettings": "Analyseindstillinger",
+      "maxTokens": "Maks. tokens",
+      "temperature": "Temperatur",
+      "autoAnalyzeNewProducts": "Analyser nye produkter automatisk",
+      "save": "Gem indstillinger",
+      "saveSuccess": "Indstillinger gemt",
+      "saveError": "Fejl ved gemning af indstillinger",
+      "connectionSuccess": "Forbindelse oprettet",
+      "connectionFailed": "Forbindelse mislykkedes",
+      "connectionError": "Fejl ved test af forbindelse"
+    },
+    "configuration": {
+      "languageLoadError": "Fejl ved indlæsning af sprog",
+      "requiredLanguage": "Påkrævet",
+      "noLanguagesConfigured": "Ingen sprog konfigureret",
+      "save": "Gem konfiguration",
+      "saveSuccess": "Konfiguration gemt",
+      "saveError": "Fejl ved gemning af konfiguration",
+      "loadError": "Fejl ved indlæsning af konfiguration",
+      "cards": {
+        "basic": "Grundlæggende konfiguration",
+        "analysisConfig": "Analysekonfiguration",
+        "propertyConstraints": "Egenskabsbegrænsninger",
+        "language": "Sprogkonfiguration",
+        "scheduledAnalysis": "Planlagt analyse",
+        "propertyMapping": "Egenskabskortlægning",
+        "prompts": "AI-prompts",
+        "geminiApi": "Gemini API-konfiguration",
+        "featureFlags": "Funktionsflag",
+        "workflowConfig": "Workflow & Troværdighedskonfiguration",
+        "advancedConfidence": "Avancerede troværdighedsindstillinger",
+        "timeTracking": "Tidssporing"
+      },
+      "sections": {
+        "fieldWeights": "Feltvægte",
+        "fieldWeightsDescription": "Styrer hvor meget hvert felttype bidrager til den samlede troværdighedsscore. Alle vægte bør summere til ca. 100%.",
+        "contentPatterns": "Indholdsmønstre",
+        "propertySettings": "Egenskabsindstillinger",
+        "propertySettingsDescription": "Straffe der anvendes når egenskabsdetektering har problemer - tomme egenskaber, for mange muligheder eller lave match-rater.",
+        "contentPenalties": "Længde- & Indholdsstraffe",
+        "contentPenaltiesDescription": "Straffe for indholdskvalitetsproblemer som for kort/langt indhold, generiske fraser og usikkert sprogbrug. Alle værdier er i procent.",
+        "confidenceExplanation": "<b>Sådan fungerer troværdighedsscoring</b><br><br>Troværdighedsscoren (0-100%) estimerer hvor pålidelig et AI-analyseresultat er. Den kombinerer to komponenter:<br><br><b>1. Basisscore (fra AI)</b><br>Hvert felt (titel, beskrivelse, nøgleord, egenskaber) har en AI-rapporteret troværdighed. Disse kombineres ved hjælp af vægtene nedenfor.<br><br><b>2. Valideringsstraffe</b><br>Heuristiske kontroller opdager potentielle kvalitetsproblemer og anvender straffe:<br>• <b>Længdeproblemer</b> - Indhold for kort eller langt til SEO<br>• <b>Generisk indhold</b> - Pladsholder-fraser eller vagt markedsføringssprog<br>• <b>Usikkert sprogbrug</b> - Ord som \"muligvis\" eller \"måske\" der antyder AI-usikkerhed<br>• <b>Duplikeret indhold</b> - Samme tekst på tværs af forskellige sprog<br>• <b>Egenskabsproblemer</b> - Ingen egenskaber fundet, eller for mange muligheder valgt<br><br><b>Endelig score</b> = Basisscore - Samlede straffe (begrænset af Maks. samlet straf)<br><br>Resultater under den lave troværdighedsgrænse markeres til manuel gennemgang."
+      },
+      "fields": {
+        "active": "Aktivér plugin",
+        "autoApplyAnalysis": "Anvend analyse automatisk",
+        "metaTitleMaxLength": "Meta-titel maks. længde",
+        "metaDescriptionMaxLength": "Meta-beskrivelse maks. længde",
+        "keywordCount": "Antal SEO-nøgleord",
+        "keywordsMaxCharacterLength": "Nøgleord samlet maks. tegn",
+        "includeSeoAnalysis": "Inkludér SEO-metadata",
+        "descriptionMaxLength": "Beskrivelse maks. længde",
+        "tone": "Indholdstone",
+        "includeProductDescription": "Inkludér produktbeskrivelse",
+        "analysisLanguages": "Analysesprog",
+        "scheduledTaskEnabled": "Aktivér automatisk behandling",
+        "scheduledTaskInterval": "Analyseinterval (timer)",
+        "analysisPromptInput": "Analyseprompt",
+        "compositorPromptInput": "Kompositionsprompt",
+        "generatorPromptInput": "Generatorprompt",
+        "apiKey": "Gemini API-nøgle",
+        "apiModel": "Analysemodel",
+        "imageGenerationModel": "Billedgenereringsmodel",
+        "enableApprovalWorkflow": "Aktivér godkendelsesworkflow",
+        "eligibleProductTypes": "Kvalificerede produkttyper",
+        "apiBaseUrl": "API Base URL",
+        "apiVersion": "API Version",
+        "minutesSavedPerProperty": "Minutter sparet: Egenskaber",
+        "minutesSavedPerSeo": "Minutter sparet: SEO",
+        "minutesSavedForBaseDescription": "Minutter sparet: Grundbeskrivelse",
+        "minutesSavedPerAdditionalTranslation": "Minutter sparet: Pr. oversættelse",
+        "enableConfidenceThreshold": "Aktivér troværdighedsbaseret gennemgang",
+        "lowConfidenceThreshold": "Lav troværdighedsgrænse",
+        "fieldWeightMetaTitle": "Meta-titel vægt",
+        "fieldWeightMetaDescription": "Meta-beskrivelse vægt",
+        "fieldWeightProductDescription": "Produktbeskrivelse vægt",
+        "fieldWeightSeoKeywords": "SEO-nøgleord vægt",
+        "fieldWeightProperties": "Egenskaber vægt",
+        "genericPatterns": "Generiske indholdsmønstre",
+        "hedgingWords": "Tøvende ord",
+        "idealOptionsPerProperty": "Ideelt antal muligheder pr. egenskab",
+        "emptyPropertyPenalty": "Straf for tom egenskab (%)",
+        "excessOptionPenalty": "Straf for overskydende muligheder (%)",
+        "noPropertiesPenalty": "Straf for ingen egenskaber (%)",
+        "minLengthRatio": "Minimum længdeforhold",
+        "shortTitlePenalty": "Straf for kort titel",
+        "longTitlePenalty": "Straf for lang titel",
+        "shortDescriptionPenalty": "Straf for kort beskrivelse",
+        "fewKeywordsPenalty": "Straf for få nøgleord",
+        "genericContentPenalty": "Straf for generisk indhold",
+        "hedgingPenaltyPerInstance": "Straf pr. tøvende forekomst",
+        "hedgingPenaltyMax": "Maks. tøvende straf",
+        "duplicateContentPenalty": "Straf for duplikeret indhold",
+        "lowPropertyMatchPenalty": "Straf for lav egenskabsmatch (%)",
+        "maxTotalPenalty": "Maks. samlet straf"
+      },
+      "helpText": {
+        "metaTitleMaxLength": "Maksimalt antal tegn til SEO meta-titel",
+        "metaDescriptionMaxLength": "Maksimalt antal tegn til SEO meta-beskrivelse",
+        "keywordCount": "Antal nøgleord, der skal genereres pr. produkt (3-5)",
+        "keywordsMaxCharacterLength": "Maksimalt samlet antal tegn for alle nøgleord tilsammen (maks 255)",
+        "includeSeoAnalysis": "Inkludér SEO-metadata (titel, beskrivelse, nøgleord) i analyseoutput",
+        "descriptionMaxLength": "Maksimalt antal tegn til kundevendt beskrivelse",
+        "tone": "Indstiller tonen for genererede beskrivelser",
+        "includeProductDescription": "Inkludér produktbeskrivelse i analyseoutput",
+        "analysisLanguages": "Vælg sprog til AI-genereret indhold",
+        "languageSelectionInfo": "Engelsk er påkrævet til AI-analyse. Vælg yderligere sprog for at generere oversat indhold.",
+        "scheduledTaskInterval": "Hvor ofte der skal søges efter uanalyserede produkter",
+        "analysisPromptInput": "Tilpas AI-prompten til billedanalyse. Brug {variabler} til dynamisk indhold",
+        "compositorPromptInput": "Tilpas AI-prompten til scenekomposition. Brug {variabler} til dynamisk indhold",
+        "generatorPromptInput": "Tilpas AI-prompten til miljøgenerering. Brug {variabler} til dynamisk indhold",
+        "apiKey": "Din Google AI Studio API-nøgle til Gemini",
+        "apiModel": "Gemini-model til billedanalyse",
+        "imageGenerationModel": "Gemini-model til billedgenerering",
+        "enableApprovalWorkflow": "Kræv manuel godkendelse, før analyseresultater anvendes",
+        "eligibleProductTypes": "Kommasepareret liste over produkttypenavne der skal inkluderes i AI-analyse",
+        "apiBaseUrl": "Base URL for Gemini API (uden version)",
+        "apiVersion": "API version (f.eks. v1beta, v1)",
+        "minutesSavedPerProperty": "Estimerede minutter sparet når AI tildeler produktegenskaber",
+        "minutesSavedPerSeo": "Estimerede minutter sparet når AI genererer SEO-metadata",
+        "minutesSavedForBaseDescription": "Estimerede minutter sparet for primær sprogbeskrivelse",
+        "minutesSavedPerAdditionalTranslation": "Estimerede minutter sparet pr. ekstra oversættelse",
+        "enableConfidenceThreshold": "Når godkendelsesworkflow er deaktiveret, brug troværdighedsscorer til at markere resultater af lav kvalitet til manuel gennemgang",
+        "lowConfidenceThreshold": "Resultater under denne troværdighedsscore (%) kræver manuel gennemgang",
+        "genericPatterns": "Regex-mønstre til at opdage generisk/pladsholder-indhold (ét mønster pr. linje)",
+        "hedgingWords": "Ord der indikerer AI-usikkerhed (ét ord pr. linje)",
+        "fieldWeightMetaTitle": "Vægtning af meta-titel i troværdighedsberegning. Alle vægte bør summere til 100%. Højere = vigtigere. (0-100%)",
+        "fieldWeightMetaDescription": "Vægtning af meta-beskrivelse i troværdighedsberegning. Alle vægte bør summere til 100%. Højere = vigtigere. (0-100%)",
+        "fieldWeightProductDescription": "Vægtning af produktbeskrivelse i troværdighedsberegning. Alle vægte bør summere til 100%. Højere = vigtigere. (0-100%)",
+        "fieldWeightSeoKeywords": "Vægtning af SEO-nøgleord i troværdighedsberegning. Alle vægte bør summere til 100%. Højere = vigtigere. (0-100%)",
+        "fieldWeightProperties": "Vægtning af egenskabsdetektering i troværdighedsberegning. Alle vægte bør summere til 100%. Højere = vigtigere. (0-100%)",
+        "idealOptionsPerProperty": "Ideelt antal valgmuligheder pr. egenskab (f.eks. 1-3 for Stil). Flere valgmuligheder kan indikere AI-usikkerhed. (1-10)",
+        "emptyPropertyPenalty": "Scorereduktion når AI detekterer en egenskabsgruppe men ikke foreslår nogen valgmuligheder. (0-100%)",
+        "excessOptionPenalty": "Scorereduktion pr. valgmulighed ud over det ideelle antal. Anvendes når AI foreslår for mange (usikkerhedssignal). (0-100%)",
+        "noPropertiesPenalty": "Scorereduktion når AI ikke kan detektere nogen egenskaber overhovedet for billedet. (0-100%)",
+        "lowPropertyMatchPenalty": "Scorereduktion når mindre end 50% af AI-foreslåede valgmuligheder matcher dine hvidlistede egenskabsværdier. (0-100%)",
+        "minLengthRatio": "Minimum indholdslængde som procent af maks. F.eks. 33% af 60-tegn titel = mindst 20 tegn påkrævet. (0-100%)",
+        "shortTitlePenalty": "Scorereduktion når meta-titel er kortere end minimum længdeforhold. (0-100%)",
+        "longTitlePenalty": "Scorereduktion når meta-titel overstiger den konfigurerede maks. længde. (0-100%)",
+        "shortDescriptionPenalty": "Scorereduktion når produktbeskrivelse er kortere end minimum længdeforhold. (0-100%)",
+        "fewKeywordsPenalty": "Scorereduktion når AI genererer færre SEO-nøgleord end det konfigurerede minimum (60% af mål). (0-100%)",
+        "genericContentPenalty": "Scorereduktion når AI bruger generiske pladsholder-fraser som \"høj kvalitet\" eller \"perfekt til enhver\". (0-100%)",
+        "hedgingPenaltyPerInstance": "Scorereduktion pr. usikkert ord fundet (f.eks. \"muligvis\", \"måske\", \"ser ud til\"). Signalerer AI-usikkerhed. (0-100%)",
+        "hedgingPenaltyMax": "Maksimal samlet straf fra usikre ord, selvom mange findes. Sætter loft på tøvende-straffen. (0-100%)",
+        "duplicateContentPenalty": "Scorereduktion når samme tekst optræder på flere sprog (indikerer mislykket oversættelse). (0-100%)",
+        "maxTotalPenalty": "Maksimal samlet straf der kan anvendes. Forhindrer scoren i at falde for lavt fra kombinerede straffe. (0-100%)"
+      },
+      "placeholder": {
+        "analysisLanguages": "[\"en-GB\", \"de-DE\", \"da-DK\"]",
+        "analysisPrompt": "Beskriv {begrænsningerne} for dit analyseoutput...",
+        "compositorPrompt": "Beskriv, hvordan {kunstværk} skal sammensættes i {scene}...",
+        "generatorPrompt": "Beskriv det {miljø}, du vil generere...",
+        "apiKey": "Indtast din Gemini API-nøgle",
+        "eligibleProductTypes": "Illux Artwork,Photo Print,Canvas Art"
+      },
+      "options": {
+        "metaDescriptionShort": "Kort (50-100 tegn)",
+        "metaDescriptionMedium": "Medium (155 tegn) - Anbefalet",
+        "metaDescriptionLong": "Lang (255 tegn)",
+        "toneProfessional": "Professionel",
+        "toneCasual": "Afslappet",
+        "toneArtistic": "Kunstnerisk"
+      }
+    },
+    "analysisHistory": {
+      "title": "Analyseresultater",
+      "productName": "Produkt",
+      "analysisDate": "Analysetidspunkt",
+      "status": "Status",
+      "confidence": "Troværdighed",
+      "refresh": "Opdater",
+      "loadError": "Fejl ved indlæsning af resultater",
+      "statusPicker": {
+        "filters": {
+          "allStatuses": "Alle statusser",
+          "processing": "Behandler",
+          "pendingReview": "Afventer gennemgang",
+          "approved": "Godkendt",
+          "autoApplied": "Automatisk anvendt",
+          "rejected": "Afvist",
+          "failed": "Mislykket"
+        },
+        "helpText": "Filtrerer de viste analyser efter deres statusfelt",
+        "label": "Statusfiltrering"
+      },
+      "emptyState": {
+        "title": "Ingen analyseresultater",
+        "subline": "Kør en analyse for at se resultater her"
+      },
+      "actions": {
+        "markAsFailed": "Markér som mislykket",
+        "delete": "Slet"
+      },
+      "markAsFailed": {
+        "success": "Analyseresultat markeret som mislykket",
+        "error": "Fejl ved markering som mislykket"
+      },
+      "delete": {
+        "success": "Analyseresultat slettet",
+        "error": "Fejl ved sletning af analyseresultat"
+      },
+      "bulkActions": {
+        "selectedCount": "{count} valgt",
+        "markAsFailed": "Markér som mislykket",
+        "delete": "Slet valgte",
+        "noProcessingSelected": "Ingen behandlende elementer valgt",
+        "markAsFailedSuccess": "{count} resultat(er) markeret som mislykket",
+        "markAsFailedError": "Fejl ved markering af resultater som mislykket",
+        "deleteSuccess": "{count} resultat(er) slettet",
+        "deleteError": "Fejl ved sletning af resultater"
+      },
+      "modals": {
+        "markAsFailedTitle": "Markér som mislykket",
+        "markAsFailedText": "Er du sikker på, at du vil markere {count} analyseresultat(er) som mislykket?",
+        "deleteTitle": "Slet analyseresultater",
+        "deleteText": "Er du sikker på, at du vil slette {count} analyseresultat(er)? Dette kan ikke fortrydes.",
+        "cancel": "Annuller",
+        "confirm": "Bekræft"
+      }
+    },
+    "run": {
+      "helpText": {
+        "includeAnalyzed": "Genanalyser produkter, der allerede er blevet analyseret",
+        "includeDescription": "Generer produktbeskrivelser til webshoppen",
+        "includeSeo": "Generer SEO-metadata (meta-titel, meta-beskrivelse og søgeord)"
+      },
+      "filters": {
+        "label": "Tilsidesæt filtre",
+        "includeAnalyzed": "Genanalyser produkter",
+        "includeDescription": "Generer produktbeskrivelse",
+        "includeSeo": "Generer SEO-metadata"
+      },
+      "title": "Kør produktanalyse",
+      "infoText": "Dette analyserer alle produkter i din butik ved hjælp af AI. Det kan tage noget tid afhængigt af antallet af produkter.",
+      "includeAnalyzed": "Genanalyser produkter",
+      "includeDescription": "Generer produktbeskrivelse",
+      "includeSeo": "Generer SEO-metadata",
+      "onlyProductsWithImages": "Kun produkter med billeder",
+      "filterByCategory": "Filtrer efter kategori",
+      "allCategories": "Alle kategorier",
+      "progress": "Analysefremskridt",
+      "analyzing": "Analyserer produkt {current} af {total}",
+      "analyzingLabel": "Analyserer {count} produkter",
+      "analyzingText": "Analyserer {count} produkter...",
+      "progressText": "{current} af {total} produkter analyseret ({percentage}%)",
+      "startAnalysis": "Start analyse",
+      "stopAnalysis": "Stop analyse",
+      "confirmTitle": "Bekræft analyse",
+      "confirmMessage": "Er du sikker på, at du vil køre analysen på alle produkter? Dette kan tage tid og kan ikke fortrydes.",
+      "cancel": "Annuller",
+      "confirm": "Ja, kør analyse",
+      "noProductsFound": "Ingen egnede produkter fundet til analyse",
+      "analysisStarted": "Analyse startet for {count} produkter",
+      "analysisComplete": "Analyse fuldført: {success} lykkedes, {failed} fejlede",
+      "analysisStopped": "Analyse stoppet",
+      "startError": "Fejl ved start af analyse",
+      "progressError": "Fejl ved hentning af status",
+      "stopError": "Fejl ved stop af analyse"
+    },
+    "generate": {
+      "title": "Generér Miljøbilleder",
+      "infoText": "Generér fotorealistiske rum miljøbilleder til dit kunstværk. Vælg rumtyper og tilpas alle parametre.",
+      "sceneTypes": "Rumtyper",
+      "selectRoomTypes": "Vælg rumtyper",
+      "cameraSettings": "Kameraindstillinger",
+      "cameraLens": "Kameraobjektiv",
+      "perspective": "Perspektiv (Lodret)",
+      "cameraAngle": "Kameravinkel (Vandret)",
+      "styleSettings": "Stil & Design",
+      "interiorStyle": "Indretningsstil",
+      "visualStyle": "Visuel Stil",
+      "styling": "Styling / Atmosfære",
+      "atmosphereSettings": "Belysning & Stemning",
+      "lighting": "Belysning",
+      "mood": "Stemning",
+      "colorPalette": "Farvepalet",
+      "technicalSettings": "Tekniske Indstillinger",
+      "composition": "Komposition",
+      "aspectRatio": "Billedformat",
+      "additionalDetails": "Yderligere Detaljer (valgfri)",
+      "additionalDetailsPlaceholder": "Tilføj specifikke detaljer, du vil inkludere i scenen...",
+      "generate": "Generér Billeder",
+      "showPreview": "Vis Prompt",
+      "hidePreview": "Skjul Prompt",
+      "saveDefaults": "Gem som Standard",
+      "loadDefaults": "Indlæs Standard",
+      "manageOptions": "Administrer Indstillinger",
+      "defaultsSaved": "Nuværende indstillinger gemt som standard",
+      "defaultsLoaded": "Standardindstillinger indlæst",
+      "defaultsSaveError": "Kunne ikke gemme standardindstillinger",
+      "noDefaultsSaved": "Ingen standardindstillinger gemt endnu",
+      "promptPreview": "Prompt Forhåndsvisning",
+      "selectSceneTypeForPreview": "Vælg mindst én rumtype for at se prompten.",
+      "viewInApprovalTab": "Se og godkend de genererede billeder i Godkendelses-fanen.",
+      "noPrompt": "Vælg venligst rumtyper og udfyld alle påkrævede felter",
+      "generationQueued": "Scenebillede generering sat i kø for {count} billede(r)",
+      "generationComplete": "{count} billede(r) genereret. Se dem i Godkendelses-fanen.",
+      "generationError": "Fejl ved generering af billeder",
+      "environmentPrompt": "Miljøbeskrivelse",
+      "promptPlaceholder": "Beskriv miljøet for dit produkt...\nEksempel: Moderne stue med naturligt lys og minimalistiske møbler",
+      "settings": "Genereringsindstillinger",
+      "style": "Stil",
+      "stylePhotorealistic": "Fotorealistisk",
+      "styleArtistic": "Kunstnerisk",
+      "styleMinimal": "Minimalistisk",
+      "styleLifestyle": "Livsstil",
+      "lightingNatural": "Naturlig",
+      "lightingStudio": "Studiobelysning",
+      "lightingDramatic": "Dramatisk",
+      "lightingSoft": "Blød",
+      "perspectiveEyeLevel": "Øjenhøjde",
+      "perspectiveOverhead": "Set ovenfra",
+      "perspectiveLowAngle": "Lav vinkel",
+      "perspectiveCloseUp": "Nærbillede",
+      "generatedImages": "Genererede billeder",
+      "selectProduct": "Vælg produkt",
+      "selectProductPlaceholder": "Vælg et produkt at gemme billedet på",
+      "saveToProduct": "Gem på produkt",
+      "noProductSelected": "Vælg venligst et produkt først",
+      "imageSaved": "Billede gemt på produkt",
+      "saveError": "Fejl ved gemning af billede på produkt"
+    },
+    "approval": {
+      "buttons": {
+        "analysisApproval": "Afventende Analyser",
+        "imageApproval": "Afventende Billeder"
+      },
+      "analysisTitle": "Analyse Godkendelse",
+      "approve": "Godkend",
+      "reject": "Afvis",
+      "selectAll": "Vælg alle",
+      "selectedCount": "{count} valgt",
+      "approveSelected": "Godkend valgte",
+      "rejectSelected": "Afvis valgte",
+      "emptyStateImages": {
+        "title": "Ingen Afventende Scenebilleder",
+        "subline": "Genererede scenebilleder vil vises her til godkendelse"
+      },
+      "imagesTitle": "Miljøbillede Godkendelse",
+      "approvalActions": {
+        "reject": "Afvis",
+        "approve": "Godkend"
+      },
+      "approveModalTitle": "Godkend Analyseresultater",
+      "approveModalText": "Er du sikker på, at du vil godkende {count} analyseresultat(er)? Dette vil anvende de analyserede data på produkt(erne).",
+      "rejectModalTitle": "Afvis Analyseresultater",
+      "rejectModalText": "Er du sikker på, at du vil afvise {count} analyseresultat(er)? Dette vil kassere de analyserede data.",
+      "sceneBatchApproveModalTitle": "Godkend Scenebilleder",
+      "sceneBatchApproveModalText": "Er du sikker på, at du vil godkende {count} scenebillede(r)? De vil blive gemt i mediebiblioteket.",
+      "sceneBatchRejectModalTitle": "Afvis Scenebilleder",
+      "sceneBatchRejectModalText": "Er du sikker på, at du vil afvise {count} scenebillede(r)? Dette kan ikke fortrydes.",
+      "sceneBatchApproveSuccess": "Godkendte {count} scenebillede(r)",
+      "sceneBatchApproveError": "Fejl ved godkendelse af scenebilleder",
+      "sceneBatchApprovePartialError": "{count} scenebillede(r) fejlede",
+      "sceneBatchRejectSuccess": "Afviste {count} scenebillede(r)",
+      "sceneBatchRejectError": "Fejl ved afvisning af scenebilleder",
+      "cancel": "Annuller",
+      "confirm": "Bekræft",
+      "loadError": "Fejl ved indlæsning af analyseresultater",
+      "approveSuccess": "Godkendte {count} analyseresultat(er)",
+      "approveError": "Fejl ved godkendelse af analyseresultater",
+      "approvePartialError": "{count} analyseresultat(er) fejlede: {errors}",
+      "rejectSuccess": "Afviste {count} analyseresultat(er)",
+      "rejectError": "Fejl ved afvisning af analyseresultater",
+      "emptyState": {
+        "title": "Alt færdigt!",
+        "subline": "Ingen analyser afventer godkendelse"
+      }
+    },
+    "configModal": {
+      "title": "Administrer Genereringsindstillinger",
+      "labelField": "Label",
+      "labelPlaceholder": "Visningsnavn for denne indstilling",
+      "descriptionField": "Prompt Tekst",
+      "descriptionPlaceholder": "Tekst der indsættes i prompten når valgt",
+      "valueField": "Værdi",
+      "valuePlaceholder": "Værdi der bruges (f.eks. 16:9)",
+      "addNew": "Tilføj Ny Indstilling",
+      "add": "Tilføj",
+      "done": "Færdig",
+      "cancel": "Annuller",
+      "save": "Gem Ændringer",
+      "noOptions": "Ingen indstillinger endnu. Tilføj en nedenfor.",
+      "saveSuccess": "Konfiguration gemt",
+      "saveError": "Fejl ved gemning af konfiguration",
+      "loadError": "Fejl ved indlæsning af konfiguration"
+    },
+    "analysisLanguagePicker": {
+      "label": "Analyse Sprog",
+      "helpText": "Vælg sprog for de viste analyse oversættelser"
+    },
+    "gridShared": {
+      "labels": {
+        "languageLabel": "Visningssprog"
+      },
+      "statusType": {
+        "success": "Succes",
+        "failed": "Fejlet",
+        "pending_review": "Afventer Gennemgang",
+        "rejected": "Afvist",
+        "all": "Vis Alle"
+      },
+      "columns": {
+        "productName": "Produkt",
+        "seoKeywords": "SEO Nøgleord",
+        "productDescription": "Produktbeskrivelse",
+        "metaDescription": "Meta Beskrivelse",
+        "confidence": "Troværdighed",
+        "metaTitle": "Meta Titel",
+        "analysisDate": "Analysetidspunkt",
+        "analyzedProperties": "Tags",
+        "status": "Status",
+        "errorMessage": "Fejlbesked",
+        "approvedBy": "Godkendt Af",
+        "loadError": "Fejl ved indlæsning af analyseresultater",
+        "image": "Billede"
+      },
+      "helpText": {
+        "confidence": "Troværdighed beregnes med heuristiske udregninger (\"godt nok\" estimeringer). Advarsler indikerer områder der kan være værd at gennemgå - de betyder ikke altid at noget er galt.<br><br><b>Advarselstyper:</b><br>• Indholdslængde: For kort/lang til SEO<br>• Generisk indhold: Pladsholder eller vagt sprog<br>• Usikkert sprogbrug: AI-usikkerhed (\"muligvis\", \"måske\")<br>• Duplikeret indhold: Samme tekst på tværs af sprog<br>• Egenskabsproblemer: Ingen egenskaber eller for mange<br>• Svarkvalitet: Ufuldstændigt AI-svar"
+      },
+      "buttons": {
+        "refresh": "Opdater"
+      },
+      "hoverForDetails": "Hold musen over for at se fulde detaljer",
+      "confidenceWarnings": {
+        "title": "Kvalitetsadvarsler",
+        "heuristicsExplainer": "Disse advarsler er baseret på heuristiske kontroller - praktiske regler der markerer potentielle problemer. De indikerer ikke altid reelle problemer, men foreslår områder der er værd at gennemgå.",
+        "categories": {
+          "contentLength": {
+            "title": "Indholdslængde Problemer",
+            "description": "Tekstfelter er kortere eller længere end konfigurerede grænser. Kort indhold kan mangle detaljer; for langt indhold kan blive afkortet i søgeresultater."
+          },
+          "genericContent": {
+            "title": "Generisk Indhold Fundet",
+            "description": "AI'en kan have brugt pladsholder-fraser eller alt for generisk markedsføringssprog. Gennemgå for autenticitet og produktspecifikke detaljer."
+          },
+          "hedgingLanguage": {
+            "title": "Usikkert Sprogbrug",
+            "description": "Ord som \"muligvis\", \"måske\" eller \"ser ud til\" antyder at AI'en var usikker. Overvej at gennemgå disse afsnit for nøjagtighed."
+          },
+          "duplicateContent": {
+            "title": "Duplikeret Indhold",
+            "description": "Lignende eller identisk indhold blev fundet på tværs af sprog. Dette kan indikere at AI'en ikke oversatte eller lokaliserede indholdet korrekt."
+          },
+          "propertyIssues": {
+            "title": "Egenskabsdetekterings Problemer",
+            "description": "Problemer med fundne egenskaber - enten blev ingen fundet, nogle har ingen muligheder, eller for mange muligheder antyder usikkerhed i klassificeringen."
+          },
+          "imageQuality": {
+            "title": "Billedkvalitet",
+            "description": "Kildebilledets opløsning er lav, hvilket kan påvirke AI'ens evne til nøjagtigt at analysere produktet."
+          },
+          "responseQuality": {
+            "title": "Svarkvalitet",
+            "description": "AI'ens svar var ufuldstændigt eller viste lav intern sikkerhed. Resultater kan kræve manuel verifikation."
+          }
+        }
+      }
+    },
+    "languagePlaceholder": "Vælg sprog",
+    "list": {
+      "title": "Analysehistorik",
+      "loadError": "Fejl ved indlæsning af analyseresultater",
+      "filters": {
+        "allStatuses": "Alle Statusser",
+        "processing": "Behandler",
+        "pendingReview": "Afventer Gennemgang",
+        "approved": "Godkendt",
+        "autoApplied": "Automatisk Anvendt",
+        "rejected": "Afvist"
+      },
+      "emptyState": {
+        "title": "Ingen analyseresultater",
+        "subline": "Kør en analyse for at se resultater her"
+      }
+    }
+  }
+}

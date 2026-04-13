@@ -1,0 +1,248 @@
+{# Main list - language picker in toolbar; expand-on-hover enabled #}
+{% block ai_image_tools_list %}
+    <div class="ai-image-tools-list">
+        <mt-loader v-if="isLoading"></mt-loader>
+
+        <template v-else>
+            <div class="ai-image-tools-list__header">
+                <h2>
+                    {{ $tc('ai-image-tools.analysisHistory.title') }}
+                    <span class="sw-page__smart-bar-amount">({{ analysisTotal }})</span>
+                </h2>
+            </div>
+
+            <div class="ai-image-tools-list__content">
+                <div class="ai-image-tools-list__toolbar">
+                    <div class="ai-image-tools-list__toolbar-left">
+                        <sw-single-select
+                            v-model:value="selectedLanguage"
+                            :options="languageOptions"
+                            valueProperty="value"
+                            labelProperty="label"
+                            size="small"
+                            @update:value="onLanguagePickerChanged"
+                            disableSearchFunction="true"
+                            :label="$tc('ai-image-tools.analysisLanguagePicker.label')"
+                            :helpText="$tc('ai-image-tools.analysisLanguagePicker.helpText')"
+                            :isLoading="isLoadingLanguages">
+                        </sw-single-select>
+                        <sw-single-select
+                            v-model:value="selectedStatus"
+                            :options="statusOptions"
+                            valueProperty="value"
+                            labelProperty="label"
+                            size="small"
+                            @update:value="onStatusFilterChange"
+                            :label="$tc('ai-image-tools.analysisHistory.statusPicker.label')"
+                            :helpText="$tc('ai-image-tools.analysisHistory.statusPicker.helpText')"
+                            disableSearchFunction="true">
+                        </sw-single-select>
+                        <mt-button class="ai-refresh-btn" variant="ghost" size="32px" @click="getList">
+                            <mt-icon name="regular-redo" size="20px"></mt-icon>
+                        </mt-button>
+                    </div>
+                </div>
+
+                <sw-entity-listing
+                    v-if="analysisTotal > 0"
+                    ref="aiImageToolsListGrid"
+                    :key="`list-grid-${selectedLanguage}`"
+                    class="ai-image-tools-list__grid compressed"
+                    :items="analysisItems"
+                    :columns="columns"
+                    :repository="aiAnalysisRepository"
+                    :show-selection="true"
+                    :allow-delete="true"
+                    :allow-edit="false"
+                    @delete-item-finish="getList"
+                    @items-delete-finish="getList"
+                >
+                {# Thumbnail #}
+                <template #column-product.cover="{ item }">
+                    <div class="ai-thumb"
+                         @mouseenter="onImageMouseEnter(item.product?.cover?.media?.url, $event)"
+                         @mouseleave="onCellMouseLeave">
+                        <img v-if="item.product?.cover?.media" :src="item.product.cover.media.url"
+                             :alt="item.product?.name"/>
+                        <div v-else class="ai-thumb__placeholder">
+                            <mt-icon name="regular-image"></mt-icon>
+                        </div>
+                    </div>
+                </template>
+
+                {# Product name #}
+                <template #column-product-name="{ item }">
+                    <router-link v-if="item.product" :to="{ name: 'ai_image_tools.analysisDetail', params: { id: item.id } }" class="ai-product-link">
+                        {{ item.product.name }}
+                    </router-link>
+                    <span v-else>-</span>
+                </template>
+
+                {# status - show error message on hover for failed items #}
+                <template #column-status="{ item }">
+                    <sw-label
+                        :variant="getStatusVariant(item.status)"
+                        @mouseenter.native="onStatusMouseEnter(item, $event)"
+                        @mouseleave.native="onCellMouseLeave"
+                    >
+                        {{ getStatusLabel(item.status) }}
+                    </sw-label>
+                </template>
+
+                {# Error Message #}
+                <template #column-errorMessage="{ item }">
+                    <div
+                        v-if="item.errorMessage"
+                        class="cell-trunc error-message"
+                        @mouseenter="onCellMouseEnterFullText(item.errorMessage, $event)"
+                        @mouseleave="onCellMouseLeave">
+                        {{ truncate(item.errorMessage, 80) }}
+                    </div>
+                    <span v-else>-</span>
+                </template>
+
+                {# confidence column header with help icon #}
+                <template #column-label-totalConfidenceScore="{ column }">
+                    <span class="ai-column-header-with-help">
+                        {{ column.label }}
+                        <sw-help-text :text="$tc('ai-image-tools.gridShared.helpText.confidence')" :width="360"></sw-help-text>
+                    </span>
+                </template>
+
+                {# score - color coded with warnings on hover #}
+                <template #column-totalConfidenceScore="{ item }">
+                    <div
+                        v-if="item.totalConfidenceScore"
+                        class="ai-confidence-cell"
+                        @mouseenter="onConfidenceMouseEnter(item, $event)"
+                        @mouseleave="onCellMouseLeave"
+                    >
+                        <span
+                            class="ai-confidence-badge"
+                            :class="'ai-confidence-badge--' + getConfidenceLevel(item.totalConfidenceScore)"
+                        >
+                            {{ formatConfidenceScore(item.totalConfidenceScore) }}
+                        </span>
+                        <mt-icon
+                            v-if="hasConfidenceWarnings(item)"
+                            name="regular-exclamation-triangle"
+                            class="ai-confidence-warning-icon"
+                        ></mt-icon>
+                    </div>
+                    <span v-else>-</span>
+                </template>
+
+                {# metaTitle #}
+                <template #column-metaTitle="{ item }">
+                    <div class="cell-trunc" @mouseenter="onCellMouseEnterFullText(getTranslatedField(item, 'metaTitle'), $event)" @mouseleave="onCellMouseLeave">
+                        {{ truncate(getTranslatedField(item, 'metaTitle'), 60) }}
+                    </div>
+                </template>
+
+                {# seoKeywords #}
+                <template #column-seoKeywords="{ item }">
+                    <div class="cell-trunc" @mouseenter="onCellMouseEnterFullText(getTranslatedField(item, 'seoKeywords'), $event)" @mouseleave="onCellMouseLeave">
+                        {{ truncate(getTranslatedField(item, 'seoKeywords'), 80) }}
+                    </div>
+                </template>
+
+                {# metaDescription #}
+                <template #column-metaDescription="{ item }">
+                    <div class="multiline-compact" @mouseenter="onCellMouseEnterFullText(getTranslatedField(item, 'metaDescription'), $event)" @mouseleave="onCellMouseLeave">
+                        {{ truncateMultiline(getTranslatedField(item, 'metaDescription'), 2) }}
+                    </div>
+                </template>
+
+                {# productDescription #}
+                <template #column-productDescription="{ item }">
+                    <div class="multiline-compact" @mouseenter="onCellMouseEnterFullText(getTranslatedField(item, 'productDescription'), $event)" @mouseleave="onCellMouseLeave">
+                        {{ truncateMultiline(getTranslatedField(item, 'productDescription'), 2) }}
+                    </div>
+                </template>
+
+                {# analyzedProperties - condensed preview, hover shows full list #}
+                <template #column-analyzedProperties="{ item }">
+                    <div v-if="item.analyzedProperties"
+                         class="ap-tags-condensed"
+                         @mouseenter="onTagsMouseEnter(item.analyzedProperties, $event)"
+                         @mouseleave="onCellMouseLeave"
+                         :title="$tc('ai-image-tools.gridShared.hoverForDetails')">
+                        <template v-for="(value, key, index) in item.analyzedProperties">
+                            <sw-label v-if="index < 2"
+                                      :key="key"
+                                      size="small"
+                                      variant="info"
+                                      appearance="pill">
+                                {{ formatPropertyKey(key) }}: {{ value.options.slice(0, 2).join(', ') }}<span
+                                    v-if="value.options.length > 2">...</span>
+                            </sw-label>
+                        </template>
+                        <span v-if="Object.keys(item.analyzedProperties).length > 2" class="ap-more-groups">
+                            +{{ Object.keys(item.analyzedProperties).length - 2 }} more
+                        </span>
+                    </div>
+                    <span v-else>-</span>
+                </template>
+
+                {# createdAt #}
+                <template #column-createdAt="{ item }">
+                    {{ formatDate(item.createdAt) }}
+                </template>
+
+                {# Additional context menu actions - uses more-actions slot to keep built-in delete #}
+                <template #more-actions="{ item }">
+                    <sw-context-menu-item
+                        v-if="canMarkAsFailed(item)"
+                        @click="markAsFailed(item)"
+                        variant="warning"
+                    >
+                        {{ $tc('ai-image-tools.analysisHistory.actions.markAsFailed') }}
+                    </sw-context-menu-item>
+                </template>
+
+                {# Bulk actions - only custom actions, built-in delete handled by allow-delete #}
+                <template #bulk-additional>
+                    <a class="link link-warning" @click="openMarkAsFailedModal">
+                        {{ $tc('ai-image-tools.analysisHistory.bulkActions.markAsFailed') }}
+                    </a>
+                </template>
+
+                {# Confirmation modals for custom bulk actions #}
+                <template #bulk-modals-additional>
+                    <sw-modal
+                        v-if="showMarkAsFailedModal"
+                        :title="$tc('ai-image-tools.analysisHistory.modals.markAsFailedTitle')"
+                        @modal-close="closeMarkAsFailedModal">
+                        <p>{{ $tc('ai-image-tools.analysisHistory.modals.markAsFailedText', markAsFailedSelection.length, { count: markAsFailedSelection.length }) }}</p>
+
+                        <template #modal-footer>
+                            <mt-button @click="closeMarkAsFailedModal">
+                                {{ $tc('ai-image-tools.analysisHistory.modals.cancel') }}
+                            </mt-button>
+                            <mt-button
+                                variant="primary"
+                                @click="confirmMarkAsFailed"
+                                :disabled="isLoading">
+                                {{ $tc('ai-image-tools.analysisHistory.modals.confirm') }}
+                            </mt-button>
+                        </template>
+                    </sw-modal>
+                </template>
+            </sw-entity-listing>
+
+                {# Empty state when no items #}
+                <sw-empty-state
+                    v-if="analysisTotal === 0"
+                    :title="$tc('ai-image-tools.analysisHistory.emptyState.title')"
+                    :subline="$tc('ai-image-tools.analysisHistory.emptyState.subline')"
+                    icon="regular-inbox">
+                </sw-empty-state>
+
+                {# Hover card #}
+                <div v-if="hoverVisible" class="ai-hover-card" :style="{ left: hoverX + 'px', top: hoverY + 'px' }" @mouseenter="cancelHover" @mouseleave="hideHover">
+                    <div class="ai-hover-card__content" v-html="hoverHtml"></div>
+                </div>
+            </div>
+        </template>
+    </div>
+{% endblock %}

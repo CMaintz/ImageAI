@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Analysis Configuration</title>
+        <title lang="da-DK">Analysekonfiguration</title>
+
+        <input-field type="text">
+            <name>eligibleProductTypes</name>
+            <label>Eligible Product Types</label>
+            <label lang="da-DK">Kvalificerede produkttyper</label>
+            <defaultValue>Illux Artwork</defaultValue>
+            <helpText>Comma-separated list of "Product Type" property group option names that should be included in AI analysis. Example: Illux Artwork,Photo Print,Canvas Art</helpText>
+            <helpText lang="da-DK">Kommasepareret liste over "Product Type" egenskabsgruppeindstillingsnavne, der skal inkluderes i AI-analyse. Eksempel: Illux Artwork,Photo Print,Canvas Art</helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>includeSeoAnalysis</name>
+            <label>Analyze SEO Metadata</label>
+            <label lang="da-DK">Analysér SEO-metadata</label>
+            <helpText>Toggle to include SEO metadata in the output of the analysis</helpText>
+            <helpText lang="da-DK">Slå til for at inkludere SEO-metadata i analyseresultatet</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>metaTitleMaxLength</name>
+            <label>Meta Title Max Length</label>
+            <label lang="da-DK">Meta-titel maksimallængde</label>
+            <min>30</min>
+            <max>56</max>
+            <defaultValue>56</defaultValue>
+            <helpText>Maximum character count for SEO meta title (max 56). Primary keyword should appear at the front for SEO.</helpText>
+            <helpText lang="da-DK">Maksimalt antal tegn for SEO meta-titel (maks 56). Primært nøgleord bør placeres forrest for SEO.</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>metaDescriptionMaxLength</name>
+            <label>Meta Description Max Length</label>
+            <label lang="da-DK">Meta-beskrivelse maksimallængde</label>
+            <min>50</min>
+            <max>160</max>
+            <defaultValue>160</defaultValue>
+            <helpText>Maximum character count for SEO meta description (max 160 for optimal search result display).</helpText>
+            <helpText lang="da-DK">Maksimalt antal tegn for SEO meta-beskrivelse (maks 160 for optimal visning i søgeresultater).</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>keywordCount</name>
+            <label>Number of SEO Keywords</label>
+            <label lang="da-DK">Antal SEO-nøgleord</label>
+            <min>3</min>
+            <max>5</max>
+            <defaultValue>5</defaultValue>
+            <helpText>Number of keywords to generate per product (3-5)</helpText>
+            <helpText lang="da-DK">Antal nøgleord der genereres pr. produkt (3-5)</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>keywordsMaxCharacterLength</name>
+            <label>Keywords Total Max Characters</label>
+            <label lang="da-DK">Nøgleord samlet maks. tegn</label>
+            <min>50</min>
+            <max>255</max>
+            <defaultValue>255</defaultValue>
+            <helpText>Maximum total character count for all keywords combined (max 255).</helpText>
+            <helpText lang="da-DK">Maksimalt samlet antal tegn for alle nøgleord tilsammen (maks 255).</helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>includeProductDescription</name>
+            <label>Analyze Product Description</label>
+            <label lang="da-DK">Analysér produktbeskrivelse</label>
+            <helpText>Toggle to include product store-page description in the output of the automated analysis</helpText>
+            <helpText lang="da-DK">Slå til for at inkludere produktbeskrivelse i den automatiske analyse</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>descriptionMaxLength</name>
+            <label>Store Description Max Length</label>
+            <label lang="da-DK">Butiksbeskrivelse maksimallængde</label>
+            <min>100</min>
+            <max>2000</max>
+            <defaultValue>500</defaultValue>
+            <helpText>Maximum character count for customer-facing description</helpText>
+            <helpText lang="da-DK">Maksimalt antal tegn for kundevendt beskrivelse</helpText>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>tone</name>
+            <label>Content Tone</label>
+            <label lang="da-DK">Indholdstone</label>
+            <options>
+                <option>
+                    <id>professional</id>
+                    <name>Professional</name>
+                </option>
+                <option>
+                    <id>casual</id>
+                    <name>Casual</name>
+                </option>
+                <option>
+                    <id>artistic</id>
+                    <name>Artistic</name>
+                </option>
+            </options>
+            <defaultValue>professional</defaultValue>
+            <helpText>Sets the tone of the written descriptions</helpText>
+            <helpText lang="da-DK">Indstiller tonen for de skrevne beskrivelser</helpText>
+        </input-field>
+
+    </card>
+
+    <card>
+        <title>Language Configuration</title>
+        <title lang="da-DK">Sprogkonfiguration</title>
+
+        <input-field type="text">
+            <name>analysisLanguages</name>
+            <label>Analysis Languages</label>
+            <label lang="da-DK">Analyse Sprog</label>
+            <defaultValue>da-DK,en-GB,nn-NO,sv-SE</defaultValue>
+            <helpText>Comma-separated list of language codes. Example: da-DK,en-GB,nn-NO,sv-SE,de-DE</helpText>
+            <helpText lang="da-DK">Kommasepareret liste af sprogkoder. Eksempel: da-DK,en-GB,nn-NO,sv-SE,de-DE</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Scheduled Analysis Settings</title>
+        <title lang="da-DK">Planlagt analyseindstillinger</title>
+
+        <input-field type="bool">
+            <name>scheduledTaskEnabled</name>
+            <label>Enable Automatic Processing</label>
+            <label lang="da-DK">Aktivér automatisk behandling</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>scheduledTaskInterval</name>
+            <label>Analysis Interval (hours)</label>
+            <label lang="da-DK">Analyseinterval (timer)</label>
+            <min>1</min>
+            <max>24</max>
+            <defaultValue>8</defaultValue>
+            <helpText>Scheduled analysis frequency / interval for un-analyzed products</helpText>
+            <helpText lang="da-DK">Planlagt analysefrekvens/interval for ikke-analyserede produkter</helpText>
+        </input-field>
+
+    </card>
+
+    <card>
+        <title>Gemini API Settings</title>
+        <title lang="da-DK">Gemini API-indstillinger</title>
+
+        <input-field type="password">
+            <name>apiKey</name>
+            <label>Gemini API Key</label>
+            <label lang="da-DK">Gemini API-nøgle</label>
+            <helpText>Your Google AI Studio API key for Gemini</helpText>
+            <helpText lang="da-DK">Din Google AI Studio API-nøgle til Gemini</helpText>
+        </input-field>
+
+        <input-field type="text">
+            <name>apiModel</name>
+            <label>Analysis Model</label>
+            <label lang="da-DK">Analysemodel</label>
+            <defaultValue>gemini-2.5-flash</defaultValue>
+            <helpText>Gemini model for image analysis (e.g., gemini-2.5-flash)</helpText>
+            <helpText lang="da-DK">Gemini-model til billedanalyse (f.eks. gemini-2.5-flash)</helpText>
+        </input-field>
+
+        <input-field type="text">
+            <name>imageGenerationModel</name>
+            <label>Image Generation Model</label>
+            <label lang="da-DK">Billedgenereringsmodel</label>
+            <defaultValue>gemini-2.5-flash-image</defaultValue>
+            <helpText>Gemini model for image generation (e.g., gemini-2.5-flash-image)</helpText>
+            <helpText lang="da-DK">Gemini-model til billedgenerering (f.eks. gemini-2.5-flash-image)</helpText>
+        </input-field>
+
+        <input-field type="text">
+            <name>apiBaseUrl</name>
+            <label>API Base URL</label>
+            <label lang="da-DK">API Base URL</label>
+            <defaultValue>https://generativelanguage.googleapis.com</defaultValue>
+            <helpText>Base URL for the Gemini API (without version)</helpText>
+            <helpText lang="da-DK">Base URL for Gemini API (uden version)</helpText>
+        </input-field>
+
+        <input-field type="text">
+            <name>apiVersion</name>
+            <label>API Version</label>
+            <label lang="da-DK">API Version</label>
+            <defaultValue>v1beta</defaultValue>
+            <helpText>API version (e.g., v1beta, v1) - found in the full API request URL</helpText>
+            <helpText lang="da-DK">API version (f.eks. v1beta, v1) - findes i den fulde API anmodnings URL</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Workflow Configuration</title>
+        <title lang="da-DK">Workflow-konfiguration</title>
+
+        <input-field type="bool">
+            <name>enableApprovalWorkflow</name>
+            <label>Require Analysis Approval</label>
+            <label lang="da-DK">Kræv godkendelse af analyse</label>
+            <defaultValue>true</defaultValue>
+            <helpText>Require manual approval before applying analysis results, disable to automatically apply results</helpText>
+            <helpText lang="da-DK">Kræv manuel godkendelse før analyseresultater anvendes, deaktiver for automatisk at anvende resultater</helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>enableConfidenceThreshold</name>
+            <label>Enable Confidence-Based Review</label>
+            <label lang="da-DK">Aktivér tillidsbaseret gennemgang</label>
+            <defaultValue>true</defaultValue>
+            <helpText>When approval workflow is disabled, flag low-confidence analyses for manual review instead of auto-applying</helpText>
+            <helpText lang="da-DK">Når godkendelses-workflow er deaktiveret, markér analyser med lav tillid til manuel gennemgang i stedet for automatisk at anvende</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>lowConfidenceThreshold</name>
+            <label>Low Confidence Threshold</label>
+            <label lang="da-DK">Lav tillidsgrænse</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.8</defaultValue>
+            <helpText>Results below this threshold (0.0-1.0) will be flagged for manual review. Default: 0.8 (80%)</helpText>
+            <helpText lang="da-DK">Resultater under denne tærskel (0.0-1.0) vil blive markeret til manuel gennemgang. Standard: 0.8 (80%)</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Confidence Field Weights</title>
+        <title lang="da-DK">Tillidsfelt-vægtninger</title>
+
+        <input-field type="float">
+            <name>fieldWeightMetaTitle</name>
+            <label>Meta Title Weight</label>
+            <label lang="da-DK">Meta-titel vægt</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.25</defaultValue>
+            <helpText>Weight for meta title in confidence calculation (0.0-1.0). All weights should sum to ~1.0</helpText>
+            <helpText lang="da-DK">Vægt for meta-titel i tillidsberegning (0.0-1.0). Alle vægte bør summere til ~1.0</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>fieldWeightMetaDescription</name>
+            <label>Meta Description Weight</label>
+            <label lang="da-DK">Meta-beskrivelse vægt</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.25</defaultValue>
+            <helpText>Weight for meta description in confidence calculation (0.0-1.0)</helpText>
+            <helpText lang="da-DK">Vægt for meta-beskrivelse i tillidsberegning (0.0-1.0)</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>fieldWeightProductDescription</name>
+            <label>Product Description Weight</label>
+            <label lang="da-DK">Produktbeskrivelse vægt</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.20</defaultValue>
+            <helpText>Weight for product description in confidence calculation (0.0-1.0)</helpText>
+            <helpText lang="da-DK">Vægt for produktbeskrivelse i tillidsberegning (0.0-1.0)</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>fieldWeightSeoKeywords</name>
+            <label>SEO Keywords Weight</label>
+            <label lang="da-DK">SEO-nøgleord vægt</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.15</defaultValue>
+            <helpText>Weight for SEO keywords in confidence calculation (0.0-1.0)</helpText>
+            <helpText lang="da-DK">Vægt for SEO-nøgleord i tillidsberegning (0.0-1.0)</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>fieldWeightProperties</name>
+            <label>Properties Weight</label>
+            <label lang="da-DK">Egenskaber vægt</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.15</defaultValue>
+            <helpText>Weight for product properties in confidence calculation (0.0-1.0)</helpText>
+            <helpText lang="da-DK">Vægt for produktegenskaber i tillidsberegning (0.0-1.0)</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Content Quality Patterns</title>
+        <title lang="da-DK">Indholdskvalitetsmønstre</title>
+
+        <input-field type="textarea">
+            <name>genericPatterns</name>
+            <label>Generic Content Patterns (Regex)</label>
+            <label lang="da-DK">Generiske indholdsmønstre (Regex)</label>
+            <defaultValue>/dette (er et |)smukt/i
+/perfekt til enhver/i
+/fantastisk tilføjelse/i
+/høj.?kvalitet/i
+/\[.*\]/i
+/lorem ipsum/i
+/\{[^}]+\}/i
+/&lt;[^>]+>/i</defaultValue>
+            <helpText>Regex patterns (one per line) to detect generic/placeholder content. Danish patterns since da-DK is analyzed.</helpText>
+            <helpText lang="da-DK">Regex-mønstre (ét pr. linje) til at opdage generisk/pladsholder-indhold. Danske mønstre da da-DK analyseres.</helpText>
+        </input-field>
+
+        <input-field type="textarea">
+            <name>hedgingWords</name>
+            <label>Hedging Words</label>
+            <label lang="da-DK">Tøvende ord</label>
+            <defaultValue>muligvis
+måske
+kunne være
+ser ud til at
+synes at
+sandsynligvis
+formentlig
+tilsyneladende</defaultValue>
+            <helpText>Words (one per line) indicating AI uncertainty. Danish words since da-DK is analyzed.</helpText>
+            <helpText lang="da-DK">Ord (ét pr. linje) der indikerer AI-usikkerhed. Danske ord da da-DK analyseres.</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Property Settings</title>
+        <title lang="da-DK">Egenskabsindstillinger</title>
+
+        <input-field type="int">
+            <name>idealOptionsPerProperty</name>
+            <label>Ideal Options Per Property</label>
+            <label lang="da-DK">Ideelle valgmuligheder pr. egenskab</label>
+            <min>1</min>
+            <max>10</max>
+            <defaultValue>3</defaultValue>
+            <helpText>Optimal number of options per property (1-3 recommended). More options suggest AI uncertainty.</helpText>
+            <helpText lang="da-DK">Optimalt antal valgmuligheder pr. egenskab (1-3 anbefales). Flere valgmuligheder indikerer AI-usikkerhed.</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>emptyPropertyPenalty</name>
+            <label>Empty Property Penalty</label>
+            <label lang="da-DK">Straf for tom egenskab</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.15</defaultValue>
+            <helpText>Confidence penalty for properties with no options detected</helpText>
+            <helpText lang="da-DK">Tillidsstraf for egenskaber uden opdagede valgmuligheder</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>excessOptionPenalty</name>
+            <label>Excess Option Penalty</label>
+            <label lang="da-DK">Straf for overskydende valgmulighed</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.03</defaultValue>
+            <helpText>Penalty per option beyond the ideal count</helpText>
+            <helpText lang="da-DK">Straf pr. valgmulighed ud over det ideelle antal</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>noPropertiesPenalty</name>
+            <label>No Properties Penalty</label>
+            <label lang="da-DK">Straf for ingen egenskaber</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.10</defaultValue>
+            <helpText>Penalty when no properties are detected at all</helpText>
+            <helpText lang="da-DK">Straf når ingen egenskaber overhovedet opdages</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>lowPropertyMatchPenalty</name>
+            <label>Low Property Match Penalty</label>
+            <label lang="da-DK">Straf for lavt egenskabsmatch</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.05</defaultValue>
+            <helpText>Penalty when property match rate is below 50%</helpText>
+            <helpText lang="da-DK">Straf når egenskabsmatch-rate er under 50%</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Content Length Settings</title>
+        <title lang="da-DK">Indholdslængde-indstillinger</title>
+
+        <input-field type="float">
+            <name>minLengthRatio</name>
+            <label>Minimum Length Ratio</label>
+            <label lang="da-DK">Minimum længdeforhold</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.33</defaultValue>
+            <helpText>Content below this ratio of max length is considered "too short" (0.0-1.0). Default: 0.33 (33%)</helpText>
+            <helpText lang="da-DK">Indhold under dette forhold af maks. længde betragtes som "for kort" (0.0-1.0). Standard: 0.33 (33%)</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>shortTitlePenalty</name>
+            <label>Short Title Penalty</label>
+            <label lang="da-DK">Straf for kort titel</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.05</defaultValue>
+            <helpText>Penalty for meta title below minimum length</helpText>
+            <helpText lang="da-DK">Straf for meta-titel under minimumlængde</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>longTitlePenalty</name>
+            <label>Long Title Penalty</label>
+            <label lang="da-DK">Straf for lang titel</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.02</defaultValue>
+            <helpText>Penalty for meta title exceeding max length</helpText>
+            <helpText lang="da-DK">Straf for meta-titel der overstiger maks. længde</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>shortDescriptionPenalty</name>
+            <label>Short Description Penalty</label>
+            <label lang="da-DK">Straf for kort beskrivelse</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.05</defaultValue>
+            <helpText>Penalty for descriptions below minimum length</helpText>
+            <helpText lang="da-DK">Straf for beskrivelser under minimumlængde</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>fewKeywordsPenalty</name>
+            <label>Few Keywords Penalty</label>
+            <label lang="da-DK">Straf for få nøgleord</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.03</defaultValue>
+            <helpText>Penalty when keyword count is below 60% of target</helpText>
+            <helpText lang="da-DK">Straf når antal nøgleord er under 60% af målet</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Content Quality Penalties</title>
+        <title lang="da-DK">Indholdskvalitetsstraffe</title>
+
+        <input-field type="float">
+            <name>genericContentPenalty</name>
+            <label>Generic Content Penalty</label>
+            <label lang="da-DK">Straf for generisk indhold</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.08</defaultValue>
+            <helpText>Penalty when generic/placeholder content is detected</helpText>
+            <helpText lang="da-DK">Straf når generisk/pladsholder-indhold opdages</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>hedgingPenaltyPerInstance</name>
+            <label>Hedging Penalty (Per Instance)</label>
+            <label lang="da-DK">Tøvende straf (pr. forekomst)</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.03</defaultValue>
+            <helpText>Penalty per hedging word instance detected</helpText>
+            <helpText lang="da-DK">Straf pr. opdaget tøvende ord</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>hedgingPenaltyMax</name>
+            <label>Hedging Penalty (Maximum)</label>
+            <label lang="da-DK">Tøvende straf (maksimum)</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.10</defaultValue>
+            <helpText>Maximum total penalty for hedging words</helpText>
+            <helpText lang="da-DK">Maksimal samlet straf for tøvende ord</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>duplicateContentPenalty</name>
+            <label>Duplicate Content Penalty</label>
+            <label lang="da-DK">Straf for dubleret indhold</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.10</defaultValue>
+            <helpText>Penalty when identical content is detected across languages</helpText>
+            <helpText lang="da-DK">Straf når identisk indhold opdages på tværs af sprog</helpText>
+        </input-field>
+
+        <input-field type="float">
+            <name>maxTotalPenalty</name>
+            <label>Maximum Total Penalty</label>
+            <label lang="da-DK">Maksimal samlet straf</label>
+            <min>0</min>
+            <max>1</max>
+            <defaultValue>0.40</defaultValue>
+            <helpText>Cap on total validation penalties (0.0-1.0). Default: 0.40 (40%)</helpText>
+            <helpText lang="da-DK">Loft på samlede valideringsstraffe (0.0-1.0). Standard: 0.40 (40%)</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Time Tracking Configuration</title>
+        <title lang="da-DK">Tidssporing</title>
+
+        <input-field type="int">
+            <name>minutesSavedPerProperty</name>
+            <label>Minutes Saved: Properties</label>
+            <label lang="da-DK">Minutter sparet: Egenskaber</label>
+            <min>0</min>
+            <max>30</max>
+            <defaultValue>2</defaultValue>
+            <helpText>Time saved when AI analyzes and assigns product properties</helpText>
+            <helpText lang="da-DK">Tid sparet når AI analyserer og tildeler produktegenskaber</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>minutesSavedPerSeo</name>
+            <label>Minutes Saved: SEO Metadata</label>
+            <label lang="da-DK">Minutter sparet: SEO-metadata</label>
+            <min>0</min>
+            <max>30</max>
+            <defaultValue>3</defaultValue>
+            <helpText>Time saved when AI generates meta title, description, and keywords</helpText>
+            <helpText lang="da-DK">Tid sparet når AI genererer meta-titel, beskrivelse og nøgleord</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>minutesSavedForBaseDescription</name>
+            <label>Minutes Saved: Base Description</label>
+            <label lang="da-DK">Minutter sparet: Grundbeskrivelse</label>
+            <min>0</min>
+            <max>60</max>
+            <defaultValue>5</defaultValue>
+            <helpText>Time saved for the first/primary language description</helpText>
+            <helpText lang="da-DK">Tid sparet for den første/primære sprogbeskrivelse</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>minutesSavedPerAdditionalTranslation</name>
+            <label>Minutes Saved: Per Additional Translation</label>
+            <label lang="da-DK">Minutter sparet: Pr. ekstra oversættelse</label>
+            <min>0</min>
+            <max>30</max>
+            <defaultValue>2</defaultValue>
+            <helpText>Time saved for each additional language translation beyond the first</helpText>
+            <helpText lang="da-DK">Tid sparet for hver ekstra sprogoversættelse udover den første</helpText>
+        </input-field>
+    </card>
+</config>

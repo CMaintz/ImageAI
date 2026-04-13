@@ -1,0 +1,159 @@
+@import './../../../../scss/_ai-image-tools-common.scss';
+
+.ai-image-tools-configuration {
+
+  .sw-card, .mt-card {
+    margin-bottom: 20px;
+
+    .sw-field {
+      margin-bottom: 20px;
+    }
+  }
+
+  // Collapsible card header styling
+  .collapsible-header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    color: #52667a;
+    font-weight: 600;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: #189eff;
+    }
+
+    .sw-icon {
+      transition: transform 0.2s ease;
+    }
+  }
+
+  // Config section grouping with separator
+  .config-section {
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #d1d9e0;
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    // Section sub-headers within advanced settings
+    h4 {
+      color: #52667a;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e9edf0;
+    }
+
+    // Section description text
+    .section-description {
+      color: #758ca3;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0 0 16px 0;
+    }
+  }
+
+  // Confidence explanation info box
+  .confidence-explanation {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+    background: #f0f5fa;
+    border: 1px solid #d1d9e0;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #52667a;
+
+    .sw-icon {
+      flex-shrink: 0;
+      color: #189eff;
+      margin-top: 2px;
+    }
+
+    b {
+      color: #1a3553;
+    }
+  }
+
+  // Fix label and helptext spacing for all fields
+  .sw-field {
+    .sw-field__label {
+      margin-bottom: 4px;
+      gap: 2px; // Tighter gap between label text and help icon
+    }
+
+    .sw-help-text {
+      display: inline-flex;
+      vertical-align: middle;
+      margin-left: 0 !important;
+    }
+
+    // Reduce gap between label row and input
+    .sw-block-field__block {
+      margin-top: 4px;
+    }
+  }
+
+  // Custom switch field styling - vertically center label with toggle
+  .ai-config-switch {
+    .sw-field {
+      margin-bottom: 0;
+    }
+
+    .sw-field__label {
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+
+      label {
+        padding: 0 4px;
+      }
+    }
+  }
+
+  // Custom checkbox field styling - vertically center label with checkbox
+  .ai-config-checkbox {
+    .sw-field__label {
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+
+      label {
+        padding: 0 4px;
+      }
+    }
+  }
+
+  .language-selection {
+    .sw-field__label {
+      margin-bottom: 8px;
+    }
+
+    .language-checkboxes {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .sw-field--checkbox,
+      .sw-checkbox-field {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Confidence threshold container - show percentage inline
+  .confidence-threshold-container {
+    max-width: 300px;
+  }
+}

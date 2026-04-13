@@ -1,0 +1,426 @@
+{% block ai_image_tools_configuration %}
+<div class="ai-image-tools-configuration">
+
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+        {# SECTION 1: WORKFLOW & CONTENT SETTINGS (Most frequently accessed)                   #}
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+
+        <mt-card :isLoading="isLoading">
+            <template #title>
+                <div class="collapsible-header" @click="showWorkflowConfig = !showWorkflowConfig">
+                    <sw-icon :name="showWorkflowConfig ? 'regular-chevron-down-s' : 'regular-chevron-right-s'" size="16px"></sw-icon>
+                    {{ $tc('ai-image-tools.configuration.cards.workflowConfig') }}
+                </div>
+            </template>
+
+            <div v-show="showWorkflowConfig">
+                {# Workflow Toggles - Most important decisions #}
+                <div class="config-section">
+                    <sw-switch-field
+                        class="ai-config-switch"
+                        v-model:value="localConfig.enableApprovalWorkflow"
+                        :label="$tc('ai-image-tools.configuration.fields.enableApprovalWorkflow')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.enableApprovalWorkflow')">
+                    </sw-switch-field>
+
+                    <sw-switch-field
+                        class="ai-config-switch"
+                        v-model:value="localConfig.enableConfidenceThreshold"
+                        :label="$tc('ai-image-tools.configuration.fields.enableConfidenceThreshold')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.enableConfidenceThreshold')">
+                    </sw-switch-field>
+
+                    <sw-number-field
+                        v-show="localConfig.enableConfidenceThreshold"
+                        v-model:value="localConfig.lowConfidenceThreshold"
+                        :label="$tc('ai-image-tools.configuration.fields.lowConfidenceThreshold')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.lowConfidenceThreshold')"
+                        numberType="int"
+                        :min="0"
+                        :max="100"
+                        :step="5"
+                        suffix="%">
+                    </sw-number-field>
+                </div>
+            </div>
+        </mt-card>
+
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+        {# SECTION 2: ANALYSIS CONTENT CONFIGURATION                                           #}
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+
+        <mt-card :isLoading="isLoading">
+            <template #title>
+                <div class="collapsible-header" @click="showAnalysisConfig = !showAnalysisConfig">
+                    <sw-icon :name="showAnalysisConfig ? 'regular-chevron-down-s' : 'regular-chevron-right-s'" size="16px"></sw-icon>
+                    {{ $tc('ai-image-tools.configuration.cards.analysisConfig') }}
+                </div>
+            </template>
+
+            <div v-show="showAnalysisConfig">
+                {# Product Type Filter #}
+                <sw-text-field
+                    v-model:value="localConfig.eligibleProductTypes"
+                    :label="$tc('ai-image-tools.configuration.fields.eligibleProductTypes')"
+                    :helpText="$tc('ai-image-tools.configuration.helpText.eligibleProductTypes')"
+                    :placeholder="$tc('ai-image-tools.configuration.placeholder.eligibleProductTypes')">
+                </sw-text-field>
+
+                {# SEO Metadata Settings #}
+                <div class="config-section">
+                    <sw-switch-field
+                        class="ai-config-switch"
+                        v-model:value="localConfig.includeSeoAnalysis"
+                        :label="$tc('ai-image-tools.configuration.fields.includeSeoAnalysis')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.includeSeoAnalysis')">
+                    </sw-switch-field>
+
+                    <div v-show="localConfig.includeSeoAnalysis">
+                        <sw-container columns="1fr 1fr" gap="16px">
+                            <sw-number-field
+                                v-model:value="localConfig.metaTitleMaxLength"
+                                :label="$tc('ai-image-tools.configuration.fields.metaTitleMaxLength')"
+                                :helpText="$tc('ai-image-tools.configuration.helpText.metaTitleMaxLength')"
+                                numberType="int"
+                                :min="30"
+                                :max="56">
+                            </sw-number-field>
+
+                            <sw-number-field
+                                v-model:value="localConfig.metaDescriptionMaxLength"
+                                :label="$tc('ai-image-tools.configuration.fields.metaDescriptionMaxLength')"
+                                :helpText="$tc('ai-image-tools.configuration.helpText.metaDescriptionMaxLength')"
+                                numberType="int"
+                                :min="50"
+                                :max="160">
+                            </sw-number-field>
+
+                            <sw-number-field
+                                v-model:value="localConfig.keywordCount"
+                                :label="$tc('ai-image-tools.configuration.fields.keywordCount')"
+                                :helpText="$tc('ai-image-tools.configuration.helpText.keywordCount')"
+                                numberType="int"
+                                :min="3"
+                                :max="5">
+                            </sw-number-field>
+
+                            <sw-number-field
+                                v-model:value="localConfig.keywordsMaxCharacterLength"
+                                :label="$tc('ai-image-tools.configuration.fields.keywordsMaxCharacterLength')"
+                                :helpText="$tc('ai-image-tools.configuration.helpText.keywordsMaxCharacterLength')"
+                                numberType="int"
+                                :min="50"
+                                :max="255">
+                            </sw-number-field>
+                        </sw-container>
+                    </div>
+                </div>
+
+                {# Product Description Settings #}
+                <div class="config-section">
+                    <sw-switch-field
+                        class="ai-config-switch"
+                        v-model:value="localConfig.includeProductDescription"
+                        :label="$tc('ai-image-tools.configuration.fields.includeProductDescription')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.includeProductDescription')">
+                    </sw-switch-field>
+
+                    <div v-show="localConfig.includeProductDescription">
+                        <sw-container columns="1fr 1fr" gap="16px">
+                            <sw-number-field
+                                v-model:value="localConfig.descriptionMaxLength"
+                                :label="$tc('ai-image-tools.configuration.fields.descriptionMaxLength')"
+                                :helpText="$tc('ai-image-tools.configuration.helpText.descriptionMaxLength')"
+                                numberType="int"
+                                :min="100"
+                                :max="2000">
+                            </sw-number-field>
+
+                            <sw-single-select
+                                v-model:value="localConfig.tone"
+                                :label="$tc('ai-image-tools.configuration.fields.tone')"
+                                :helpText="$tc('ai-image-tools.configuration.helpText.tone')"
+                                :options="toneOptions"
+                                valueProperty="value"
+                                labelProperty="label">
+                            </sw-single-select>
+                        </sw-container>
+                    </div>
+                </div>
+            </div>
+        </mt-card>
+
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+        {# SECTION 3: LANGUAGE CONFIGURATION                                                   #}
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+
+        <mt-card :isLoading="isLoading">
+            <template #title>
+                <div class="collapsible-header" @click="showLanguageConfig = !showLanguageConfig">
+                    <sw-icon :name="showLanguageConfig ? 'regular-chevron-down-s' : 'regular-chevron-right-s'" size="16px"></sw-icon>
+                    {{ $tc('ai-image-tools.configuration.cards.language') }}
+                </div>
+            </template>
+
+            <div v-show="showLanguageConfig" class="language-selection">
+                <label class="sw-field__label">{{ $tc('ai-image-tools.configuration.fields.analysisLanguages') }}</label>
+                <sw-help-text :text="$tc('ai-image-tools.configuration.helpText.analysisLanguages')"></sw-help-text>
+
+                {# Checkbox list of available Shopware languages #}
+                <div class="language-checkboxes" v-if="availableLanguages.length > 0" style="margin-top: 12px;">
+                    <sw-checkbox-field
+                        class="ai-config-checkbox"
+                        v-for="language in availableLanguages"
+                        :key="language.id"
+                        :label="getLanguageLabel(language)"
+                        :value="isLanguageSelected(language.locale.code)"
+                        :disabled="isRequiredLanguage(language.locale.code)"
+                        @update:value="toggleLanguage(language.locale.code)">
+                    </sw-checkbox-field>
+                </div>
+                <mt-loader v-else></mt-loader>
+
+                {# Help text #}
+                <p style="color: var(--color-gray-500); font-size: 12px; margin-top: 12px;">
+                    {{ $tc('ai-image-tools.configuration.helpText.languageSelectionInfo') }}
+                </p>
+            </div>
+        </mt-card>
+
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+        {# SECTION 4: SCHEDULED ANALYSIS                                                       #}
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+
+        <mt-card :isLoading="isLoading">
+            <template #title>
+                <div class="collapsible-header" @click="showScheduledAnalysis = !showScheduledAnalysis">
+                    <sw-icon :name="showScheduledAnalysis ? 'regular-chevron-down-s' : 'regular-chevron-right-s'" size="16px"></sw-icon>
+                    {{ $tc('ai-image-tools.configuration.cards.scheduledAnalysis') }}
+                </div>
+            </template>
+
+            <div v-show="showScheduledAnalysis">
+                <sw-switch-field
+                    class="ai-config-switch"
+                    v-model:value="localConfig.scheduledTaskEnabled"
+                    :label="$tc('ai-image-tools.configuration.fields.scheduledTaskEnabled')">
+                </sw-switch-field>
+
+                <sw-number-field
+                    v-show="localConfig.scheduledTaskEnabled"
+                    v-model:value="localConfig.scheduledTaskInterval"
+                    :label="$tc('ai-image-tools.configuration.fields.scheduledTaskInterval')"
+                    :helpText="$tc('ai-image-tools.configuration.helpText.scheduledTaskInterval')"
+                    numberType="int"
+                    :min="1"
+                    :max="24"
+                    suffix="h">
+                </sw-number-field>
+            </div>
+        </mt-card>
+
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+        {# SECTION 5: API CONFIGURATION (Collapsible - rarely changed after setup)             #}
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+
+        <mt-card :isLoading="isLoading">
+            <template #title>
+                <div class="collapsible-header" @click="showApiSettings = !showApiSettings">
+                    <sw-icon :name="showApiSettings ? 'regular-chevron-down-s' : 'regular-chevron-right-s'" size="16px"></sw-icon>
+                    {{ $tc('ai-image-tools.configuration.cards.geminiApi') }}
+                </div>
+            </template>
+
+            <div v-show="showApiSettings">
+                <sw-password-field
+                    v-model:value="localConfig.apiKey"
+                    :label="$tc('ai-image-tools.configuration.fields.apiKey')"
+                    :helpText="$tc('ai-image-tools.configuration.helpText.apiKey')"
+                    :placeholder="$tc('ai-image-tools.configuration.placeholder.apiKey')">
+                </sw-password-field>
+
+                <sw-container columns="1fr 1fr" gap="16px">
+                    <sw-text-field
+                        v-model:value="localConfig.apiModel"
+                        :label="$tc('ai-image-tools.configuration.fields.apiModel')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.apiModel')">
+                    </sw-text-field>
+
+                    <sw-text-field
+                        v-model:value="localConfig.imageGenerationModel"
+                        :label="$tc('ai-image-tools.configuration.fields.imageGenerationModel')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.imageGenerationModel')">
+                    </sw-text-field>
+
+                    <sw-text-field
+                        v-model:value="localConfig.apiBaseUrl"
+                        :label="$tc('ai-image-tools.configuration.fields.apiBaseUrl')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.apiBaseUrl')">
+                    </sw-text-field>
+
+                    <sw-text-field
+                        v-model:value="localConfig.apiVersion"
+                        :label="$tc('ai-image-tools.configuration.fields.apiVersion')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.apiVersion')">
+                    </sw-text-field>
+                </sw-container>
+            </div>
+        </mt-card>
+
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+        {# SECTION 6: ADVANCED CONFIDENCE SETTINGS (Collapsible - rarely changed)              #}
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+
+        <mt-card :isLoading="isLoading">
+            <template #title>
+                <div class="collapsible-header" @click="showAdvancedConfidence = !showAdvancedConfidence">
+                    <sw-icon :name="showAdvancedConfidence ? 'regular-chevron-down-s' : 'regular-chevron-right-s'" size="16px"></sw-icon>
+                    {{ $tc('ai-image-tools.configuration.cards.advancedConfidence') }}
+                </div>
+            </template>
+
+            <div v-show="showAdvancedConfidence">
+
+                {# Confidence Explanation Info Box #}
+                <div class="confidence-explanation">
+                    <sw-icon name="regular-info-circle" size="20px"></sw-icon>
+                    <div v-html="$tc('ai-image-tools.configuration.sections.confidenceExplanation')"></div>
+                </div>
+
+                {# Field Weights Section - Most likely to be adjusted among advanced settings #}
+                <div class="config-section">
+                    <h4>{{ $tc('ai-image-tools.configuration.sections.fieldWeights') }}</h4>
+                    <p class="section-description">{{ $tc('ai-image-tools.configuration.sections.fieldWeightsDescription') }}</p>
+                    <sw-container columns="1fr 1fr 1fr" gap="16px">
+                        <sw-number-field
+                            v-for="field in fieldWeightFields"
+                            :key="field.key"
+                            v-model:value="localConfig[field.key]"
+                            :label="$tc('ai-image-tools.configuration.fields.' + field.key)"
+                            :helpText="$tc('ai-image-tools.configuration.helpText.' + field.key)"
+                            numberType="int"
+                            :min="0"
+                            :max="100"
+                            :step="field.step"
+                            suffix="%">
+                        </sw-number-field>
+                    </sw-container>
+                </div>
+
+                {# Property Settings Section #}
+                <div class="config-section">
+                    <h4>{{ $tc('ai-image-tools.configuration.sections.propertySettings') }}</h4>
+                    <p class="section-description">{{ $tc('ai-image-tools.configuration.sections.propertySettingsDescription') }}</p>
+                    <sw-container columns="1fr 1fr" gap="16px">
+                        <sw-number-field
+                            v-for="field in propertyPenaltyFields"
+                            :key="field.key"
+                            v-model:value="localConfig[field.key]"
+                            :label="$tc('ai-image-tools.configuration.fields.' + field.key)"
+                            :helpText="$tc('ai-image-tools.configuration.helpText.' + field.key)"
+                            numberType="int"
+                            :min="field.min || 0"
+                            :max="field.max || 100"
+                            :step="field.step"
+                            :suffix="field.isPercentage === false ? '' : '%'">
+                        </sw-number-field>
+                    </sw-container>
+                </div>
+
+                {# Content Quality Penalties Section #}
+                <div class="config-section">
+                    <h4>{{ $tc('ai-image-tools.configuration.sections.contentPenalties') }}</h4>
+                    <p class="section-description">{{ $tc('ai-image-tools.configuration.sections.contentPenaltiesDescription') }}</p>
+                    <sw-container columns="1fr 1fr 1fr" gap="16px">
+                        <sw-number-field
+                            v-for="field in contentPenaltyFields"
+                            :key="field.key"
+                            v-model:value="localConfig[field.key]"
+                            :label="$tc('ai-image-tools.configuration.fields.' + field.key)"
+                            :helpText="$tc('ai-image-tools.configuration.helpText.' + field.key)"
+                            numberType="int"
+                            :min="0"
+                            :max="100"
+                            :step="field.step"
+                            suffix="%">
+                        </sw-number-field>
+                    </sw-container>
+                </div>
+
+                {# Content Patterns Section - Least likely to change #}
+                <div class="config-section">
+                    <h4>{{ $tc('ai-image-tools.configuration.sections.contentPatterns') }}</h4>
+                    <sw-textarea-field
+                        v-model:value="localConfig.genericPatterns"
+                        :label="$tc('ai-image-tools.configuration.fields.genericPatterns')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.genericPatterns')"
+                        :rows="6">
+                    </sw-textarea-field>
+                    <sw-textarea-field
+                        v-model:value="localConfig.hedgingWords"
+                        :label="$tc('ai-image-tools.configuration.fields.hedgingWords')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.hedgingWords')"
+                        :rows="6">
+                    </sw-textarea-field>
+                </div>
+            </div>
+        </mt-card>
+
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+        {# SECTION 7: TIME TRACKING CONFIGURATION (Collapsible - rarely changed)               #}
+        {# ═══════════════════════════════════════════════════════════════════════════════════ #}
+
+        <mt-card :isLoading="isLoading">
+            <template #title>
+                <div class="collapsible-header" @click="showTimeTracking = !showTimeTracking">
+                    <sw-icon :name="showTimeTracking ? 'regular-chevron-down-s' : 'regular-chevron-right-s'" size="16px"></sw-icon>
+                    {{ $tc('ai-image-tools.configuration.cards.timeTracking') }}
+                </div>
+            </template>
+
+            <div v-show="showTimeTracking">
+                <sw-container columns="1fr 1fr" gap="16px">
+                    <sw-number-field
+                        v-model:value="localConfig.minutesSavedPerProperty"
+                        :label="$tc('ai-image-tools.configuration.fields.minutesSavedPerProperty')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.minutesSavedPerProperty')"
+                        numberType="int"
+                        :min="0"
+                        :max="30"
+                        suffix="min">
+                    </sw-number-field>
+
+                    <sw-number-field
+                        v-model:value="localConfig.minutesSavedPerSeo"
+                        :label="$tc('ai-image-tools.configuration.fields.minutesSavedPerSeo')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.minutesSavedPerSeo')"
+                        numberType="int"
+                        :min="0"
+                        :max="30"
+                        suffix="min">
+                    </sw-number-field>
+
+                    <sw-number-field
+                        v-model:value="localConfig.minutesSavedForBaseDescription"
+                        :label="$tc('ai-image-tools.configuration.fields.minutesSavedForBaseDescription')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.minutesSavedForBaseDescription')"
+                        numberType="int"
+                        :min="0"
+                        :max="60"
+                        suffix="min">
+                    </sw-number-field>
+
+                    <sw-number-field
+                        v-model:value="localConfig.minutesSavedPerAdditionalTranslation"
+                        :label="$tc('ai-image-tools.configuration.fields.minutesSavedPerAdditionalTranslation')"
+                        :helpText="$tc('ai-image-tools.configuration.helpText.minutesSavedPerAdditionalTranslation')"
+                        numberType="int"
+                        :min="0"
+                        :max="30"
+                        suffix="min">
+                    </sw-number-field>
+                </sw-container>
+            </div>
+        </mt-card>
+</div>
+{% endblock %}

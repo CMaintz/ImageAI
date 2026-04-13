@@ -1,0 +1,121 @@
+{% block ai_image_tools_index %}
+    <sw-page class="ai-image-tools-index">
+
+        <template #smart-bar-header>
+            <h2>
+                {{ $tc('ai-image-tools.general.mainMenuItemGeneral') }}
+            </h2>
+        </template>
+
+        <template #smart-bar-actions>
+            <div v-if="activeTab === 'configuration'">
+                <sw-button-process
+                    class="ai-image-tools-configuration__save-action"
+                    :isLoading="isLoading"
+                    :processSuccess="isSaveSuccessful"
+                    variant="primary"
+                    @click="onSave">
+                    <mt-icon name="regular-save"></mt-icon>
+                    {{ $tc('ai-image-tools.configuration.save') }}
+                </sw-button-process>
+            </div>
+
+        </template>
+
+        {% block ai_image_tools_index_content %}
+            <template #content>
+                <sw-card-view>
+                    <sw-tabs
+                        :small="false"
+                        default-item="overview"
+                        @new-item-active="onTabChange">
+
+                        <template #default="{ active }">
+                            <sw-tabs-item
+                                name="overview"
+                                :active-tab="active">
+                                <mt-icon name="regular-home-simple"></mt-icon>
+                                {{ $tc('ai-image-tools.tabs.overview') }}
+                            </sw-tabs-item>
+
+                            <sw-tabs-item
+                                name="approval"
+                                :active-tab="active">
+                                <mt-icon name="regular-check-square"></mt-icon>
+                                {{ $tc('ai-image-tools.tabs.approval') }}
+                            </sw-tabs-item>
+
+                            <sw-tabs-item
+                                name="list"
+                                :active-tab="active">
+                                <mt-icon name="regular-list"></mt-icon>
+                                {{ $tc('ai-image-tools.tabs.analysisHistory') }}
+                            </sw-tabs-item>
+
+                            <sw-tabs-item
+                                name="run"
+                                :active-tab="active">
+                                <mt-icon name="regular-play"></mt-icon>
+                                {{ $tc('ai-image-tools.tabs.run') }}
+                            </sw-tabs-item>
+
+                            <sw-tabs-item
+                                name="generate"
+                                :active-tab="active">
+                                <mt-icon name="solid-image"></mt-icon>
+                                {{ $tc('ai-image-tools.tabs.generate') }}
+                            </sw-tabs-item>
+
+                            <sw-tabs-item
+                                name="properties"
+                                :active-tab="active">
+                                <mt-icon name="regular-sliders-v"></mt-icon>
+                                {{ $tc('ai-image-tools.tabs.properties') }}
+                            </sw-tabs-item>
+
+                            <sw-tabs-item
+                                name="configuration"
+                                :active-tab="active">
+                                <mt-icon name="regular-cog"></mt-icon>
+                                {{ $tc('ai-image-tools.tabs.configuration') }}
+                            </sw-tabs-item>
+                        </template>
+
+                        <template #content="{ active }">
+                            <ai-image-tools-overview
+                                v-if="active === 'overview'"
+                                @switch-tab="switchToTab">
+                            </ai-image-tools-overview>
+
+                            <ai-image-tools-configuration
+                                v-if="active === 'configuration'"
+                                ref="configurationComponent">
+                            </ai-image-tools-configuration>
+
+                            <ai-image-tools-properties
+                                v-if="active === 'properties'">
+                            </ai-image-tools-properties>
+
+                            <ai-image-tools-list
+                                v-if="active === 'list'">
+                            </ai-image-tools-list>
+
+                            <ai-image-tools-run
+                                v-if="active === 'run'"
+                                @analysis-complete="switchToTab('list')">
+                            </ai-image-tools-run>
+
+                            <ai-image-tools-generate
+                                v-if="active === 'generate'">
+                            </ai-image-tools-generate>
+
+                            <ai-image-tools-approval
+                                v-if="active === 'approval'">
+                            </ai-image-tools-approval>
+                        </template>
+                    </sw-tabs>
+                </sw-card-view>
+            </template>
+        {% endblock %}
+    </sw-page>
+{% endblock %}

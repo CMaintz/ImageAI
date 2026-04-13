@@ -1,0 +1,243 @@
+@import './../../../../scss/_ai-image-tools-common.scss';
+
+.ai-image-tools-properties {
+
+    &__modal-tabs {
+        margin-bottom: 20px;
+
+        .sw-tabs__custom-content {
+            display: none !important;
+            height: 0 !important;
+            min-height: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            overflow: hidden !important;
+        }
+    }
+
+    &__modal-content {
+        padding: 20px 0;
+
+        .sw-field__label {
+            justify-content: flex-start;
+            gap: 4px;
+        }
+
+        // Fix switch field label alignment
+        .sw-field--switch {
+            .sw-field {
+                margin-bottom: 0;
+            }
+
+            .sw-field__label {
+                margin-bottom: 0;
+                display: flex;
+                align-items: center;
+
+                label {
+                    padding: 0 4px;
+                }
+            }
+        }
+
+        h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        h4 {
+            margin: 20px 0 10px 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+
+    &__options-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #d1d9e0;
+    }
+
+    &__translations-section {
+        margin-top: 20px;
+    }
+
+    &__translation-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 12px;
+
+        // Remove all spacing from the text field so it aligns with the label
+        .sw-field {
+            margin-bottom: 0;
+            flex: 1;
+
+            // Hide the empty label area
+            .sw-field__label {
+                display: none;
+            }
+
+            // Remove top margin from input block
+            .sw-block-field__block {
+                margin-top: 0;
+            }
+        }
+    }
+
+    &__translation-label {
+        min-width: 200px;
+        font-weight: 500;
+        color: #52667a;
+        flex-shrink: 0;
+        line-height: 40px; // Match input height
+    }
+
+    &__option-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        align-items: center;
+    }
+
+    &__no-options {
+        color: #a0aeb9;
+        font-style: italic;
+    }
+
+    .is-active {
+        color: #37d046;
+    }
+
+    .is-inactive {
+        color: #de294c;
+    }
+
+    // Suggested Options Card Styles
+    &__suggestions-card {
+        margin-bottom: 24px;
+
+        .mt-card__toolbar {
+            display: flex;
+            gap: 8px;
+        }
+    }
+
+    &__suggestions-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__suggestion-group {
+        padding: 16px;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+    }
+
+    &__suggestion-group-title {
+        margin: 0 0 12px 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    &__suggestion-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    &__suggestion-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        transition: all 0.15s ease;
+        font-size: 13px;
+
+        &:hover {
+            border-color: #9ca3af;
+        }
+
+        &.is-selected {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .sw-field--checkbox {
+            margin: 0 !important;
+
+            .sw-field__checkbox {
+                margin: 0 !important;
+                display: flex;
+                align-items: center;
+            }
+
+            .sw-field__label {
+                margin: 0;
+                margin-left: 8px !important;
+                padding-left: 0;
+                font-size: 13px;
+            }
+        }
+    }
+
+    &__suggestion-count {
+        font-size: 12px;
+        color: #6b7280;
+        white-space: nowrap;
+        margin-left: auto;
+    }
+
+    // Suggestion Approval Modal Styles
+    &__approval-summary {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    &__approval-group {
+        padding: 12px 16px;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+
+        h4 {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+    }
+
+    &__approval-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    &__translation-label-group {
+        min-width: 200px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__translation-sublabel {
+        font-size: 11px;
+        color: #9ca3af;
+        font-weight: normal;
+    }
+
+    &__tab-error-icon {
+        color: #dc2626;
+        margin-left: 4px;
+    }
+}

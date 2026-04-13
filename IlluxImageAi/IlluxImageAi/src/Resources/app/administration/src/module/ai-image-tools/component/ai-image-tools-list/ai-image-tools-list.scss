@@ -1,0 +1,30 @@
+@import './../../../../scss/components/_ai-analysis-grid.scss';
+@import './../../../../scss/_ai-image-tools-common.scss';
+
+.ai-image-tools-list {
+  @include ai-component-container;
+
+  .ai-image-tools-list__toolbar-left{
+    .ai-refresh-btn{
+      width: 32px !important;
+      height: 32px !important;
+      max-height: 32px !important;
+      max-width: 32px !important;
+      min-height: 32px !important;
+      min-width: 32px !important;
+    }
+  }
+
+  &__header {
+    @include ai-component-header;
+  }
+
+  &__toolbar {
+    @include ai-component-toolbar;
+  }
+
+  .error-message {
+    color: var(--color-danger);
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,200 @@
+@import './../../../../scss/_ai-image-tools-common.scss';
+
+.ai-image-tools-generate {
+  .generating-images-loader {
+    width: 64px;
+    height: 64px;
+    position: relative;
+    background: #FFF;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .loader:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 40px;
+    transform: rotate(45deg) translate(30%, 40%);
+    background: #ff9371;
+    box-shadow: 32px -34px 0 5px #ff3d00;
+    animation: slide 2s infinite ease-in-out alternate;
+  }
+
+  .loader:after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ff3d00;
+    transform: rotate(0deg);
+    transform-origin: 35px 145px;
+    animation: rotate 2s infinite ease-in-out;
+  }
+
+  @keyframes slide {
+    0%, 100% { bottom: -35px }
+    25%, 75% { bottom: -2px }
+    20%, 80% { bottom: 2px }
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(-15deg) }
+    25%, 75% { transform: rotate(0deg) }
+    100% { transform: rotate(25deg) }
+  }
+
+  &__info {
+    margin-bottom: 24px;
+  }
+
+  .mt-card {
+    margin-bottom: 20px;
+  }
+
+  // Full-width sections (scene types, additional details)
+  &__section {
+    margin-bottom: 20px;
+
+    &--full {
+      width: 100%;
+    }
+
+    h3 {
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #52667a;
+    }
+  }
+
+  // Grid layout for option groups
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin: 20px 0;
+    padding: 20px 0;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+
+    @media (max-width: 1200px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Individual option group
+  &__group {
+    h3 {
+      margin-bottom: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #52667a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  // Fields within a group
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .sw-field {
+      margin-bottom: 0;
+    }
+
+    // Make selects more compact
+    .sw-single-select,
+    .sw-multi-select {
+      .sw-block-field__block {
+        min-height: 40px;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+    align-items: center;
+  }
+
+  &__actions-defaults {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  // Prompt preview styles
+  &__preview {
+    margin-top: 20px;
+
+    &-section {
+      h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: #52667a;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    &-text {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 16px;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', 'Droid Sans Mono', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 400px;
+      overflow-y: auto;
+      color: #374151;
+    }
+  }
+
+  &__results {
+    margin-top: 30px;
+  }
+
+  &__image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  &__image-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  &__image-actions {
+    padding: 12px;
+    background-color: #f9fafb;
+    text-align: center;
+  }
+}

@@ -1,0 +1,102 @@
+{% block ai_image_tools_run %}
+    <div class="ai-image-tools-run">
+        <mt-card :title="$tc('ai-image-tools.run.title')">
+            <sw-alert variant="warning" class="ai-image-tools-run__info">
+                {{ $tc('ai-image-tools.run.infoText') }}
+            </sw-alert>
+
+            {# Filters #}
+            <div class="ai-image-tools-run__filters">
+                <h3>{{ $tc('ai-image-tools.run.filters.label') }}</h3>
+
+                <sw-switch-field
+                    v-model:value="filters.includeAnalyzed"
+                    :label="$tc('ai-image-tools.run.filters.includeAnalyzed')"
+                    :disabled="analysisRunning"
+                    :helpText="$tc('ai-image-tools.run.helpText.includeAnalyzed')">
+                </sw-switch-field>
+
+                <sw-switch-field
+                    v-model:value="filters.includeDescription"
+                    :label="$tc('ai-image-tools.run.filters.includeDescription')"
+                    :disabled="analysisRunning"
+                    :helpText="$tc('ai-image-tools.run.helpText.includeDescription')">
+                </sw-switch-field>
+
+                <sw-switch-field
+                    v-model:value="filters.includeSeo"
+                    :label="$tc('ai-image-tools.run.filters.includeSeo')"
+                    :disabled="analysisRunning"
+                    :helpText="$tc('ai-image-tools.run.helpText.includeSeo')">
+                </sw-switch-field>
+            </div>
+
+            {# Progress Display #}
+            <div v-if="analysisRunning" class="ai-image-tools-run__progress">
+                <div class="ai-image-tools-run__progress-header">
+                    <h3>{{ $tc('ai-image-tools.run.progress') }}</h3>
+                    <span class="ai-image-tools-run__progress-percentage">{{ Math.round(progress.percentage) }}%</span>
+                </div>
+
+                <sw-progress-bar :value="progress.percentage"></sw-progress-bar>
+
+                <div class="ai-image-tools-run__progress-stats">
+                    <p class="ai-image-tools-run__progress-text">
+                        {{ $tc('ai-image-tools.run.progressText', 0, {
+                            current: progress.current,
+                            total: progress.total,
+                            percentage: Math.round(progress.percentage)
+                        }) }}
+                    </p>
+
+                    <p class="ai-image-tools-run__progress-counts">
+                        <span class="success-count">✓ {{ progress.successCount }}</span>
+                        <span v-if="progress.failureCount > 0" class="failure-count">✗ {{ progress.failureCount }}</span>
+                        <span v-if="progress.processingCount > 0" class="processing-count">⏳ {{ progress.processingCount }}</span>
+                    </p>
+                </div>
+            </div>
+
+            {# Actions #}
+            <div class="ai-image-tools-run__actions">
+                <mt-button
+                    v-if="!analysisRunning"
+                    variant="primary"
+                    :disabled="!canStartAnalysis"
+                    @click="openConfirmModal">
+                    {{ $tc('ai-image-tools.run.startAnalysis') }}
+                </mt-button>
+
+                <mt-button
+                    v-if="analysisRunning"
+                    variant="critical"
+                    @click="stopAnalysis">
+                    {{ $tc('ai-image-tools.run.stopAnalysis') }}
+                </mt-button>
+            </div>
+        </mt-card>
+
+        {# Confirmation Modal #}
+        <sw-modal
+            v-if="showConfirmModal"
+            :title="$tc('ai-image-tools.run.confirmTitle')"
+            @modal-close="closeConfirmModal">
+            <p>{{ $tc('ai-image-tools.run.confirmMessage') }}</p>
+
+            <template #modal-footer>
+                <mt-button
+                    size="small"
+                    @click="closeConfirmModal">
+                    {{ $tc('ai-image-tools.run.cancel') }}
+                </mt-button>
+
+                <mt-button
+                    variant="primary"
+                    size="small"
+                    @click="startAnalysis">
+                    {{ $tc('ai-image-tools.run.confirm') }}
+                </mt-button>
+            </template>
+        </sw-modal>
+    </div>
+{% endblock %}

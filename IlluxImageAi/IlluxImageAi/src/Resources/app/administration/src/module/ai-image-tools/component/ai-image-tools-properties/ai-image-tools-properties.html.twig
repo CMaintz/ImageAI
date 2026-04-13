@@ -1,0 +1,442 @@
+{% block ai_image_tools_properties %}
+<div class="ai-image-tools-properties">
+        <!-- AI-Suggested Property Options -->
+        <mt-card
+            :title="$tc('ai-image-tools.properties.cards.suggestedOptions')"
+            :subtitle="totalSuggestions > 0 ? $tc('ai-image-tools.properties.cards.suggestedOptionsSubtitle', 0, { count: totalSuggestions }) : ''"
+            :isLoading="suggestedOptionsLoading"
+            class="ai-image-tools-properties__suggestions-card">
+
+            <template v-if="totalSuggestions > 0" #toolbar>
+                <mt-button
+                    size="small"
+                    @click="selectAllSuggestions"
+                    :disabled="suggestedOptionsLoading">
+                    {{ $tc('ai-image-tools.properties.suggestions.selectAll') }}
+                </mt-button>
+                <mt-button
+                    size="small"
+                    @click="deselectAllSuggestions"
+                    :disabled="suggestedOptionsLoading || selectedSuggestions.length === 0">
+                    {{ $tc('ai-image-tools.properties.suggestions.deselectAll') }}
+                </mt-button>
+                <mt-button
+                    variant="critical"
+                    size="small"
+                    @click="rejectSelectedSuggestions"
+                    :disabled="suggestedOptionsLoading || selectedSuggestions.length === 0">
+                    <mt-icon name="regular-times-s"></mt-icon>
+                    {{ $tc('ai-image-tools.properties.suggestions.rejectSelected', 0, { count: selectedSuggestions.length }) }}
+                </mt-button>
+                <mt-button
+                    variant="primary"
+                    size="small"
+                    @click="openSuggestionApprovalModal"
+                    :disabled="suggestedOptionsLoading || selectedSuggestions.length === 0">
+                    <mt-icon name="regular-checkmark-s"></mt-icon>
+                    {{ $tc('ai-image-tools.properties.suggestions.approveSelected', 0, { count: selectedSuggestions.length }) }}
+                </mt-button>
+            </template>
+
+            <div v-if="totalSuggestions > 0" class="ai-image-tools-properties__suggestions-grid">
+                <div
+                    v-for="(options, propertyGroup) in suggestedOptions"
+                    :key="propertyGroup"
+                    class="ai-image-tools-properties__suggestion-group">
+
+                    <h4 class="ai-image-tools-properties__suggestion-group-title">
+                        {{ propertyGroup }}
+                    </h4>
+
+                    <div class="ai-image-tools-properties__suggestion-options">
+                        <div
+                            v-for="option in options"
+                            :key="`${propertyGroup}-${option.name}`"
+                            class="ai-image-tools-properties__suggestion-item"
+                            :class="{ 'is-selected': isSuggestionSelected(propertyGroup, option.name) }">
+
+                            <sw-checkbox-field
+                                :value="isSuggestionSelected(propertyGroup, option.name)"
+                                @update:value="toggleSuggestionSelection(propertyGroup, option.name)"
+                                :label="option.name">
+                            </sw-checkbox-field>
+
+                            <span class="ai-image-tools-properties__suggestion-count">
+                                {{ $tc('ai-image-tools.properties.suggestions.occurrences', 0, { count: option.count }) }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <sw-empty-state
+                v-else
+                :title="$tc('ai-image-tools.properties.suggestions.emptyState.title')"
+                :subline="$tc('ai-image-tools.properties.suggestions.emptyState.subline')"
+                icon="regular-lightbulb">
+            </sw-empty-state>
+        </mt-card>
+
+{#    TODO move this button into the smart bar like the saveconfig button#}
+        <!-- AI Property Groups List -->
+        <mt-card :title="$tc('ai-image-tools.properties.cards.propertyGroups')" :isLoading="isLoading">
+            <template #toolbar>
+                <mt-button
+                    variant="primary"
+                    size="small"
+                    @click="openCreateModal"
+                    :disabled="isLoading">
+                    <mt-icon name="regular-plus"></mt-icon>
+                    {{ $tc('ai-image-tools.properties.buttons.addProperty') }}
+                </mt-button>
+            </template>
+
+            <sw-data-grid
+                v-if="properties && properties.length > 0"
+                :dataSource="properties"
+                :isLoading="isLoading"
+                :columns="[
+                    { property: 'name', label: $tc('ai-image-tools.properties.columns.groupName'), primary: true },
+                    { property: 'options', label: $tc('ai-image-tools.properties.columns.options'), align: 'center' },
+                    { property: 'filterable', label: $tc('ai-image-tools.properties.columns.filterable'), align: 'center' },
+                    { property: 'visibleOnProductDetailPage', label: $tc('ai-image-tools.properties.columns.visible'), align: 'center' }
+                ]"
+                :showSelection="false"
+                :showSettings="false"
+                :allowInlineEdit="false"
+                :compactMode="false">
+
+                <template #column-options="{ item }">
+                    <div class="ai-image-tools-properties__option-list">
+                        <sw-label
+                            v-for="(optionName, idx) in getOptionNames(item)"
+                            :key="idx"
+                            size="small"
+                            variant="info"
+                            appearance="pill">
+                            {{ optionName }}
+                        </sw-label>
+                        <span v-if="getOptionNames(item).length === 0" class="ai-image-tools-properties__no-options">
+                            -
+                        </span>
+                    </div>
+                </template>
+
+                <template #column-displayType="{ item }">
+                    <span>{{ item.displayType || 'text' }}</span>
+                </template>
+
+                <template #column-filterable="{ item }">
+                    <mt-icon :name="item.filterable ? 'solid-check-circle' : 'solid-times-circle'"
+                             :class="item.filterable ? 'is-active' : 'is-inactive'"></mt-icon>
+                </template>
+
+                <template #column-visibleOnProductDetailPage="{ item }">
+                    <mt-icon :name="item.visibleOnProductDetailPage ? 'solid-check-circle' : 'solid-times-circle'"
+                             :class="item.visibleOnProductDetailPage ? 'is-active' : 'is-inactive'"></mt-icon>
+                </template>
+
+                <template #actions="{ item }">
+                    <sw-context-menu-item @click="openEditModal(item)">
+                        <mt-icon name="regular-pencil-s"></mt-icon>
+                        {{ $tc('ai-image-tools.properties.actions.edit') }}
+                    </sw-context-menu-item>
+
+                    <sw-context-menu-item variant="danger" @click="deleteProperty(item.id)">
+                        <mt-icon name="regular-trash"></mt-icon>
+                        {{ $tc('ai-image-tools.properties.actions.delete') }}
+                    </sw-context-menu-item>
+                </template>
+            </sw-data-grid>
+
+            <sw-empty-state
+                v-else
+                :title="$tc('ai-image-tools.properties.emptyState.noProperties')"
+                :subline="$tc('ai-image-tools.properties.emptyState.noPropertiesSubline')"
+                icon="regular-cog">
+                <template #actions>
+                    <mt-button
+                        variant="primary"
+                        @click="openCreateModal">
+                        {{ $tc('ai-image-tools.properties.buttons.addProperty') }}
+                    </mt-button>
+                </template>
+            </sw-empty-state>
+        </mt-card>
+
+    {# Property Edit/Create Modal #}
+    <sw-modal
+        v-if="showModal"
+        :key="`property-modal-${editingProperty || 'new'}-${showModal}`"
+        :title="editingProperty ? $tc('ai-image-tools.properties.modal.titleEdit') : $tc('ai-image-tools.properties.modal.titleCreate')"
+        @modal-close="closeModal"
+        variant="large">
+
+        <sw-tabs
+            class="ai-image-tools-properties__modal-tabs"
+            :key="`property-tabs-${editingProperty || 'new'}-${currentTab}`"
+            :default-item="currentTab"
+            @new-item-active="onTabChange">
+            <template #default="{ active }">
+                <sw-tabs-item name="basic" :active-tab="active">
+                    {{ $tc('ai-image-tools.properties.modal.tabs.basic') }}
+                </sw-tabs-item>
+                <sw-tabs-item
+                    v-for="langCode in configLanguages.filter(code => code !== 'en-GB')"
+                    :key="langCode"
+                    :name="langCode"
+                    :active-tab="active">
+                    {{ getLanguageName(langCode) }}
+                </sw-tabs-item>
+            </template>
+        </sw-tabs>
+
+            {# Basic Settings Tab #}
+            <div v-if="currentTab === 'basic'" class="ai-image-tools-properties__modal-content">
+                <sw-text-field
+                    v-model:value="newProperty.name"
+                    :label="$tc('ai-image-tools.properties.fields.propertyGroupName')"
+                    :helpText="$tc('ai-image-tools.properties.helpText.propertyGroupName')"
+                    :placeholder="'Technique'"
+                    required>
+                </sw-text-field>
+
+                <sw-alert v-if="validationErrors.name" variant="error" :showIcon="true">
+                    {{ validationErrors.name }}
+                </sw-alert>
+
+                <sw-container columns="1fr 1fr" gap="16px">
+                    <sw-single-select
+                        v-model:value="newProperty.displayType"
+                        :label="$tc('ai-image-tools.properties.fields.displayType')"
+                        :options="displayTypeOptions"
+                        valueProperty="value"
+                        labelProperty="label">
+                    </sw-single-select>
+
+                    <sw-single-select
+                        v-model:value="newProperty.sortingType"
+                        :label="$tc('ai-image-tools.properties.fields.sortingType')"
+                        :options="sortingTypeOptions"
+                        valueProperty="value"
+                        labelProperty="label">
+                    </sw-single-select>
+                </sw-container>
+
+                <sw-container columns="1fr 1fr" gap="16px">
+                    <sw-switch-field
+                        v-model:value="newProperty.filterable"
+                        :label="$tc('ai-image-tools.properties.fields.filterable')"
+                        :helpText="$tc('ai-image-tools.properties.helpText.filterable')">
+                    </sw-switch-field>
+
+                    <sw-switch-field
+                        v-model:value="newProperty.visibleOnProductDetailPage"
+                        :label="$tc('ai-image-tools.properties.fields.visibleOnProductDetailPage')"
+                        :helpText="$tc('ai-image-tools.properties.helpText.visibleOnProductDetailPage')">
+                    </sw-switch-field>
+                </sw-container>
+
+                <sw-number-field
+                    v-model:value="newProperty.position"
+                    :label="$tc('ai-image-tools.properties.fields.position')"
+                    :helpText="$tc('ai-image-tools.properties.helpText.position')"
+                    numberType="int"
+                    :min="0">
+                </sw-number-field>
+
+                <sw-tagged-field
+                    v-model:value="newProperty.options"
+                    :label="$tc('ai-image-tools.properties.fields.options')"
+                    :helpText="$tc('ai-image-tools.properties.helpText.optionsTaggedField')"
+                    :placeholder="$tc('ai-image-tools.properties.placeholders.addOption')">
+                </sw-tagged-field>
+
+                <sw-alert v-if="validationErrors.options" variant="error" :showIcon="true">
+                    {{ validationErrors.options }}
+                </sw-alert>
+            </div>
+
+            {# Language Translation Tabs (excluding English which is the basic tab) #}
+            <template v-for="langCode in configLanguages.filter(code => code !== 'en-GB')" :key="`content-${langCode}`">
+                <div
+                    v-if="currentTab === langCode && newProperty.translations[langCode]"
+                    class="ai-image-tools-properties__modal-content">
+
+                    <h3>{{ getLanguageName(langCode) }} {{ $tc('ai-image-tools.properties.modal.translations') }}</h3>
+
+                <sw-alert v-if="validationErrors.translations[langCode] && validationErrors.translations[langCode].length > 0" variant="error" :showIcon="true">
+                    <ul>
+                        <li v-for="(error, idx) in validationErrors.translations[langCode]" :key="idx">
+                            {{ error }}
+                        </li>
+                    </ul>
+                </sw-alert>
+
+                <sw-text-field
+                    v-model:value="newProperty.translations[langCode].name"
+                    :label="$tc('ai-image-tools.properties.fields.groupDisplayName')"
+                    :helpText="$tc('ai-image-tools.properties.helpText.groupDisplayName')"
+                    required>
+                </sw-text-field>
+
+                <div class="ai-image-tools-properties__translations-section">
+                    <h4>{{ $tc('ai-image-tools.properties.fields.optionTranslations') }}</h4>
+
+                    <div
+                        v-for="(option, idx) in newProperty.options"
+                        :key="`${langCode}-${idx}`"
+                        class="ai-image-tools-properties__translation-row">
+
+                        <span class="ai-image-tools-properties__translation-label">
+                            {{ getEnglishOptionName(option) }}
+                        </span>
+
+                        <sw-text-field
+                            v-model:value="newProperty.translations[langCode].options[option]"
+                            :placeholder="$tc('ai-image-tools.properties.placeholders.translation')"
+                            required>
+                        </sw-text-field>
+                    </div>
+
+                    <sw-empty-state
+                        v-if="newProperty.options.length === 0"
+                        :title="$tc('ai-image-tools.properties.emptyState.addOptionsFirst')"
+                        icon="regular-info-circle">
+                    </sw-empty-state>
+                </div>
+                </div>
+            </template>
+
+        <template #modal-footer>
+            <mt-button @click="closeModal" size="small">
+                {{ $tc('ai-image-tools.properties.modal.cancel') }}
+            </mt-button>
+
+            <mt-button
+                variant="primary"
+                size="small"
+                :isLoading="isLoading"
+                @click="saveProperty">
+                {{ $tc('ai-image-tools.properties.modal.save') }}
+            </mt-button>
+        </template>
+    </sw-modal>
+
+    {# Suggestion Approval Modal with Translations #}
+    <sw-modal
+        v-if="showSuggestionApprovalModal"
+        :title="$tc('ai-image-tools.properties.suggestions.approvalModal.title')"
+        @modal-close="closeSuggestionApprovalModal"
+        variant="large">
+
+        <sw-tabs
+            class="ai-image-tools-properties__modal-tabs"
+            :default-item="suggestionApprovalTab"
+            @new-item-active="onSuggestionApprovalTabChange">
+            <template #default="{ active }">
+                <sw-tabs-item name="summary" :active-tab="active">
+                    {{ $tc('ai-image-tools.properties.suggestions.approvalModal.tabs.summary') }}
+                </sw-tabs-item>
+                <sw-tabs-item
+                    v-for="langCode in configLanguages.filter(code => code !== 'en-GB')"
+                    :key="langCode"
+                    :name="langCode"
+                    :active-tab="active">
+                    {{ getLanguageName(langCode) }}
+                    <sw-icon
+                        v-if="suggestionValidationErrors[langCode]"
+                        name="regular-exclamation-triangle"
+                        size="12px"
+                        class="ai-image-tools-properties__tab-error-icon">
+                    </sw-icon>
+                </sw-tabs-item>
+            </template>
+        </sw-tabs>
+
+        {# Summary Tab #}
+        <div v-if="suggestionApprovalTab === 'summary'" class="ai-image-tools-properties__modal-content">
+            <sw-alert variant="info" :showIcon="true">
+                {{ $tc('ai-image-tools.properties.suggestions.approvalModal.summaryInfo', 0, { count: selectedSuggestions.length }) }}
+            </sw-alert>
+
+            <div class="ai-image-tools-properties__approval-summary">
+                <div
+                    v-for="(suggestions, propertyGroup) in groupedSelectedSuggestions"
+                    :key="propertyGroup"
+                    class="ai-image-tools-properties__approval-group">
+                    <h4>{{ propertyGroup }}</h4>
+                    <div class="ai-image-tools-properties__approval-options">
+                        <sw-label
+                            v-for="suggestion in suggestions"
+                            :key="suggestion.optionName"
+                            size="small"
+                            variant="info"
+                            appearance="pill">
+                            {{ suggestion.optionName }}
+                        </sw-label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Language Translation Tabs #}
+        <template v-for="langCode in configLanguages.filter(code => code !== 'en-GB')" :key="`suggestion-content-${langCode}`">
+            <div
+                v-if="suggestionApprovalTab === langCode"
+                class="ai-image-tools-properties__modal-content">
+
+                <h3>{{ getLanguageName(langCode) }} {{ $tc('ai-image-tools.properties.modal.translations') }}</h3>
+
+                <sw-alert
+                    v-if="suggestionValidationErrors[langCode] && suggestionValidationErrors[langCode].length > 0"
+                    variant="error"
+                    :showIcon="true">
+                    {{ $tc('ai-image-tools.properties.suggestions.approvalModal.missingTranslations', 0, {
+                        options: suggestionValidationErrors[langCode].join(', ')
+                    }) }}
+                </sw-alert>
+
+                <div class="ai-image-tools-properties__translations-section">
+                    <div
+                        v-for="suggestion in selectedSuggestions"
+                        :key="`${langCode}-${suggestion.propertyGroup}-${suggestion.optionName}`"
+                        class="ai-image-tools-properties__translation-row">
+
+                        <div class="ai-image-tools-properties__translation-label-group">
+                            <span class="ai-image-tools-properties__translation-label">
+                                {{ suggestion.optionName }}
+                            </span>
+                            <span class="ai-image-tools-properties__translation-sublabel">
+                                {{ suggestion.propertyGroup }}
+                            </span>
+                        </div>
+
+                        <sw-text-field
+                            v-model:value="suggestionTranslations[`${suggestion.propertyGroup}::${suggestion.optionName}`][langCode]"
+                            :placeholder="$tc('ai-image-tools.properties.placeholders.translation')"
+                            :error="suggestionValidationErrors[langCode]?.includes(suggestion.optionName) ? { detail: $tc('ai-image-tools.properties.validation.required') } : null"
+                            required>
+                        </sw-text-field>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template #modal-footer>
+            <mt-button @click="closeSuggestionApprovalModal" size="small">
+                {{ $tc('ai-image-tools.properties.modal.cancel') }}
+            </mt-button>
+
+            <mt-button
+                variant="primary"
+                size="small"
+                :isLoading="suggestedOptionsLoading"
+                @click="submitSuggestionApproval">
+                {{ $tc('ai-image-tools.properties.suggestions.approvalModal.approve', 0, { count: selectedSuggestions.length }) }}
+            </mt-button>
+        </template>
+    </sw-modal>
+
+</div>
+{% endblock %}

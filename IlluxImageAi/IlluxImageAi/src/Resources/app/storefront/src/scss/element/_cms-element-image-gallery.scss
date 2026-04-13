@@ -1,0 +1,533 @@
+.gallery-slider-item-container.ai-composited-main.loaded,
+.gallery-slider-thumbnails-item.ai-composited-thumbnail.loaded {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.gallery-slider-item-container.ai-composited-main.error,
+.gallery-slider-thumbnails-item.ai-composited-thumbnail.error {
+  opacity: 0.6;
+}
+
+/* Ensure AI composited images are properly constrained */
+.gallery-slider-item-container.ai-composited-main {
+  /* Match the structure of regular gallery items */
+  .gallery-slider-item {
+    /* Inherit max dimensions from the slider container */
+    max-width: 100%;
+    max-height: 100%;
+
+    img {
+      /* Ensure images don't overflow their container */
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Handle cover display mode */
+    &.is-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Handle contain display mode */
+    &.is-contain img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+/* AI Composited Thumbnails sizing */
+.gallery-slider-thumbnails-item.ai-composited-thumbnail {
+  .gallery-slider-thumbnails-item-inner {
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+
+/* ==========================================
+   Placeholder Background
+   ========================================== */
+
+.ai-placeholder-bg {
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+/* For thumbnails - smaller min-height */
+.gallery-slider-thumbnails-item-inner.ai-placeholder-bg {
+  min-height: 80px;
+}
+
+/* ==========================================
+   AI Compositor Thumbnail Button
+   ========================================== */
+
+.ai-compositor-thumbnail-btn {
+  cursor: pointer;
+
+  .ai-compositor-thumbnail-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 80px;
+    background: #F8F8F8 !important;
+    border-color: #C9C9C9;
+  }
+
+  .ai-compositor-thumbnail-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    text-align: center;
+
+    .icon-largeAiGenerationIconHover {
+      display: none;
+    }
+
+    .icon-largeAiGenerationIcon {
+      color: transparent !important;
+      height: 35px;
+      width: 35px;
+      margin-bottom: 10px;
+    }
+
+    .ai-compositor-thumbnail-label {
+      color: #5B5544;
+      font-size: 12px;
+      font-family: 'Open Sans', sans-serif;
+      text-transform: uppercase;
+      line-height: 1.2;
+      max-width: 80px;
+    }
+  }
+
+  &:hover {
+    .ai-compositor-thumbnail-inner {
+      background: #EAE8E0 !important;
+      border-color: #2E3A40 !important;
+      background: linear-gradient(135deg, #e7f1ff 0%, #cfe2ff 100%);
+
+      .ai-compositor-thumbnail-content {
+        .icon-largeAiGenerationIcon {
+          display: none;
+        }
+
+        .icon-largeAiGenerationIconHover {
+          display: inline-block;
+          color: transparent !important;
+          height: 35px;
+          width: 35px;
+          margin-bottom: 10px;
+        }
+
+        .ai-compositor-thumbnail-label {
+          color: #2E3A40;
+          font-size: 12px;
+          font-family: 'Open Sans', sans-serif;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  &.is-loading {
+    .ai-compositor-thumbnail-inner {
+      background: linear-gradient(135deg, #e7f1ff 0%, #cfe2ff 100%);
+    }
+
+    .ai-compositor-thumbnail-content .icon {
+      opacity: 0;
+    }
+
+    .ai-compositor-thumbnail-content::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spinner-border 0.75s linear infinite;
+    }
+
+  }
+
+  &.tns-nav-active {
+    .ai-compositor-thumbnail-inner {
+      border-style: solid;
+    }
+  }
+}
+
+/* ==========================================
+   AI Compositor Main Slide (Room Selector)
+   ========================================== */
+
+.ai-compositor-main-slide {
+  .ai-compositor-main-content {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    /* Match gallery slide height - uses same aspect ratio as product images */
+    min-height: 400px;
+    height: 100%;
+    background: #F8F8F8;
+    overflow: hidden;
+  }
+
+  .ai-compositor-room-selector {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1.5rem;
+    max-width: 700px;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Large icon wrapper - centered horizontally */
+  .ai-compositor-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+
+    .icon-largeAiGenerationIcon {
+      width: 60px;
+      height: 60px;
+      color: transparent !important;
+    }
+  }
+
+  /* Description text */
+  .ai-compositor-description {
+    font-size: 0.95rem;
+    color: #5B5544;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    white-space: nowrap;
+  }
+
+  /* "Vælg rum" label with underline */
+  .ai-compositor-select-label {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #5B5544;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+    cursor: default;
+  }
+
+  /* Room type toggle button grid */
+  .ai-compositor-room-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    max-width: 100%;
+  }
+
+  /* Individual room toggle button - pill-shaped, outline/color only */
+  .ai-room-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #5B5544;
+    background: #FFFFFF;
+    border: 2px solid #C9C9C9;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    .ai-room-toggle-name {
+      line-height: 1.2;
+    }
+
+    &:hover:not(.is-selected) {
+      border-color: #607ECE;
+      color: #607ECE;
+      background: #F0F4FF;
+    }
+
+    &.is-selected {
+      background: #607ECE;
+      border-color: #607ECE;
+      color: #FFFFFF;
+    }
+  }
+
+  /* Selection info */
+  .ai-compositor-selection-info {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+  }
+
+  /* Divider */
+  .ai-compositor-divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #C9C9C9;
+    }
+
+    span {
+      padding: 0 1rem;
+      font-size: 0.85rem;
+      color: #6c757d;
+      text-transform: lowercase;
+    }
+  }
+
+  /* Custom upload */
+  .ai-compositor-custom-upload {
+    margin-bottom: 3rem !important;
+  }
+
+  .ai-compositor-upload-label {
+    cursor: pointer;
+    display: block;
+  }
+
+  /* Hides the ugly default upload button, which we've instead "routed" to the custom button*/
+  .ai-compositor-upload-input {
+    display: none;
+  }
+
+  .ai-compositor-upload-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $sw-color-buy-button;
+    width: fit-content;
+    margin: 32px auto 0 auto;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    .ai-compositor-upload-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    span.ai-compositor-upload-text {
+      color: $sw-color-buy-button-text;
+      letter-spacing: 0.8px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin: 38px auto 0 auto;
+      padding: 3px 25px 4px 26px;
+
+      .ai-compositor-upload-icon {
+        width: 22px;
+        height: 22px;
+      }
+
+      span.ai-compositor-upload-text {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .ai-compositor-upload-btn.has-file {
+    background-color: lighten($sw-color-buy-button, 10%);
+  }
+
+  /* Clear button for uploaded file */
+  .ai-compositor-upload-clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .ai-compose-btn {
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    background: #607ECE !important;
+    border: 2px solid #607ECE !important;
+    border-radius: 0;
+    transition: all 0.2s ease;
+
+    .ai-compose-btn__text {
+      color: #FFFFFF;
+      font-weight: 500;
+    }
+
+    .icon-smallAiGenerationIconWhite {
+      .btn .icon > svg {
+        top: 0 !important;
+      }
+
+      width: 24px;
+      height: 24px;
+      color: transparent;
+    }
+
+    &:hover:not(:disabled) {
+      background: #4A62A8 !important;
+      border-color: #4A62A8 !important;
+    }
+
+    &.is-loading {
+      pointer-events: none;
+      opacity: 0.6;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        width: 0.75rem;
+        height: 0.75rem;
+        margin-left: 0.5rem;
+        border: 2px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border 0.75s linear infinite;
+        vertical-align: middle;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .ai-compositor-thumbnail-btn {
+    .ai-compositor-thumbnail-label {
+      font-size: 0.6rem;
+    }
+
+    .ai-compositor-thumbnail-content .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &.is-loading .ai-compositor-thumbnail-content::before {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .ai-compositor-main-slide {
+    .ai-compositor-main-content {
+      min-height: 350px;
+    }
+
+    .ai-compositor-room-selector {
+      padding: calc(100% / 8) 1rem 1rem;
+    }
+
+    .ai-compositor-icon-wrapper {
+      margin-bottom: 1rem;
+
+      .icon-largeAiGenerationIcon {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    .ai-compositor-description {
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .ai-compositor-select-label {
+      font-size: 0.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .ai-room-toggle {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .ai-compose-btn {
+    }
+  }
+}
+
+/* Fix for Shopware vendor CSS that sets justify-content: center on gallery-slider-row */
+/* This breaks the thumbnail-left layout. Using higher specificity to override. */
+@include media-breakpoint-up(md) {
+  .cms-element-image-gallery .gallery-slider-row {
+    justify-content: flex-start !important;
+
+    // Ensure the main slider column takes remaining space
+    .gallery-slider-col {
+      flex: 1 1 0%;
+      min-width: 0; // Prevent flex item from overflowing
+    }
+  }
+}
+
+

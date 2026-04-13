@@ -1,0 +1,60 @@
+{
+  "illux": {
+    "ai-composition": {
+      "room-selector": {
+        "description": "Experience this artwork in different room settings with our visualization tool",
+        "select-rooms": "Select rooms",
+        "selected": "selected",
+        "no-rooms": "No room types available",
+        "or": "or",
+        "upload-own": "Upload your own room"
+      },
+      "button": {
+        "see-in-room": "Visualize in multiple rooms",
+        "generate": "Generate Previews"
+      },
+      "rooms": {
+        "commercial office": "Commercial Office",
+        "lobby": "Lobby",
+        "kitchen": "Kitchen",
+        "home office": "Home Office",
+        "cafeteria": "Cafeteria",
+        "restaurant": "Restaurant",
+        "living room": "Living Room",
+        "bedroom": "Bedroom",
+        "dining room": "Dining Room",
+        "hallway": "Hallway",
+        "reading nook": "Reading Nook",
+        "loft": "Loft",
+        "cafe": "Café",
+        "café": "Café",
+        "bathroom": "Bathroom",
+        "bath": "Bathroom",
+        "entryway": "Entryway",
+        "entry": "Entryway",
+        "childrens room": "Children's Room",
+        "kids room": "Children's Room",
+        "nursery": "Nursery",
+        "guest room": "Guest Room",
+        "study": "Study",
+        "library": "Library",
+        "gallery": "Gallery",
+        "lounge": "Lounge",
+        "hotel room": "Hotel Room",
+        "waiting room": "Waiting Room",
+        "conference room": "Conference Room",
+        "meeting room": "Meeting Room",
+        "reception": "Reception",
+        "foyer": "Foyer",
+        "stairway": "Stairway",
+        "staircase": "Staircase",
+        "attic": "Attic",
+        "studio": "Studio",
+        "sunroom": "Sunroom",
+        "conservatory": "Conservatory",
+        "office": "Office",
+        "custom environment": "Custom Environment"
+      }
+    }
+  }
+}

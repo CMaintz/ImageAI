@@ -1,0 +1,129 @@
+{% sw_extends '@IlluxTheme/storefront/element/cms-element-image-gallery.html.twig' %}
+
+{# Add AI compositor thumbnail - appears as last thumbnail in gallery #}
+{% block element_image_gallery_inner_thumbnails_items %}
+    {{ parent() }}
+
+    {% if page.product is defined %}
+        {% set compositorStatus = aiCompositorStatus(page.product, context) %}
+
+        {% if compositorStatus.visible %}
+            {# AI Compositor thumbnail - clicking navigates to room selection slide #}
+            <div class="gallery-slider-thumbnails-item ai-compositor-thumbnail-btn">
+                <div class="gallery-slider-thumbnails-item-inner ai-compositor-thumbnail-inner">
+                    <div class="ai-compositor-thumbnail-content">
+                        <div class="icon-hover-switch">
+                            {% sw_icon 'largeAiGenerationIcon' style { 'namespace': 'IlluxImageAi', 'class': "icon-normal"}  %}
+                            {% sw_icon 'largeAiGenerationIconHover' style { 'namespace': 'IlluxImageAi', 'class': "icon-hover"}  %}
+                        </div>
+                        <span class="ai-compositor-thumbnail-label">{{ 'illux.ai-composition.button.see-in-room'|trans|default('See in more Rooms') }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{# Add corresponding main slide for the AI thumbnail - room selection UI #}
+{% block element_image_gallery_inner_items %}
+    {{ parent() }}
+
+    {% if page.product is defined %}
+        {% set compositorStatus = aiCompositorStatus(page.product, context) %}
+        {% set roomTypes = aiCompositorRoomTypes(context) %}
+
+        {% if compositorStatus.visible %}
+            {# AI Compositor main slide - room selection interface #}
+            <div class="gallery-slider-item-container ai-compositor-main-slide"
+                 data-ai-compositor
+                 data-product-id="{{ page.product.id }}"
+                 data-product-type="{{ compositorStatus.productType }}"
+                 data-max-rooms="5">
+                <div class="gallery-slider-item is-contain ai-compositor-main-content">
+                    <div class="ai-compositor-room-selector">
+                        {# Large icon centered, positioned ~1/3 down #}
+                        <div class="ai-compositor-icon-wrapper">
+                            {% sw_icon 'largeAiGenerationIcon' style { 'namespace': 'IlluxImageAi' } %}
+                        </div>
+
+                        {# Description text #}
+                        <p class="ai-compositor-description">
+                            {{ 'illux.ai-composition.room-selector.description'|trans|default('Oplev billedet i flere miljøer med vores visualiseringsværktøj') }}
+                        </p>
+
+                        {% if roomTypes|length > 0 %}
+                            {# "Vælg rum" label with underline #}
+                            <span class="ai-compositor-select-label">
+                                {{ 'illux.ai-composition.room-selector.select-rooms'|trans|default('Vælg rum') }}
+                            </span>
+
+                            {# Room type toggle buttons #}
+                            <div class="ai-compositor-room-grid" data-room-grid>
+                                {% for room in roomTypes %}
+                                    {% set roomKey = room.name|lower %}
+                                    {% set translatedName = ('illux.ai-composition.rooms.' ~ roomKey)|trans|default(room.name) %}
+                                    {# If translation returns the key itself, use original name #}
+                                    {% if translatedName starts with 'illux.ai-composition.rooms.' %}
+                                        {% set translatedName = room.name %}
+                                    {% endif %}
+                                    <button type="button"
+                                            class="ai-room-toggle"
+                                            data-room-toggle
+                                            data-room-id="{{ room.id }}"
+                                            data-room-name="{{ room.name }}"
+                                            data-room-translated="{{ translatedName }}">
+                                        <span class="ai-room-toggle-name">{{ translatedName }}</span>
+                                    </button>
+                                {% endfor %}
+                            </div>
+
+                            {# Selection counter #}
+                            <div class="ai-compositor-selection-info">
+                                <span data-selection-count>0</span> / 5 {{ 'illux.ai-composition.room-selector.selected'|trans|default('selected') }}
+                            </div>
+
+                            {# Divider #}
+                            <div class="ai-compositor-divider">
+                                <span>{{ 'illux.ai-composition.room-selector.or'|trans|default('or') }}</span>
+                            </div>
+
+                            {# Custom environment upload #}
+                            <div class="ai-compositor-custom-upload">
+                                <label class="ai-compositor-upload-label"
+                                       aria-label="{{ 'illux.ai-composition.room-selector.upload-own'|trans|striptags }}">
+                                    <input type="file"
+                                           accept="image/jpeg,image/png,image/webp"
+                                           data-environment-upload
+                                           class="ai-compositor-upload-input">
+                                    <span class="ai-compositor-upload-btn">
+                                        <img class="ai-compositor-upload-icon"
+                                             alt=""
+                                             src="{{ theme_config('product-design-upload-image') }}"/>
+                                        <span class="ai-compositor-upload-text" data-upload-text>{{ 'illux.ai-composition.room-selector.upload-own'|trans|default('Upload your own room') }}</span>
+                                    </span>
+                                </label>
+                            </div>
+
+                            {# Generate button #}
+                            <button type="button"
+                                    class="btn btn-outline-primary btn-block ai-compose-btn"
+                                    data-ai-compose-trigger
+                                    disabled>
+                                {% sw_icon 'smallAiGenerationIconWhite' style { 'namespace': 'IlluxImageAi' } %}
+                                <span class="ai-compose-btn__text" data-compose-btn-text>
+                                    {{ 'illux.ai-composition.button.generate'|trans|default('Generate Previews') }}
+                                </span>
+                            </button>
+                        {% else %}
+                            <p class="text-muted">{{ 'illux.ai-composition.room-selector.no-rooms'|trans|default('No room types available') }}</p>
+                        {% endif %}
+
+                        {% if not compositorStatus.enabled and compositorStatus.reason %}
+                            <small class="text-muted d-block mt-2">{{ compositorStatus.reason }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

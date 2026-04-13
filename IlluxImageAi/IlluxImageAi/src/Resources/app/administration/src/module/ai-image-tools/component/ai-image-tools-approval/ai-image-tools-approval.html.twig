@@ -1,0 +1,425 @@
+{# Approval view - language picker in toolbar; expand-on-hover for long cells #}
+{% block ai_image_tools_approval %}
+    <div class="ai-image-tools-approval">
+        <mt-card class="ai-image-tools-approval__mode-selector">
+            <div class="ai-mode-toggle">
+                <button
+                    type="button"
+                    class="ai-mode-toggle__btn ai-mode-toggle__btn--left"
+                    :class="{ 'ai-mode-toggle__btn--active': displayMode === 'analysis' }"
+                    @click="setMode('analysis')">
+                    {{ $tc('ai-image-tools.approval.buttons.analysisApproval') }}
+                </button>
+                <button
+                    type="button"
+                    class="ai-mode-toggle__btn ai-mode-toggle__btn--right"
+                    :class="{ 'ai-mode-toggle__btn--active': displayMode === 'images' }"
+                    @click="setMode('images')">
+                    {{ $tc('ai-image-tools.approval.buttons.imageApproval') }}
+                </button>
+            </div>
+        </mt-card>
+
+        <mt-loader v-if="isLoading"></mt-loader>
+
+        <template v-else>
+            <div class="ai-image-tools-approval__header">
+                <h2>
+                    {{ currentTitle }}
+                    <span class="sw-page__smart-bar-amount">({{ currentTotal }})</span>
+                </h2>
+            </div>
+
+            <div class="ai-image-tools-approval__content">
+                <template v-if="displayMode === 'analysis'">
+                    <div class="ai-image-tools-approval__toolbar">
+                        <div class="ai-image-tools-approval__toolbar-left">
+                            <sw-single-select
+                                v-model:value="selectedLanguage"
+                                :options="languageOptions"
+                                valueProperty="value"
+                                labelProperty="label"
+                                size="small"
+                                @update:value="onLanguagePickerChanged"
+                                :isLoading="isLoadingLanguages"
+                                :label="$tc('ai-image-tools.analysisLanguagePicker.label')"
+                                :helpText="$tc('ai-image-tools.analysisLanguagePicker.helpText')"
+                                disableSearchFunction="true">
+                            </sw-single-select>
+                            <mt-button
+                                class="ai-refresh-btn"
+                                size="32px"
+                                variant="ghost"
+                                @click="getList">
+                                <mt-icon name="regular-redo" size="20px"></mt-icon>
+                            </mt-button>
+                        </div>
+                    </div>
+
+                    <sw-entity-listing
+                        v-if="analysisTotal > 0"
+                        ref="aiImageToolsApprovalGrid"
+                        :key="`approval-grid-${selectedLanguage}`"
+                        class="ai-image-tools-approval__grid compressed"
+                        :allowDelete="false"
+                        :items="analysisItems"
+                        :columns="analysisColumns"
+                        :repository="aiAnalysisRepository"
+                        :show-selection="true"
+                        :fullPage="true"
+                        :allowColumnEdit="false"
+                    >
+                    {# Thumbnail #}
+                    <template #column-product.cover="{ item }">
+                        <div class="ai-thumb"
+                             @mouseenter="onImageMouseEnter(item.product?.cover?.media?.url, $event)"
+                             @mouseleave="onCellMouseLeave">
+                            <img v-if="item.product?.cover?.media" :src="item.product.cover.media.url"
+                                 :alt="item.product?.name"/>
+                            <div v-else class="ai-thumb__placeholder">
+                                <mt-icon name="regular-image"></mt-icon>
+                            </div>
+                        </div>
+                    </template>
+
+                    {# Product name #}
+                    <template #column-product.name="{ item }">
+                        <router-link :to="{ name: 'ai.image.tools.analysisDetail', params: { id: item.id }, query: { returnTab: 'approval' } }"
+                                     class="ai-product-link">
+                            {{ item.product?.name ?? '-' }}
+                        </router-link>
+                    </template>
+
+                    {# confidence column header with help icon #}
+                    <template #column-label-totalConfidenceScore="{ column }">
+                        <span class="ai-column-header-with-help">
+                            {{ column.label }}
+                            <sw-help-text :text="$tc('ai-image-tools.gridShared.helpText.confidence')" :width="360"></sw-help-text>
+                        </span>
+                    </template>
+
+                    {# Confidence score - color coded with warnings on hover #}
+                    <template #column-totalConfidenceScore="{ item }">
+                        <div
+                            v-if="item.totalConfidenceScore"
+                            class="ai-confidence-cell"
+                            @mouseenter="onConfidenceMouseEnter(item, $event)"
+                            @mouseleave="onCellMouseLeave"
+                        >
+                            <span
+                                class="ai-confidence-badge"
+                                :class="'ai-confidence-badge--' + getConfidenceLevel(item.totalConfidenceScore)"
+                            >
+                                {{ formatConfidenceScore(item.totalConfidenceScore) }}
+                            </span>
+                            <mt-icon
+                                v-if="hasConfidenceWarnings(item)"
+                                name="regular-exclamation-triangle"
+                                class="ai-confidence-warning-icon"
+                            ></mt-icon>
+                        </div>
+                        <span v-else>-</span>
+                    </template>
+
+                    {# metaTitle - hover to expand #}
+                    <template #column-metaTitle="{ item }">
+                        <div
+                            class="cell-trunc multiline-compact"
+                            @mouseenter="onCellMouseEnterFullText(getTranslatedField(item, 'metaTitle'), $event)"
+                            @mouseleave="onCellMouseLeave"
+                        >
+                            {{ concatPreview(getTranslatedField(item, 'metaTitle'), 60) }}
+                        </div>
+                    </template>
+
+                    {# seoKeywords - hover to expand #}
+                    <template #column-seoKeywords="{ item }">
+                        <div
+                            class="cell-trunc"
+                            @mouseenter="onCellMouseEnterFullText(getTranslatedField(item, 'seoKeywords'), $event)"
+                            @mouseleave="onCellMouseLeave"
+                        >
+                            {{ concatPreview(getTranslatedField(item, 'seoKeywords'), 20) }}
+                        </div>
+                    </template>
+
+                    {# metaDescription - multi-line truncated; hover expands #}
+                    <template #column-metaDescription="{ item }">
+                        <div
+                            class="cell-trunc multiline-compact"
+                            @mouseenter="onCellMouseEnterFullText(getTranslatedField(item, 'metaDescription'), $event)"
+                            @mouseleave="onCellMouseLeave"
+                        >
+                            {{ concatPreview(getTranslatedField(item, 'metaDescription'), 90) }}
+                        </div>
+                    </template>
+
+                    {# productDescription - multi-line truncated; hover expands #}
+                    <template #column-productDescription="{ item }">
+                        <div
+                            class="cell-trunc multiline-compact"
+                            @mouseenter="onCellMouseEnterFullText(getTranslatedField(item, 'productDescription'), $event)"
+                            @mouseleave="onCellMouseLeave"
+                        >
+                            {{ concatPreview(getTranslatedField(item, 'productDescription'), 90) }}
+                        </div>
+                    </template>
+
+                    {# analyzedProperties - condensed preview, hover shows full list #}
+                    <template #column-analyzedProperties="{ item }">
+                        <div v-if="item.analyzedProperties"
+                             class="ap-tags-condensed"
+                             @mouseenter="onTagsMouseEnter(item.analyzedProperties, $event)"
+                             @mouseleave="onCellMouseLeave"
+                             :title="$tc('ai-image-tools.gridShared.hoverForDetails')">
+                            <template v-for="(value, key, index) in item.analyzedProperties">
+                                <sw-label v-if="index < 2"
+                                          :key="key"
+                                          size="small"
+                                          variant="info"
+                                          appearance="pill">
+                                    {{ formatPropertyKey(key) }}: {{ value.options.slice(0, 2).join(', ') }}<span
+                                        v-if="value.options.length > 2">...</span>
+                                </sw-label>
+                            </template>
+                            <span v-if="Object.keys(item.analyzedProperties).length > 2" class="ap-more-groups">
+                            +{{ Object.keys(item.analyzedProperties).length - 2 }} more
+                        </span>
+                        </div>
+                        <span v-else>-</span>
+                    </template>
+
+                    {# createdAt #}
+                    <template #column-createdAt="{ item }">
+                        {{ formatDate(item.createdAt) }}
+                    </template>
+
+                    {# Bulk actions #}
+                    <template #bulk-additional="{ selection }">
+                        <mt-button size="small" variant="critical"
+                                   @click="openRejectModal(selection)">{{ $tc('ai-image-tools.approval.approvalActions.reject') }}</mt-button>
+                        <mt-button size="small" variant="primary"
+                                   @click="openApproveModal(selection)">{{ $tc('ai-image-tools.approval.approvalActions.approve') }}</mt-button>
+                    </template>
+
+                    <template #bulk-modals-additional>
+                        <sw-modal
+                            v-if="showApproveModal"
+                            :title="$tc('ai-image-tools.approval.approveModalTitle')"
+                            @modal-close="closeApproveModal">
+                            <p>{{ $tc('ai-image-tools.approval.approveModalText', approveSelection.length) }}</p>
+
+                            <template #modal-footer>
+                                <mt-button @click="closeApproveModal">
+                                    {{ $tc('ai-image-tools.approval.cancel') }}
+                                </mt-button>
+                                <mt-button
+                                    variant="primary"
+                                    @click="confirmApprove"
+                                    :disabled="isLoading">
+                                    {{ $tc('ai-image-tools.approval.confirm') }}
+                                </mt-button>
+                            </template>
+                        </sw-modal>
+
+                        <sw-modal
+                            v-if="showRejectModal"
+                            :title="$tc('ai-image-tools.approval.rejectModalTitle')"
+                            @modal-close="closeRejectModal">
+                            <p>{{ $tc('ai-image-tools.approval.rejectModalText', rejectSelection.length) }}</p>
+
+                            <template #modal-footer>
+                                <mt-button @click="closeRejectModal">
+                                    {{ $tc('ai-image-tools.approval.cancel') }}
+                                </mt-button>
+                                <mt-button
+                                    variant="critical"
+                                    @click="confirmReject"
+                                    :disabled="isLoading">
+                                    {{ $tc('ai-image-tools.approval.confirm') }}
+                                </mt-button>
+                            </template>
+                        </sw-modal>
+                    </template>
+                </sw-entity-listing>
+
+                    {# Empty state when no items #}
+                    <sw-empty-state
+                        v-if="analysisTotal === 0"
+                        :title="$tc('ai-image-tools.approval.emptyState.title')"
+                        :subline="$tc('ai-image-tools.approval.emptyState.subline')"
+                        icon="regular-check-circle">
+                    </sw-empty-state>
+
+                    {# Hover card - absolute panel rendered at root of component #}
+                    <div v-if="hoverVisible" class="ai-hover-card" :style="{ left: hoverX + 'px', top: hoverY + 'px' }"
+                         @mouseenter="cancelHover" @mouseleave="hideHover">
+                        <div class="ai-hover-card__content" v-html="hoverHtml"></div>
+                    </div>
+                </template>
+
+                <template v-else>
+                    {# Scene images toolbar with batch actions #}
+                    <div v-if="environmentImageTotal > 0" class="ai-image-tools-approval__toolbar ai-image-tools-approval__toolbar--images">
+                    <div class="ai-image-tools-approval__toolbar-left">
+                        <mt-button class="ai-refresh-btn" size="small" variant="ghost" @click="loadPendingSceneImages">
+                            <mt-icon name="regular-redo" size="20px"></mt-icon>
+                        </mt-button>
+
+                        <sw-checkbox-field
+                            :value="allSceneImagesSelected"
+                            :indeterminate="someSceneImagesSelected"
+                            @update:value="toggleAllSceneImages"
+                            :label="$tc('ai-image-tools.approval.selectAll')">
+                        </sw-checkbox-field>
+
+                        <span v-if="hasSceneSelection" class="ai-image-tools-approval__selection-count">
+                            {{ $tc('ai-image-tools.approval.selectedCount', selectedSceneImages.length, { count: selectedSceneImages.length }) }}
+                        </span>
+                    </div>
+
+                    <div v-if="hasSceneSelection" class="ai-image-tools-approval__toolbar-right">
+                        <mt-button
+                            size="small"
+                            variant="critical"
+                            ghost="true"
+                            @click="openSceneRejectModal">
+                            {{ $tc('ai-image-tools.approval.rejectSelected') }}
+                        </mt-button>
+                        <mt-button
+                            size="small"
+                            variant="primary"
+                            @click="openSceneApproveModal">
+                            {{ $tc('ai-image-tools.approval.approveSelected') }}
+                        </mt-button>
+                    </div>
+                </div>
+
+                    <div v-if="environmentImageTotal > 0" class="ai-image-tools-approval__images-list">
+                    <div
+                        v-for="img in environmentImageItems"
+                        :key="img.id"
+                        class="ai-image-tools-approval__image-item"
+                        :class="{ 'ai-image-tools-approval__image-item--selected': isSceneImageSelected(img.id) }"
+                    >
+                        <div class="ai-image-tools-approval__image-wrapper" @click="openLightbox(img)">
+                            <img
+                                v-if="img.imageData"
+                                :src="img.imageData"
+                                :alt="img.sceneType"
+                                class="ai-image-tools-approval__image-clickable"
+                            />
+                            <div v-else class="ai-thumb__placeholder">
+                                <mt-icon name="regular-image"></mt-icon>
+                            </div>
+                        </div>
+
+                        <div class="ai-image-tools-approval__image-info">
+                            <h4>{{ img.sceneType }}</h4>
+                            <p class="ai-image-tools-approval__image-date">
+                                {{ formatDate(img.generatedAt) }}
+                            </p>
+
+                            <div class="ai-image-tools-approval__image-checkbox">
+                                <sw-checkbox-field
+                                    :value="isSceneImageSelected(img.id)"
+                                    @update:value="(value) => toggleSceneImageSelection(img.id, value)"
+                                    :label="$tc('ai-image-tools.approval.selectForBatch')">
+                                </sw-checkbox-field>
+                            </div>
+
+                            <div class="ai-image-tools-approval__image-actions">
+                                <mt-button
+                                    size="small"
+                                    variant="critical"
+                                    ghost="true"
+                                    @click="rejectSceneImage(img.id)">
+                                    {{ $tc('ai-image-tools.approval.reject') }}
+                                </mt-button>
+                                <mt-button
+                                    size="small"
+                                    variant="primary"
+                                    @click="approveSceneImage(img.id)">
+                                    {{ $tc('ai-image-tools.approval.approve') }}
+                                </mt-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Batch approve modal for scene images #}
+                <sw-modal
+                    v-if="showSceneApproveModal"
+                    :title="$tc('ai-image-tools.approval.sceneBatchApproveModalTitle')"
+                    @modal-close="closeSceneApproveModal">
+                    <p>{{ $tc('ai-image-tools.approval.sceneBatchApproveModalText', selectedSceneImages.length, { count: selectedSceneImages.length }) }}</p>
+
+                    <template #modal-footer>
+                        <mt-button @click="closeSceneApproveModal">
+                            {{ $tc('ai-image-tools.approval.cancel') }}
+                        </mt-button>
+                        <mt-button
+                            variant="primary"
+                            @click="confirmSceneBatchApprove"
+                            :disabled="isLoading">
+                            {{ $tc('ai-image-tools.approval.confirm') }}
+                        </mt-button>
+                    </template>
+                </sw-modal>
+
+                {# Batch reject modal for scene images #}
+                <sw-modal
+                    v-if="showSceneRejectModal"
+                    :title="$tc('ai-image-tools.approval.sceneBatchRejectModalTitle')"
+                    @modal-close="closeSceneRejectModal">
+                    <p>{{ $tc('ai-image-tools.approval.sceneBatchRejectModalText', selectedSceneImages.length, { count: selectedSceneImages.length }) }}</p>
+
+                    <template #modal-footer>
+                        <mt-button @click="closeSceneRejectModal">
+                            {{ $tc('ai-image-tools.approval.cancel') }}
+                        </mt-button>
+                        <mt-button
+                            variant="critcal"
+                            @click="confirmSceneBatchReject"
+                            :disabled="isLoading">
+                            {{ $tc('ai-image-tools.approval.confirm') }}
+                        </mt-button>
+                    </template>
+                </sw-modal>
+
+                    {# Empty state when no pending images #}
+                    <sw-empty-state
+                        v-if="environmentImageTotal === 0"
+                        :title="$tc('ai-image-tools.approval.emptyStateImages.title')"
+                        :subline="$tc('ai-image-tools.approval.emptyStateImages.subline')"
+                        icon="regular-image">
+                    </sw-empty-state>
+
+                {# Image Lightbox #}
+                <div
+                    v-if="lightboxOpen"
+                    class="ai-image-tools-approval__lightbox"
+                    @click.self="closeLightbox">
+                    <div class="ai-image-tools-approval__lightbox-content">
+                        <button
+                            class="ai-image-tools-approval__lightbox-close"
+                            @click="closeLightbox"
+                            type="button">
+                            <mt-icon name="regular-times"></mt-icon>
+                        </button>
+                        <img
+                            v-if="lightboxImage"
+                            :src="lightboxImage"
+                            :alt="lightboxSceneType"
+                            class="ai-image-tools-approval__lightbox-image"
+                        />
+                        <p v-if="lightboxSceneType" class="ai-image-tools-approval__lightbox-caption">
+                            {{ lightboxSceneType }}
+                        </p>
+                    </div>
+                </div>
+                </template>
+            </div>
+        </template>
+    </div>
+{% endblock %}

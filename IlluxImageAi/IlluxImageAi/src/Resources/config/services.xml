@@ -1,0 +1,430 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="true" autoconfigure="true"/>
+
+        <!-- Plugin Installer Services -->
+
+        <service id="Illux\ImageAi\Installers\PropertyGroupInstaller" public="true">
+            <argument type="service" id="property_group.repository"/>
+            <argument type="service" id="language.repository"/>
+            <argument type="service" id="property_group_option.repository"/>
+        </service>
+
+        <service id="Illux\ImageAi\Installers\CustomFieldsInstaller" public="true">
+            <argument type="service" id="custom_field_set.repository"/>
+        </service>
+
+        <service id="Illux\ImageAi\Installers\TestProductInstaller" public="true">
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="tax.repository"/>
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="sales_channel.repository"/>
+            <argument type="service" id="category.repository"/>
+            <argument type="service" id="media_folder.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver"/>
+            <argument type="service" id="Illux\ProductConfigurations\Service\ConfigReader"/>
+            <argument type="service" id="Illux\Checkout\Service\ProductUpdatePropagation\ProductUpdateSyncPropagator"/>
+            <argument type="service" id="Illux\MaterialTemplateProducts\Service\ProductUpdatePropagator"/>
+            <argument type="service" id="Wexo\ProductComponents\Service\MappingService"/>
+            <argument type="service" id="Shopware\Core\Content\Media\Thumbnail\ThumbnailService" on-invalid="null"/>
+            <argument type="service" id="Doctrine\DBAL\Connection" on-invalid="null"/>
+        </service>
+
+        <service id="Illux\ImageAi\Installers\MediaFolderInstaller" public="true">
+            <argument type="service" id="media_folder.repository"/>
+            <argument type="service" id="media_default_folder.repository"/>
+            <argument type="service" id="media_folder_configuration.repository"/>
+        </service>
+
+        <!-- Gemini API Client -->
+
+        <service id="Illux\ImageAi\Api\Gemini\GeminiResponseParser"/>
+
+        <service id="Illux\ImageAi\Api\Gemini\GeminiClient">
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration"/>
+            <argument type="service" id="Illux\ImageAi\Api\Gemini\GeminiResponseParser"/>
+            <argument type="service" id="Symfony\Contracts\HttpClient\HttpClientInterface" on-invalid="null"/>
+        </service>
+
+        <!-- Factories -->
+
+        <service id="Illux\ImageAi\Factory\AnalysisSchemaFactory" public="false">
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyLookupService" />
+            <argument type="service" id="Illux\ImageAi\Builder\Schema\AnalysisSchemaBuilder" />
+        </service>
+
+        <service id="Illux\ImageAi\Factory\AnalysisRequestFactory" public="false">
+            <argument type="service" id="Illux\ImageAi\Service\Prompt\PromptDirector" />
+            <argument type="service" id="Illux\ImageAi\Factory\AnalysisSchemaFactory" />
+            <argument type="service" id="Illux\ImageAi\Service\LanguageConfigurationService" />
+        </service>
+
+        <!-- Builders & Director -->
+
+        <service id="Illux\ImageAi\Builder\Schema\AnalysisSchemaBuilder" public="false"/>
+        <service id="Illux\ImageAi\Builder\Prompt\ScenePromptBuilder"/>
+        <service id="Illux\ImageAi\Builder\Prompt\BatchAnalysisPromptBuilder" public="false" />
+        <service id="Illux\ImageAi\Builder\Prompt\SystemInstructionBuilder" public="false" />
+        <service id="Illux\ImageAi\Builder\Prompt\CompositionPromptBuilder"/>
+
+        <service id="Illux\ImageAi\Service\Prompt\PromptDirector" public="false">
+            <argument type="service" id="Illux\ImageAi\Service\LanguageConfigurationService" />
+            <argument type="service" id="Illux\ImageAi\Builder\Prompt\BatchAnalysisPromptBuilder" />
+            <argument type="service" id="Illux\ImageAi\Builder\Prompt\SystemInstructionBuilder" />
+            <argument type="service" id="Illux\ImageAi\Builder\Prompt\CompositionPromptBuilder" />
+            <argument type="service" id="Illux\ImageAi\Builder\Prompt\ScenePromptBuilder" />
+        </service>
+
+        <!-- Orchestrators -->
+
+        <service id="Illux\ImageAi\Orchestrator\AnalysisOrchestrator" public="false">
+            <argument type="service" id="Illux\ImageAi\Api\Gemini\GeminiClient" />
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\ProductAnalysisService" />
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\AnalysisPersistenceService" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration" />
+            <argument type="service" id="Illux\ImageAi\Factory\AnalysisRequestFactory" />
+            <argument type="service" id="Illux\ImageAi\Service\Media\ProductImageResolver" />
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyLookupService" />
+        </service>
+
+        <service id="Illux\ImageAi\Orchestrator\SceneGenerationOrchestrator">
+            <argument type="service" id="Illux\ImageAi\Api\Gemini\GeminiClient"/>
+            <argument type="service" id="Illux\ImageAi\Service\Prompt\PromptDirector"/>
+            <argument type="service" id="ai_pending_scene_image.repository"/>
+        </service>
+
+        <service id="Illux\ImageAi\Orchestrator\CompositionOrchestrator">
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="Illux\ImageAi\Api\Gemini\GeminiClient"/>
+            <argument type="service" id="Illux\ImageAi\Service\Prompt\PromptDirector"/>
+            <argument type="service" id="Illux\ImageAi\Service\Composition\CompositionJobStore"/>
+            <argument type="service" id="Illux\ImageAi\Service\Composition\EnvironmentSceneSelector"/>
+            <argument type="service" id="Illux\ImageAi\Service\Media\MediaFileReader"/>
+            <argument type="service" id="Illux\ImageAi\Service\Frame\FrameCornerImageResolver"/>
+        </service>
+
+        <!-- Analysis Services -->
+
+        <service id="Illux\ImageAi\Service\Property\PropertyLookupService" public="false">
+            <argument type="service" id="property_group.repository" />
+            <argument type="service" id="property_group_option.repository" />
+            <argument type="service" id="Illux\ImageAi\Service\LanguageConfigurationService" />
+            <argument type="service" id="cache.object" on-invalid="null" />
+        </service>
+
+        <service id="Illux\ImageAi\Service\Property\PropertyMutationService" public="false">
+            <argument type="service" id="property_group.repository" />
+            <argument type="service" id="property_group_option.repository" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyLookupService" />
+        </service>
+
+        <service id="Illux\ImageAi\Service\Analysis\ProductAnalysisService" public="false">
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="ai_analysis_result.repository" />
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration" />
+        </service>
+
+        <service id="Illux\ImageAi\Config\IlluxConfiguration">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+        </service>
+
+        <service id="Illux\ImageAi\Service\Media\MediaFileReader" public="false">
+            <argument type="service" id="media.repository"/>
+            <argument>%kernel.project_dir%</argument>
+            <argument type="service" id="Symfony\Contracts\HttpClient\HttpClientInterface" on-invalid="null"/>
+        </service>
+
+        <service id="Illux\ImageAi\Service\Media\ProductImageResolver" public="false">
+            <argument type="service" id="Illux\ImageAi\Service\Media\MediaFileReader"/>
+            <argument type="service" id="Symfony\Contracts\HttpClient\HttpClientInterface" on-invalid="null"/>
+        </service>
+
+        <service id="Illux\ImageAi\Service\Media\UserUploadedImageResolver" public="false">
+            <argument type="service" id="shopware.filesystem.private"/>
+            <argument>%kernel.project_dir%</argument>
+        </service>
+
+        <service id="Illux\ImageAi\Service\Composition\CompositionJobStore" public="false">
+            <argument type="service" id="request_stack"/>
+        </service>
+
+        <service id="Illux\ImageAi\Service\Composition\EnvironmentSceneSelector" public="false">
+            <argument type="service" id="media.repository"/>
+        </service>
+
+        <service id="Illux\ImageAi\Service\Frame\FrameCornerImageResolver" public="false">
+            <argument type="service" id="wexo_product_components_component_option.repository"/>
+            <argument type="service" id="wexo_product_components_component_type.repository"/>
+            <argument type="service" id="Illux\ImageAi\Service\Media\MediaFileReader"/>
+            <argument type="service" id="logger"/>
+        </service>
+
+        <!-- Approval Services -->
+
+        <service id="Illux\ImageAi\Service\Approval\AnalysisApprovalService">
+            <argument type="service" id="ai_analysis_result.repository"/>
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\ProductUpdateAssembler"/>
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyLookupService"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="Illux\ImageAi\Service\Approval\SceneImageApprovalService">
+            <argument type="service" id="ai_pending_scene_image.repository"/>
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileFetcher"/>
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver"/>
+            <argument type="service" id="Illux\ImageAi\Service\Media\MediaFolderScanner"/>
+        </service>
+
+        <service id="Illux\ImageAi\Service\Analysis\ConfidenceCalculator" public="false">
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration" />
+        </service>
+
+        <service id="Illux\ImageAi\Service\Analysis\AnalysisMapper" public="false">
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\ConfidenceCalculator" />
+        </service>
+
+        <service id="Illux\ImageAi\Service\Analysis\TranslationDataExtractor" public="false" />
+
+        <service id="Illux\ImageAi\Service\Analysis\ProductUpdateAssembler" public="false">
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\TranslationDataExtractor" />
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyLookupService" />
+        </service>
+
+        <service id="Illux\ImageAi\Service\Analysis\AnalysisPersistenceService" public="false">
+            <argument type="service" id="ai_analysis_result.repository" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\AnalysisMapper" />
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\ProductUpdateAssembler" />
+        </service>
+
+        <service id="Illux\ImageAi\Service\Analysis\TimeStatisticsService" public="false">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration" />
+        </service>
+
+        <service id="Illux\ImageAi\Service\Analysis\SuggestedPropertyOptionsService" public="false">
+            <argument type="service" id="ai_analysis_result.repository" />
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyMutationService" />
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyLookupService" />
+        </service>
+
+        <!-- Batch Job Service -->
+
+        <service id="Illux\ImageAi\Service\BatchJobService" public="false">
+            <argument type="service" id="ai_batch_job.repository" />
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\AnalysisPersistenceService" />
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+        </service>
+
+        <!-- Queue Message Handlers -->
+
+        <service id="Illux\ImageAi\Queue\Handler\AnalyzeBatchHandler">
+            <argument type="service" id="Illux\ImageAi\Orchestrator\AnalysisOrchestrator"/>
+            <argument type="service" id="Illux\ImageAi\Service\BatchJobService"/>
+            <argument type="service" id="logger"/>
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="Illux\ImageAi\Queue\Handler\GenerateSceneHandler">
+            <argument type="service" id="Illux\ImageAi\Orchestrator\SceneGenerationOrchestrator"/>
+            <argument type="service" id="Illux\ImageAi\Service\BatchJobService"/>
+            <argument type="service" id="logger"/>
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <!-- Scheduled Task -->
+
+        <service id="Illux\ImageAi\ScheduledTask\ProductAnalysisTask">
+            <tag name="shopware.scheduled.task"/>
+        </service>
+
+        <service id="Illux\ImageAi\ScheduledTask\ProductAnalysisTaskHandler">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="Illux\ImageAi\Orchestrator\AnalysisOrchestrator"/>
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration"/>
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="Illux\ImageAi\ScheduledTask\JobCleanupTask">
+            <tag name="shopware.scheduled.task"/>
+        </service>
+
+        <service id="Illux\ImageAi\ScheduledTask\JobCleanupTaskHandler">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="ai_batch_job.repository"/>
+            <argument type="service" id="ai_pending_scene_image.repository"/>
+            <argument type="service" id="ai_analysis_result.repository"/>
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <!-- Admin Controllers -->
+
+        <service id="Illux\ImageAi\Controller\Administration\AnalysisController" public="true">
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\ProductAnalysisService"/>
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\TimeStatisticsService"/>
+            <argument type="service" id="Illux\ImageAi\Service\BatchJobService"/>
+            <argument type="service" id="messenger.bus.shopware"/>
+            <argument type="service" id="Illux\ImageAi\Service\Analysis\SuggestedPropertyOptionsService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Illux\ImageAi\Controller\Administration\ApprovalController" public="true">
+            <argument type="service" id="Illux\ImageAi\Service\Approval\AnalysisApprovalService"/>
+            <argument type="service" id="Illux\ImageAi\Service\Approval\SceneImageApprovalService"/>
+            <argument type="service" id="logger"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Illux\ImageAi\Controller\Administration\PropertyController" public="true">
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyMutationService"/>
+            <argument type="service" id="logger"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Illux\ImageAi\Controller\Administration\SceneGenerationController" public="true">
+            <argument type="service" id="Illux\ImageAi\Orchestrator\SceneGenerationOrchestrator"/>
+            <argument type="service" id="Illux\ImageAi\Service\Media\MediaFolderScanner"/>
+            <argument type="service" id="Illux\ImageAi\Service\SceneGeneration\SceneGenerationConfigService"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="Illux\ImageAi\Service\BatchJobService"/>
+            <argument type="service" id="messenger.bus.shopware"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <!-- Storefront Controllers -->
+
+        <service id="Illux\ImageAi\Controller\Storefront\ImageCompositionController" public="true">
+            <argument type="service" id="Illux\ImageAi\Orchestrator\CompositionOrchestrator"/>
+            <argument type="service" id="Illux\ImageAi\Service\Media\UserUploadedImageResolver"/>
+            <argument type="service" id="logger"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <!-- Scene Generation Services -->
+
+        <service id="Illux\ImageAi\Service\SceneGeneration\SceneGenerationConfigService">
+            <argument type="service" id="ai_scene_generation_config.repository"/>
+            <argument type="service" id="Illux\ImageAi\Service\Media\MediaFolderScanner"/>
+        </service>
+
+        <service id="Illux\ImageAi\Service\Media\MediaFolderScanner">
+            <argument type="service" id="media_folder.repository"/>
+        </service>
+
+        <!-- Twig Extensions -->
+
+        <service id="Illux\ImageAi\Twig\AiCompositorTwigExtension">
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="media_folder.repository"/>
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="request_stack"/>
+            <tag name="twig.extension"/>
+        </service>
+
+        <!-- Event Subscribers -->
+
+        <service id="Illux\ImageAi\Subscriber\AnalysisIntervalSynchronizer">
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="Illux\ImageAi\Subscriber\ConfigurationCacheInvalidator">
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="Illux\ImageAi\Subscriber\PropertyCacheInvalidator">
+            <argument type="service" id="Illux\ImageAi\Service\Property\PropertyLookupService"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <!-- Entities & Extensions -->
+
+        <service id="Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultEntity">
+            <tag name="shopware.entity"/>
+        </service>
+
+        <service id="Illux\ImageAi\Core\Content\AiSceneGenerationConfig\AiSceneGenerationConfigEntity">
+            <tag name="shopware.entity"/>
+        </service>
+
+        <service id="Illux\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageEntity">
+            <tag name="shopware.entity"/>
+        </service>
+
+        <service id="Illux\ImageAi\Core\Content\AiBatchJob\AiBatchJobEntity">
+            <tag name="shopware.entity"/>
+        </service>
+
+        <service id="Illux\ImageAi\Extension\Content\Product\ProductAnalysisExtension">
+            <tag name="shopware.entity.extension" />
+        </service>
+
+        <!-- Helper services & utils -->
+
+        <service id="Illux\ImageAi\Service\LanguageConfigurationService">
+            <argument type="service" id="Illux\ImageAi\Config\IlluxConfiguration"/>
+            <argument type="service" id="language.repository"/>
+        </service>
+
+        <!-- Commands -->
+
+        <service id="Illux\ImageAi\Command\AnalyzeAllProductsCommand">
+            <argument type="service" id="Illux\ImageAi\Orchestrator\AnalysisOrchestrator"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Illux\ImageAi\Command\Dev\GenerateTestProductsCommand">
+            <argument type="service" id="Illux\ImageAi\Installers\TestProductInstaller"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Illux\ImageAi\Command\Dev\RemoveTestProductsCommand">
+            <argument type="service" id="Illux\ImageAi\Installers\TestProductInstaller"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Illux\ImageAi\Command\Dev\CleanupTestMediaCommand">
+            <argument type="service" id="Illux\ImageAi\Installers\TestProductInstaller"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Illux\ImageAi\Command\Dev\InstallEnvironmentImagesCommand">
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="media_folder.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Illux\ImageAi\Command\Dev\DiagnoseTestProductsCommand">
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="tax.repository"/>
+            <tag name="console.command"/>
+        </service>
+    </services>
+</container>

@@ -1,0 +1,57 @@
+// Scope all common styles under IlluxImageAi-specific parent classes
+.ai-image-tools-index,
+.ai-image-tools-detail,
+.ai-image-tools-configuration,
+.ai-image-tools-run,
+.ai-image-tools-overview,
+.ai-image-tools-list,
+.ai-image-tools-generate,
+.ai-image-tools-approval,
+.ai-image-tools-properties,
+.ai-image-tools-config-modal {
+
+  .sw-field__label {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 2px;
+    width: auto !important;
+    flex: none !important;
+  }
+
+  .sw-help-text {
+    margin-left: 0 !important;
+  }
+
+  // Refresh button - matches picker height, blue icon, centered
+  .ai-refresh-btn {
+    align-self: flex-end;
+    height: 40px !important;
+    min-height: 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    padding: 0 !important;
+    border-radius: 4px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d1d5db;
+    background: #fff;
+
+    &:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+    }
+
+    .mt-icon {
+      width: 18px;
+      height: 18px;
+      margin: 0 !important;
+      color: #4f46e5;
+    }
+  }
+
+  .sw-empty-state {
+    margin-top: 40px;
+    padding: 40px 20px;
+  }
+}

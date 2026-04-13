@@ -1,0 +1,188 @@
+{% block ai_image_tools_detail %}
+    <sw-page class="ai-image-tools-detail">
+        {% block ai_image_tools_detail_smart_bar_header %}
+            <template #smart-bar-header>
+                <h2>
+                    {{ $tc('ai-image-tools.properties.detail.title') }}
+                    <span v-if="analysisResult && analysisResult.product">
+                        - {{ analysisResult.product.name }}
+                    </span>
+                </h2>
+            </template>
+        {% endblock %}
+
+        {% block ai_image_tools_detail_smart_bar_actions %}
+            <template #smart-bar-actions>
+                <mt-button
+                    variant="secondary"
+                    ghost="true"
+                    @click="onCancel">
+                    {{ $tc('ai-image-tools.properties.detail.cancel') }}
+                </mt-button>
+
+                <mt-button
+                    v-if="canEdit"
+                    variant="primary"
+                    :is-loading="isSaving"
+                    :disabled="isLoading"
+                    @click="onSave">
+                    {{ $tc('ai-image-tools.properties.detail.save') }}
+                </mt-button>
+
+                <mt-button
+                    v-if="analysisResult && analysisResult.status === 'pending_review'"
+                    variant="critical"
+                    ghost="true"
+                    :disabled="isSaving || isLoading"
+                    @click="onReject">
+                    {{ $tc('ai-image-tools.properties.detail.reject') }}
+                </mt-button>
+
+                <mt-button
+                    v-if="analysisResult && analysisResult.status === 'pending_review'"
+                    variant="primary"
+                    :disabled="isSaving || isLoading"
+                    @click="onApprove">
+                    {{ $tc('ai-image-tools.properties.detail.approve') }}
+                </mt-button>
+            </template>
+        {% endblock %}
+
+        {% block ai_image_tools_detail_content %}
+            <template #content>
+                <sw-card-view>
+                    <sw-loader v-if="isLoading"></sw-loader>
+
+                    <template v-else-if="analysisResult">
+                        {% block ai_image_tools_detail_product_info %}
+                            <sw-card :title="$tc('ai-image-tools.properties.detail.sections.productInfo')">
+                                <div class="ai-image-tools-detail__product-info">
+                                    <div class="ai-image-tools-detail__product-image" v-if="productCoverUrl">
+                                        <img :src="productCoverUrl" :alt="analysisResult.product.name" />
+                                    </div>
+                                    <div class="ai-image-tools-detail__product-meta">
+                                        <div class="ai-image-tools-detail__field">
+                                            <label>{{ $tc('ai-image-tools.properties.detail.fields.productName') }}</label>
+                                            <router-link
+                                                v-if="analysisResult.product"
+                                                :to="{ name: 'sw.product.detail', params: { id: analysisResult.productId } }"
+                                                class="ai-image-tools-detail__product-link">
+                                                {{ analysisResult.product.name }}
+                                            </router-link>
+                                        </div>
+                                        <div class="ai-image-tools-detail__field">
+                                            <label>{{ $tc('ai-image-tools.properties.detail.fields.status') }}</label>
+                                            <sw-label :variant="analysisResult.status === 'pending_review' ? 'warning' : (analysisResult.status === 'approved' || analysisResult.status === 'auto_applied' ? 'success' : (analysisResult.status === 'rejected' ? 'danger' : 'neutral'))">
+                                                {{ analysisResult.status }}
+                                            </sw-label>
+                                        </div>
+                                        <div class="ai-image-tools-detail__field">
+                                            <label>{{ $tc('ai-image-tools.properties.detail.fields.confidence') }}</label>
+                                            <div v-if="analysisResult.totalConfidenceScore" class="ai-confidence-cell">
+                                                <span
+                                                    class="ai-confidence-badge"
+                                                    :class="'ai-confidence-badge--' + getConfidenceLevel(analysisResult.totalConfidenceScore)"
+                                                >
+                                                    {{ formatConfidenceScore(analysisResult.totalConfidenceScore) }}
+                                                </span>
+                                                <mt-icon
+                                                    v-if="hasConfidenceWarnings(analysisResult)"
+                                                    name="regular-exclamation-triangle"
+                                                    class="ai-confidence-warning-icon"
+                                                ></mt-icon>
+                                            </div>
+                                            <span v-else>-</span>
+                                        </div>
+                                        <div v-if="hasConfidenceWarnings(analysisResult)" class="ai-image-tools-detail__field ai-image-tools-detail__field--warnings">
+                                            <label>{{ $tc('ai-image-tools.properties.detail.fields.warnings') }}</label>
+                                            <ul class="ai-image-tools-detail__warnings-list">
+                                                <li v-for="(warning, index) in analysisResult.confidenceWarnings" :key="index">
+                                                    {{ warning }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="ai-image-tools-detail__field">
+                                            <label>{{ $tc('ai-image-tools.properties.detail.fields.analysisDate') }}</label>
+                                            <span>{{ formatDate(analysisResult.createdAt) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </sw-card>
+                        {% endblock %}
+
+                        {% block ai_image_tools_detail_analyzed_properties %}
+                            <sw-card
+                                v-if="analysisResult.analyzedProperties"
+                                :title="$tc('ai-image-tools.properties.detail.sections.analyzedProperties')">
+                                <div class="ai-image-tools-detail__properties">
+                                    <div
+                                        v-for="(propData, propName) in editableProperties"
+                                        :key="propName"
+                                        class="ai-image-tools-detail__property-field">
+                                        <sw-multi-select
+                                            v-if="canEdit"
+                                            v-model:value="propData.options"
+                                            :label="getPropertyGroupLabel(propName)"
+                                            :options="getOptionsForPropertyGroup(propName)"
+                                            valueProperty="value"
+                                            labelProperty="label">
+                                        </sw-multi-select>
+                                        <div v-else class="ai-image-tools-detail__property-readonly">
+                                            <label>{{ getPropertyGroupLabel(propName) }}:</label>
+                                            <span>{{ Array.isArray(propData.options) ? propData.options.join(', ') : propData.options }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </sw-card>
+                        {% endblock %}
+
+                        {% block ai_image_tools_detail_language_selector %}
+                            <sw-card :title="$tc('ai-image-tools.properties.detail.sections.translations')">
+                                <sw-single-select
+                                    v-model:value="selectedLanguage"
+                                    :label="$tc('ai-image-tools.properties.detail.fields.language')"
+                                    :options="languageOptions"
+                                    valueProperty="value"
+                                    labelProperty="label"
+                                    @update:value="onLanguageChange">
+                                </sw-single-select>
+                            </sw-card>
+                        {% endblock %}
+
+                        {% block ai_image_tools_detail_seo_content %}
+                            <sw-card :title="$tc('ai-image-tools.properties.detail.sections.seoContent')">
+                                <sw-text-field
+                                    v-model="metaTitle"
+                                    :label="$tc('ai-image-tools.properties.detail.fields.metaTitle')"
+                                    :disabled="!canEdit || !currentTranslation">
+                                </sw-text-field>
+
+                                <sw-textarea-field
+                                    v-model="metaDescription"
+                                    :label="$tc('ai-image-tools.properties.detail.fields.metaDescription')"
+                                    :disabled="!canEdit || !currentTranslation">
+                                </sw-textarea-field>
+
+                                <sw-textarea-field
+                                    v-model="seoKeywords"
+                                    :label="$tc('ai-image-tools.properties.detail.fields.seoKeywords')"
+                                    :disabled="!canEdit || !currentTranslation">
+                                </sw-textarea-field>
+                            </sw-card>
+                        {% endblock %}
+
+                        {% block ai_image_tools_detail_product_content %}
+                            <sw-card :title="$tc('ai-image-tools.properties.detail.sections.productContent')">
+                                <sw-textarea-field
+                                    v-model="productDescription"
+                                    :label="$tc('ai-image-tools.properties.detail.fields.productDescription')"
+                                    :disabled="!canEdit || !currentTranslation">
+                                </sw-textarea-field>
+                            </sw-card>
+                        {% endblock %}
+                    </template>
+                </sw-card-view>
+            </template>
+        {% endblock %}
+    </sw-page>
+{% endblock %}

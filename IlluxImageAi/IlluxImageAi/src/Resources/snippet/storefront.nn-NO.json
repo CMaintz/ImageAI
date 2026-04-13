@@ -1,0 +1,60 @@
+{
+  "illux": {
+    "ai-composition": {
+      "room-selector": {
+        "description": "Opplev bildet i ulike rommiljøer med vårt visualiseringsverktøy",
+        "select-rooms": "Velg rom",
+        "selected": "valgt",
+        "no-rooms": "Ingen romtyper tilgjengelige",
+        "or": "eller",
+        "upload-own": "Last opp ditt eget rom"
+      },
+      "button": {
+        "see-in-room": "Visualiser i flere rom",
+        "generate": "Generer rombilder"
+      },
+      "rooms": {
+        "commercial office": "Næringskontor",
+        "lobby": "Lobby",
+        "kitchen": "Kjøkken",
+        "home office": "Heimekontor",
+        "cafeteria": "Kantine",
+        "restaurant": "Restaurant",
+        "living room": "Stove",
+        "bedroom": "Soverom",
+        "dining room": "Spisestove",
+        "hallway": "Gang",
+        "reading nook": "Lesekrok",
+        "loft": "Loft",
+        "cafe": "Kafé",
+        "café": "Kafé",
+        "bathroom": "Baderom",
+        "bath": "Baderom",
+        "entryway": "Entré",
+        "entry": "Entré",
+        "childrens room": "Barnerom",
+        "kids room": "Barnerom",
+        "nursery": "Barnerom",
+        "guest room": "Gjesterom",
+        "study": "Arbeidsrom",
+        "library": "Bibliotek",
+        "gallery": "Galleri",
+        "lounge": "Lounge",
+        "hotel room": "Hotellrom",
+        "waiting room": "Venterom",
+        "conference room": "Konferanserom",
+        "meeting room": "Møterom",
+        "reception": "Resepsjon",
+        "foyer": "Foajé",
+        "stairway": "Trappeoppgang",
+        "staircase": "Trappeoppgang",
+        "attic": "Loftsrom",
+        "studio": "Atelier",
+        "sunroom": "Solrom",
+        "conservatory": "Vinterhage",
+        "office": "Kontor",
+        "custom environment": "Tilpassa miljø"
+      }
+    }
+  }
+}

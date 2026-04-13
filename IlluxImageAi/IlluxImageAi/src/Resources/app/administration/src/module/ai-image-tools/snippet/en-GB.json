@@ -1,0 +1,642 @@
+{
+  "ai-image-tools": {
+    "general": {
+      "mainMenuItemGeneral": "AI Image Tools",
+      "descriptionTextModule": "AI-powered image analysis and environment-image generation and compositing for your products"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "settings": "Settings",
+      "configuration": "Configuration",
+      "properties": "Properties",
+      "analysisHistory": "Analysis History",
+      "run": "Run Analysis",
+      "generate": "Generate Images",
+      "approval": "Approval"
+    },
+    "properties": {
+      "cards": {
+        "propertyGroups": "AI Analysis Property Groups",
+        "suggestedOptions": "AI-Suggested Property Options",
+        "suggestedOptionsSubtitle": "{count} new options detected from analyses"
+      },
+      "suggestions": {
+        "selectAll": "Select All",
+        "deselectAll": "Deselect All",
+        "approveSelected": "Approve {count} Selected",
+        "occurrences": "{count} occurrences",
+        "noSelections": "Please select at least one suggestion",
+        "approveSuccess": "Created {created} property option(s), {failed} failed",
+        "approveError": "Failed to approve suggested options",
+        "rejectSuccess": "Suggestion rejected",
+        "rejectError": "Failed to reject suggestion",
+        "rejectSelected": "Reject {count} Selected",
+        "rejectSelectedSuccess": "Rejected {count} suggestion(s)",
+        "rejectSelectedPartialError": "{count} suggestion(s) failed to reject",
+        "loadError": "Failed to load suggested options",
+        "validationError": "Please provide translations for all languages",
+        "emptyState": {
+          "title": "No Suggestions",
+          "subline": "New property options suggested by AI will appear here for review"
+        },
+        "approvalModal": {
+          "title": "Add Translations for New Options",
+          "tabs": {
+            "summary": "Summary"
+          },
+          "summaryInfo": "You are about to create {count} new property option(s). Please provide translations for each language.",
+          "missingTranslations": "Missing translations for: {options}",
+          "approve": "Create {count} Option(s)"
+        }
+      },
+      "buttons": {
+        "addProperty": "Add Property",
+        "addOption": "Add Option"
+      },
+      "columns": {
+        "options": "Options",
+        "groupName": "Property Group",
+        "displayType": "Display Type",
+        "sortOrder": "Sort Order",
+        "visible": "Visible",
+        "filterable": "Filterable"
+      },
+      "displayType": {
+        "multiSelect": "Multi-Select",
+        "singleSelect": "Single-Select",
+        "text": "Text",
+        "color": "Color",
+        "image": "Image"
+      },
+      "sortingType": {
+        "alphanumeric": "Alphabetically",
+        "position": "By Position"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "remove": "Remove"
+      },
+      "modal": {
+        "titleCreate": "Create Property",
+        "titleEdit": "Edit Property",
+        "tabs": {
+          "basic": "Basic Settings"
+        },
+        "translations": "Translations",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
+      "fields": {
+        "propertyGroupName": "Property Group Name",
+        "displayType": "Display Type",
+        "sortingType": "Sorting Type",
+        "position": "Sort Position",
+        "filterable": "Show in Filters",
+        "visibleOnProductDetailPage": "Show on Product Page",
+        "options": "Options (English)",
+        "groupDisplayName": "Property Group Display Name",
+        "optionTranslations": "Option Translations"
+      },
+      "helpText": {
+        "propertyGroupName": "Internal name for the property group (e.g., Technique)",
+        "groupDisplayName": "Translated display name for this property group",
+        "optionsTaggedField": "Add property options in English. Press Enter to add each option.",
+        "filterable": "Show this property in storefront filters",
+        "visibleOnProductDetailPage": "Show this property on product detail pages",
+        "position": "Order in which this property appears"
+      },
+      "placeholders": {
+        "translation": "Enter translation...",
+        "addOption": "Type option name and press Enter"
+      },
+      "prompts": {
+        "enterOptionName": "Enter option name (in English):",
+        "confirmDelete": "Are you sure you want to delete this property? This cannot be undone."
+      },
+      "emptyState": {
+        "noOptions": "No options added yet. Click 'Add Option' to get started.",
+        "addOptionsFirst": "Add options in the Basic Settings tab first, then add translations here.",
+        "noProperties": "No AI Property Groups Found",
+        "noPropertiesSubline": "Create property groups to configure AI analysis constraints"
+      },
+      "validation": {
+        "nameTooShort": "Property group name must be at least 3 characters",
+        "noOptions": "Please add at least one property option",
+        "missingGroupName": "Property group name is required for this language",
+        "missingOptionTranslations": "Missing translations for options: {options}",
+        "errorTitle": "Please fix validation errors before saving",
+        "required": "This field is required"
+      },
+      "notifications": {
+        "loadError": "Error loading properties",
+        "saveSuccess": "Property saved successfully",
+        "saveError": "Error saving property",
+        "deleteSuccess": "Property deleted successfully",
+        "deleteError": "Error deleting property"
+      },
+      "detail": {
+        "title": "Detail",
+        "cancel": "Cancel",
+        "save": "Save",
+        "reject": "Reject",
+        "approve": "Approve",
+        "sections": {
+          "productInfo": "Product Information",
+          "analyzedProperties": "Analyzed Properties",
+          "translations": "Translations",
+          "seoContent": "SEO Content",
+          "productContent": "Product Content"
+        },
+        "fields": {
+          "productName": "Product Name",
+          "status": "Status",
+          "confidence": "Confidence",
+          "warnings": "Quality Warnings",
+          "analysisDate": "Analysis Date",
+          "language": "Language",
+          "metaTitle": "Meta Title",
+          "metaDescription": "Meta Description",
+          "seoKeywords": "SEO Keywords",
+          "productDescription": "Product Description"
+        },
+        "loadError": "Failed to load analysis result.",
+        "saveSuccess": "Analysis result saved successfully.",
+        "saveError": "An error occurred while saving the analysis result.",
+        "approveSuccess": "Analysis approved successfully.",
+        "approveError": "An error occurred while approving the analysis.",
+        "rejectSuccess": "Analysis rejected successfully.",
+        "rejectError": "An error occurred while rejecting the analysis."
+      }
+    },
+    "overview": {
+      "statistics": "Statistics",
+      "lastAnalysis": "Last Analysis Run",
+      "productsAnalyzed": "Products Analyzed",
+      "pendingAnalysis": "Pending Analysis",
+      "successRate": "Success Rate",
+      "neverRun": "Never run",
+      "microservicesStatus": "Microservices Status",
+      "analysisService": "Analysis Service",
+      "generationService": "Generation Service",
+      "storageService": "Storage Service",
+      "quickActions": "Quick Actions",
+      "runNewAnalysis": "Run New Analysis",
+      "viewResults": "View Results",
+      "errorLoadingStats": "Error loading statistics",
+      "totalAnalyses": "Total Analyses",
+      "pendingReview": "Pending Review",
+      "processing": "Processing",
+      "approved": "Approved",
+      "autoApproved": "Auto Approved",
+      "rejected": "Rejected",
+      "failed": "Failed",
+      "timeSaved": "Time Saved",
+      "noTimeSaved": "No time saved yet",
+      "minutes": "minute | minutes",
+      "hours": "hour | hours",
+      "days": "day | days",
+      "connectionSuccess": "Connection successful!",
+      "connectionFailed": "Connection failed",
+      "connectionError": "Error testing connection",
+      "timeSavedBreakdown": {
+        "breakdown": "Breakdown of time saved",
+        "properties": "Properties",
+        "seo": "SEO",
+        "descriptions": "Descriptions"
+      }
+    },
+    "configuration": {
+      "languageLoadError": "Error loading languages",
+      "requiredLanguage": "Required",
+      "noLanguagesConfigured": "No languages configured",
+      "save": "Save Configuration",
+      "saveSuccess": "Configuration saved successfully",
+      "saveError": "Error saving configuration",
+      "loadError": "Error loading configuration",
+      "cards": {
+        "basic": "Basic Configuration",
+        "analysisConfig": "Analysis Configuration",
+        "propertyConstraints": "Property Constraints",
+        "language": "Language Configuration",
+        "scheduledAnalysis": "Scheduled Analysis",
+        "propertyMapping": "Property Mapping",
+        "prompts": "AI Prompts",
+        "geminiApi": "Gemini API Configuration",
+        "featureFlags": "Feature Flags",
+        "workflowConfig": "Workflow & Confidence Configuration",
+        "advancedConfidence": "Advanced Confidence Settings",
+        "timeTracking": "Time Tracking"
+      },
+      "sections": {
+        "fieldWeights": "Field Weights",
+        "fieldWeightsDescription": "Controls how much each field type contributes to the overall confidence score. All weights should sum to approximately 100%.",
+        "contentPatterns": "Content Patterns",
+        "propertySettings": "Property Settings",
+        "propertySettingsDescription": "Penalties applied when property detection has issues - empty properties, too many options, or low match rates.",
+        "contentPenalties": "Length & Content Penalties",
+        "contentPenaltiesDescription": "Penalties for content quality issues like short/long content, generic phrases, and hedging language. All values are in percentages.",
+        "confidenceExplanation": "<b>How Confidence Scoring Works</b><br><br>The confidence score (0-100%) estimates how reliable an AI analysis result is. It combines two components:<br><br><b>1. Base Score (from AI)</b><br>Each field (title, description, keywords, properties) has an AI-reported confidence. These are combined using the weights below.<br><br><b>2. Validation Penalties</b><br>Heuristic checks detect potential quality issues and apply penalties:<br>• <b>Length issues</b> - Content too short or too long for SEO<br>• <b>Generic content</b> - Placeholder phrases or vague marketing language<br>• <b>Hedging language</b> - Words like \"possibly\" or \"might\" suggesting AI uncertainty<br>• <b>Duplicate content</b> - Same text across different languages<br>• <b>Property issues</b> - No properties detected, or too many options selected<br><br><b>Final Score</b> = Base Score - Total Penalties (capped by Max Total Penalty)<br><br>Results below the Low Confidence Threshold are flagged for manual review."
+      },
+      "fields": {
+        "metaTitleMaxLength": "Meta Title Max Length",
+        "metaDescriptionMaxLength": "Meta Description Max Length",
+        "keywordCount": "Number of SEO Keywords",
+        "keywordsMaxCharacterLength": "Keywords Total Max Characters",
+        "includeSeoAnalysis": "Include SEO Metadata",
+        "descriptionMaxLength": "Description Max Length",
+        "tone": "Content Tone",
+        "includeProductDescription": "Include Product Description",
+        "analysisLanguages": "Analysis Languages",
+        "scheduledTaskEnabled": "Enable Automatic Processing",
+        "scheduledTaskInterval": "Analysis Interval (hours)",
+        "apiKey": "Gemini API Key",
+        "apiModel": "Analysis Model",
+        "imageGenerationModel": "Image Generation Model",
+        "enableApprovalWorkflow": "Enable Approval Workflow",
+        "eligibleProductTypes": "Eligible Product Types",
+        "apiBaseUrl": "API Base URL",
+        "apiVersion": "API Version",
+        "minutesSavedPerProperty": "Minutes Saved: Properties",
+        "minutesSavedPerSeo": "Minutes Saved: SEO",
+        "minutesSavedForBaseDescription": "Minutes Saved: Base Description",
+        "minutesSavedPerAdditionalTranslation": "Minutes Saved: Per Translation",
+        "enableConfidenceThreshold": "Enable Confidence-Based Review",
+        "lowConfidenceThreshold": "Low Confidence Threshold",
+        "fieldWeightMetaTitle": "Meta Title Weight",
+        "fieldWeightMetaDescription": "Meta Description Weight",
+        "fieldWeightProductDescription": "Product Description Weight",
+        "fieldWeightSeoKeywords": "SEO Keywords Weight",
+        "fieldWeightProperties": "Properties Weight",
+        "genericPatterns": "Generic Content Patterns",
+        "hedgingWords": "Hedging Words",
+        "idealOptionsPerProperty": "Ideal Options Per Property",
+        "emptyPropertyPenalty": "Empty Property Penalty (%)",
+        "excessOptionPenalty": "Excess Option Penalty (%)",
+        "noPropertiesPenalty": "No Properties Penalty (%)",
+        "minLengthRatio": "Minimum Length Ratio",
+        "shortTitlePenalty": "Short Title Penalty",
+        "longTitlePenalty": "Long Title Penalty",
+        "shortDescriptionPenalty": "Short Description Penalty",
+        "fewKeywordsPenalty": "Few Keywords Penalty",
+        "genericContentPenalty": "Generic Content Penalty",
+        "hedgingPenaltyPerInstance": "Hedging Penalty Per Instance",
+        "hedgingPenaltyMax": "Max Hedging Penalty",
+        "duplicateContentPenalty": "Duplicate Content Penalty",
+        "lowPropertyMatchPenalty": "Low Property Match Penalty (%)",
+        "maxTotalPenalty": "Max Total Penalty"
+      },
+      "helpText": {
+        "metaTitleMaxLength": "Maximum character count for SEO meta title",
+        "metaDescriptionMaxLength": "Maximum character count for SEO meta description",
+        "keywordCount": "Number of keywords to generate per product (3-5)",
+        "keywordsMaxCharacterLength": "Maximum total character count for all keywords combined (max 255)",
+        "includeSeoAnalysis": "Include SEO metadata (title, description, keywords) in analysis output",
+        "descriptionMaxLength": "Maximum character count for customer-facing description",
+        "tone": "Sets the tone of generated descriptions",
+        "includeProductDescription": "Include product description in analysis output",
+        "propertyList": "JSON array of allowed values",
+        "analysisLanguages": "Select languages for AI-generated content",
+        "languageSelectionInfo": "English is required for AI analysis. Select additional languages to generate translated content.",
+        "scheduledTaskInterval": "How often to check for unanalyzed products",
+        "apiKey": "Your Google AI Studio API key for Gemini",
+        "apiModel": "Gemini model for image analysis",
+        "imageGenerationModel": "Gemini model for image generation",
+        "enableApprovalWorkflow": "Require manual approval before applying analysis results",
+        "eligibleProductTypes": "Comma-separated list of product type names to include in AI analysis",
+        "apiBaseUrl": "Base URL for the Gemini API (without version)",
+        "apiVersion": "API version (e.g., v1beta, v1)",
+        "minutesSavedPerProperty": "Estimated minutes saved when AI assigns product properties",
+        "minutesSavedPerSeo": "Estimated minutes saved when AI generates SEO metadata",
+        "minutesSavedForBaseDescription": "Estimated minutes saved for primary language description",
+        "minutesSavedPerAdditionalTranslation": "Estimated minutes saved per additional translation",
+        "enableConfidenceThreshold": "When approval workflow is disabled, use confidence scores to flag low-quality results for manual review",
+        "lowConfidenceThreshold": "Results below this confidence score (%) will require manual review",
+        "genericPatterns": "Regex patterns to detect generic/placeholder content (one pattern per line)",
+        "hedgingWords": "Words indicating AI uncertainty (one word per line)",
+        "fieldWeightMetaTitle": "Weight for meta title in confidence calculation. All weights should sum to 100%. Higher = more important. (0-100%)",
+        "fieldWeightMetaDescription": "Weight for meta description in confidence calculation. All weights should sum to 100%. Higher = more important. (0-100%)",
+        "fieldWeightProductDescription": "Weight for product description in confidence calculation. All weights should sum to 100%. Higher = more important. (0-100%)",
+        "fieldWeightSeoKeywords": "Weight for SEO keywords in confidence calculation. All weights should sum to 100%. Higher = more important. (0-100%)",
+        "fieldWeightProperties": "Weight for property detection in confidence calculation. All weights should sum to 100%. Higher = more important. (0-100%)",
+        "idealOptionsPerProperty": "How many options per property is ideal (e.g., 1-3 for Style). If AI suggests more, it may indicate uncertainty. (1-10)",
+        "emptyPropertyPenalty": "Score reduction when AI detects a property group but suggests no options for it. (0-100%)",
+        "excessOptionPenalty": "Score reduction per option beyond the ideal count. Applied when AI suggests too many options (uncertainty signal). (0-100%)",
+        "noPropertiesPenalty": "Score reduction when AI fails to detect any properties at all for the image. (0-100%)",
+        "lowPropertyMatchPenalty": "Score reduction when less than 50% of AI-suggested options match your whitelisted property values. (0-100%)",
+        "minLengthRatio": "Minimum content length as percentage of max. E.g., 33% of 60-char title = at least 20 chars required. (0-100%)",
+        "shortTitlePenalty": "Score reduction when meta title is shorter than the minimum length ratio. (0-100%)",
+        "longTitlePenalty": "Score reduction when meta title exceeds the configured max length. (0-100%)",
+        "shortDescriptionPenalty": "Score reduction when product description is shorter than the minimum length ratio. (0-100%)",
+        "fewKeywordsPenalty": "Score reduction when AI generates fewer SEO keywords than the configured minimum (60% of target). (0-100%)",
+        "genericContentPenalty": "Score reduction when AI uses generic placeholder phrases like \"high quality\" or \"perfect for any\". (0-100%)",
+        "hedgingPenaltyPerInstance": "Score reduction per uncertain word found (e.g., \"possibly\", \"might\", \"appears to\"). Signals AI uncertainty. (0-100%)",
+        "hedgingPenaltyMax": "Maximum total penalty from hedging words, even if many are found. Caps the hedging penalty. (0-100%)",
+        "duplicateContentPenalty": "Score reduction when the same text appears in multiple languages (indicates failed translation). (0-100%)",
+        "maxTotalPenalty": "Maximum total penalty that can be applied. Prevents the score from dropping too low from combined penalties. (0-100%)"
+      },
+      "placeholder": {
+        "analysisLanguages": "[\"en-GB\", \"de-DE\", \"da-DK\"]",
+        "apiKey": "Enter your Gemini API key",
+        "eligibleProductTypes": "Illux Artwork,Photo Print,Canvas Art"
+      },
+      "options": {
+        "metaDescriptionShort": "Short (50-100 characters)",
+        "metaDescriptionMedium": "Medium (155 characters) - Recommended",
+        "metaDescriptionLong": "Long (255 characters)",
+        "toneProfessional": "Professional",
+        "toneCasual": "Casual",
+        "toneArtistic": "Artistic"
+      }
+    },
+    "run": {
+      "helpText": {
+        "includeAnalyzed": "Re-analyze products that have already been analyzed",
+        "includeDescription": "Generate product descriptions for the storefront",
+        "includeSeo": "Generate SEO metadata (meta title, meta description, and keywords)"
+      },
+      "title": "Run Product Analysis",
+      "infoText": "This will analyze all products in your store using AI. This may take some time depending on the number of products.",
+      "filters": {
+        "label": "Override Filters",
+        "includeAnalyzed": "Re-analyze Products",
+        "includeDescription": "Generate Product Description",
+        "includeSeo": "Generate SEO Metadata"
+      },
+      "onlyProductsWithImages": "Only products with images",
+      "filterByCategory": "Filter by Category",
+      "allCategories": "All categories",
+      "progress": "Analysis Progress",
+      "analyzing": "Analyzing product {current} of {total}",
+      "analyzingLabel": "Analyzing {count} products",
+      "analyzingText": "Analyzing {count} products...",
+      "progressText": "{current} of {total} products analyzed ({percentage}%)",
+      "startAnalysis": "Start Analysis",
+      "stopAnalysis": "Stop Analysis",
+      "confirmTitle": "Confirm Analysis",
+      "confirmMessage": "Are you sure you want to run the analysis on all products? This may take a while and cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Yes, Run Analysis",
+      "noProductsFound": "No eligible products found for analysis",
+      "analysisStarted": "Analysis started for {count} products",
+      "analysisComplete": "Analysis complete: {success} successful, {failed} failed",
+      "analysisStopped": "Analysis stopped",
+      "startError": "Error starting analysis",
+      "progressError": "Error fetching progress",
+      "stopError": "Error stopping analysis"
+    },
+    "generate": {
+      "title": "Generate Environment Scenes",
+      "infoText": "Generate photorealistic room environment images for your artwork. Select room types and customize all parameters.",
+      "sceneTypes": "Room Types",
+      "selectRoomTypes": "Select room types",
+      "cameraSettings": "Camera Settings",
+      "cameraLens": "Camera Lens",
+      "perspective": "Perspective (Vertical)",
+      "cameraAngle": "Camera Angle (Horizontal)",
+      "styleSettings": "Style & Design",
+      "interiorStyle": "Interior Design Style",
+      "visualStyle": "Visual Style",
+      "styling": "Styling / Atmosphere",
+      "atmosphereSettings": "Lighting & Mood",
+      "lighting": "Lighting",
+      "mood": "Mood",
+      "colorPalette": "Color Palette",
+      "technicalSettings": "Technical Settings",
+      "composition": "Composition",
+      "aspectRatio": "Aspect Ratio",
+      "additionalDetails": "Additional Details (optional)",
+      "additionalDetailsPlaceholder": "Add any specific details you want to include in the scene...",
+      "generate": "Generate Scenes",
+      "clear": "Clear All",
+      "showPreview": "Show Prompt",
+      "hidePreview": "Hide Prompt",
+      "saveDefaults": "Save as Defaults",
+      "loadDefaults": "Load Defaults",
+      "manageOptions": "Manage Options",
+      "defaultsSaved": "Current settings saved as defaults",
+      "defaultsLoaded": "Defaults loaded successfully",
+      "defaultsSaveError": "Failed to save defaults",
+      "noDefaultsSaved": "No defaults saved yet",
+      "promptPreview": "Prompt Preview",
+      "selectSceneTypeForPreview": "Select at least one room type to preview the prompt.",
+      "viewInApprovalTab": "View and approve the generated images in the Approval tab.",
+      "noPrompt": "Please select room types and fill all required fields",
+      "generationQueued": "Scene generation queued for {count} image(s)",
+      "generationComplete": "Successfully generated {count} image(s). View them in the Approval tab.",
+      "generationError": "Failed to generate images",
+      "environmentPrompt": "Environment Description",
+      "promptPlaceholder": "Describe the environment or setting for your product...\nExample: Modern living room with natural lighting, minimalist furniture",
+      "settings": "Generation Settings",
+      "style": "Style",
+      "stylePhotorealistic": "Photorealistic",
+      "styleArtistic": "Artistic",
+      "styleMinimal": "Minimal",
+      "styleLifestyle": "Lifestyle",
+      "lightingNatural": "Natural",
+      "lightingStudio": "Studio",
+      "lightingDramatic": "Dramatic",
+      "lightingSoft": "Soft",
+      "perspectiveEyeLevel": "Eye Level",
+      "perspectiveOverhead": "Overhead",
+      "perspectiveLowAngle": "Low Angle",
+      "perspectiveCloseUp": "Close-up",
+      "generatedImages": "Generated Images",
+      "selectProduct": "Select Product",
+      "selectProductPlaceholder": "Choose a product to save image to",
+      "saveToProduct": "Save to Product",
+      "noProductSelected": "Please select a product first",
+      "imageSaved": "Image saved to product successfully",
+      "saveError": "Error saving image to product"
+    },
+    "approval": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "selectAll": "Select All",
+      "selectForBatch": "Select for batch",
+      "selectedCount": "{count} selected",
+      "approveSelected": "Approve Selected",
+      "rejectSelected": "Reject Selected",
+      "emptyStateImages": {
+        "title": "No Pending Scene Images",
+        "subline": "Generated scene images will appear here for approval"
+      },
+      "analysisTitle": "Analysis Approval",
+      "imagesTitle": "Environment Image Approval",
+      "approvalActions": {
+        "reject": "Reject",
+        "approve": "Approve"
+      },
+      "buttons": {
+        "analysisApproval": "Pending Analyses",
+        "imageApproval": "Pending Images"
+      },
+      "approveModalTitle": "Approve Analysis Results",
+      "approveModalText": "Are you sure you want to approve {count} analysis result(s)? This will apply the analyzed data to the product(s).",
+      "rejectModalTitle": "Reject Analysis Results",
+      "rejectModalText": "Are you sure you want to reject {count} analysis result(s)? This will discard the analyzed data.",
+      "sceneBatchApproveModalTitle": "Approve Scene Images",
+      "sceneBatchApproveModalText": "Are you sure you want to approve {count} scene image(s)? They will be saved to the media library.",
+      "sceneBatchRejectModalTitle": "Reject Scene Images",
+      "sceneBatchRejectModalText": "Are you sure you want to reject {count} scene image(s)? This cannot be undone.",
+      "sceneBatchApproveSuccess": "Successfully approved {count} scene image(s)",
+      "sceneBatchApproveError": "Error approving scene images",
+      "sceneBatchApprovePartialError": "{count} scene image(s) failed to approve",
+      "sceneBatchRejectSuccess": "Successfully rejected {count} scene image(s)",
+      "sceneBatchRejectError": "Error rejecting scene images",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "loadError": "Error loading analysis results",
+      "approveSuccess": "Successfully approved {count} analysis result(s)",
+      "approveError": "Error approving analysis results",
+      "approvePartialError": "{count} analysis result(s) failed to approve: {errors}",
+      "rejectSuccess": "Successfully rejected {count} analysis result(s)",
+      "rejectError": "Error rejecting analysis results",
+      "emptyState": {
+        "title": "All done!",
+        "subline": "No analyses waiting for approval"
+      }
+    },
+    "analysisHistory": {
+      "title": "Analysis History",
+      "loadError": "Error loading analysis results",
+      "statusPicker": {
+        "filters": {
+          "allStatuses": "All Statuses",
+          "processing": "Processing",
+          "pendingReview": "Pending Review",
+          "approved": "Approved",
+          "autoApplied": "Auto Applied",
+          "rejected": "Rejected",
+          "failed": "Failed"
+        },
+        "helpText": "Filters the displayed analyses by their status field",
+        "label": "Status Filtering"
+      },
+      "emptyState": {
+        "title": "No analysis results",
+        "subline": "Run an analysis to see results here"
+      },
+      "actions": {
+        "markAsFailed": "Mark as Failed",
+        "delete": "Delete"
+      },
+      "markAsFailed": {
+        "success": "Analysis result marked as failed",
+        "error": "Error marking analysis as failed"
+      },
+      "delete": {
+        "success": "Analysis result deleted",
+        "error": "Error deleting analysis result"
+      },
+      "bulkActions": {
+        "selectedCount": "{count} selected",
+        "markAsFailed": "Mark as Failed",
+        "delete": "Delete Selected",
+        "noProcessingSelected": "No processing items selected",
+        "markAsFailedSuccess": "{count} result(s) marked as failed",
+        "markAsFailedError": "Error marking results as failed",
+        "deleteSuccess": "{count} result(s) deleted",
+        "deleteError": "Error deleting results"
+      },
+      "modals": {
+        "markAsFailedTitle": "Mark as Failed",
+        "markAsFailedText": "Are you sure you want to mark {count} analysis result(s) as failed?",
+        "deleteTitle": "Delete Analysis Results",
+        "deleteText": "Are you sure you want to delete {count} analysis result(s)? This cannot be undone.",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      }
+    },
+    "configModal": {
+      "title": "Manage Generation Options",
+      "labelField": "Label",
+      "labelPlaceholder": "Display name for this option",
+      "descriptionField": "Prompt Text",
+      "descriptionPlaceholder": "Text to insert into prompt when selected",
+      "valueField": "Value",
+      "valuePlaceholder": "Value to use (e.g., 16:9)",
+      "addNew": "Add New Option",
+      "add": "Add",
+      "done": "Done",
+      "cancel": "Cancel",
+      "save": "Save Changes",
+      "noOptions": "No options yet. Add one below.",
+      "saveSuccess": "Configuration saved successfully",
+      "saveError": "Failed to save configuration",
+      "loadError": "Failed to load configuration"
+    },
+    "analysisLanguagePicker": {
+      "label": "Analysis Language",
+      "helpText": "Choose which analysis translation to display"
+    },
+    "gridShared": {
+      "labels": {
+        "languageLabel": "Display Language"
+      },
+      "statusType": {
+        "success": "Success",
+        "failed": "Failed",
+        "pending_review": "Pending Review",
+        "rejected": "Rejected",
+        "all": "Show All"
+      },
+      "columns": {
+        "productName": "Product",
+        "seoKeywords": "SEO Keywords",
+        "productDescription": "Product Description",
+        "metaDescription": "Meta Description",
+        "confidence": "Confidence",
+        "metaTitle": "Meta Title",
+        "analysisDate": "Analysis Date",
+        "analyzedProperties": "Tags",
+        "status": "Status",
+        "errorMessage": "Error Message",
+        "approvedBy": "Approved By",
+        "loadError": "Error loading analysis results",
+        "image": "Image"
+      },
+      "helpText": {
+        "confidence": "Confidence is calculated using heuristics (\"good enough\" estimations). Warnings indicate areas worth reviewing - they don't always mean something is wrong.<br><br><b>Warning types:</b><br>• Content length: Too short/long for SEO<br>• Generic content: Placeholder or vague language<br>• Hedging language: AI uncertainty (\"possibly\", \"might\")<br>• Duplicate content: Same text across languages<br>• Property issues: No properties or too many options<br>• Response quality: Incomplete AI response"
+      },
+      "buttons": {
+        "refresh": "Refresh"
+      },
+      "hoverForDetails": "Hover to view full details",
+      "confidenceWarnings": {
+        "title": "Quality Warnings",
+        "heuristicsExplainer": "These warnings are based on heuristic checks - practical rules that flag potential issues. They may not always indicate real problems, but suggest areas worth reviewing.",
+        "categories": {
+          "contentLength": {
+            "title": "Content Length Issues",
+            "description": "Text fields are shorter or longer than configured limits. Short content may lack detail; overly long content may be truncated in search results."
+          },
+          "genericContent": {
+            "title": "Generic Content Detected",
+            "description": "The AI may have used placeholder phrases or overly generic marketing language. Review for authenticity and product-specific details."
+          },
+          "hedgingLanguage": {
+            "title": "Hedging Language",
+            "description": "Words like \"possibly\", \"might\", or \"appears to\" suggest the AI was uncertain. Consider reviewing these sections for accuracy."
+          },
+          "duplicateContent": {
+            "title": "Duplicate Content",
+            "description": "Similar or identical content was detected across languages. This may indicate the AI failed to properly translate or localize the content."
+          },
+          "propertyIssues": {
+            "title": "Property Detection Issues",
+            "description": "Problems with detected properties - either none were found, some have no options, or too many options suggest uncertainty in classification."
+          },
+          "imageQuality": {
+            "title": "Image Quality",
+            "description": "The source image resolution is low, which may affect the AI's ability to accurately analyze the product."
+          },
+          "responseQuality": {
+            "title": "Response Quality",
+            "description": "The AI's response was incomplete or showed low internal confidence. Results may need manual verification."
+          }
+        }
+      }
+    }
+  }
+}

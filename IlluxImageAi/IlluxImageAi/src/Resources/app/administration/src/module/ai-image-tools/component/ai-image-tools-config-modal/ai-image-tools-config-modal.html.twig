@@ -1,0 +1,174 @@
+{% block ai_image_tools_config_modal %}
+    <sw-modal
+        v-if="isOpen"
+        :title="$tc('ai-image-tools.configModal.title')"
+        class="ai-image-tools-config-modal"
+        variant="large"
+        @modal-close="closeModal">
+
+        <mt-loader v-if="isLoading"></mt-loader>
+
+        <template v-else-if="config">
+            <div class="ai-image-tools-config-modal__layout">
+                {# Category Sidebar #}
+                <div class="ai-image-tools-config-modal__sidebar">
+                    <ul class="ai-image-tools-config-modal__category-list">
+                        <li
+                            v-for="category in categories"
+                            :key="category.key"
+                            :class="{ 'is--active': activeCategory === category.key }"
+                            @click="selectCategory(category.key)">
+                            {{ category.label }}
+                            <span class="ai-image-tools-config-modal__category-count">
+                                {{ config[category.key]?.length || 0 }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                {# Options Editor #}
+                <div class="ai-image-tools-config-modal__content">
+                    <h3>{{ currentCategory?.label }} Options</h3>
+
+                    {# Existing Options List #}
+                    <div class="ai-image-tools-config-modal__options-list">
+                        <div
+                            v-for="(option, index) in currentOptions"
+                            :key="index"
+                            class="ai-image-tools-config-modal__option-item">
+
+                            {# View Mode #}
+                            <template v-if="editingIndex !== index">
+                                <div class="ai-image-tools-config-modal__option-content">
+                                    <strong>{{ option.label }}</strong>
+                                    <span v-if="option.description">{{ option.description }}</span>
+                                    <span v-else-if="option.value" class="ai-image-tools-config-modal__option-value">
+                                        Value: {{ option.value }}
+                                    </span>
+                                </div>
+                                <div class="ai-image-tools-config-modal__option-actions">
+                                    <mt-button
+                                        size="x-small"
+                                        ghost="true"
+                                        :disabled="index === 0"
+                                        @click="moveOptionUp(index)">
+                                        <mt-icon name="regular-chevron-up-s" small></mt-icon>
+                                    </mt-button>
+                                    <mt-button
+                                        size="x-small"
+                                        ghost="true"
+                                        :disabled="index === currentOptions.length - 1"
+                                        @click="moveOptionDown(index)">
+                                        <mt-icon name="regular-chevron-down-s" small></mt-icon>
+                                    </mt-button>
+                                    <mt-button
+                                        size="x-small"
+                                        ghost="true"
+                                        @click="editOption(index)">
+                                        <mt-icon name="regular-pencil-s" ></mt-icon>
+                                    </mt-button>
+                                    <mt-button
+                                        size="x-small"
+                                        variant="critical"
+                                        ghost="true"
+                                        @click="removeOption(index)">
+                                        <mt-icon name="regular-trash" ></mt-icon>
+                                    </mt-button>
+                                </div>
+                            </template>
+
+                            {# Edit Mode #}
+                            <template v-else>
+                                <div class="ai-image-tools-config-modal__option-edit">
+                                    <sw-text-field
+                                        v-model:value="option.label"
+                                        :label="$tc('ai-image-tools.configModal.labelField')"
+                                        size="small">
+                                    </sw-text-field>
+
+                                    <sw-text-field
+                                        v-if="currentCategory?.hasValue"
+                                        v-model:value="option.value"
+                                        :label="$tc('ai-image-tools.configModal.valueField')"
+                                        size="small">
+                                    </sw-text-field>
+
+                                    <sw-textarea-field
+                                        v-else
+                                        v-model:value="option.description"
+                                        :label="$tc('ai-image-tools.configModal.descriptionField')"
+                                        :rows="currentCategory?.isLongDescription ? 4 : 2">
+                                    </sw-textarea-field>
+
+                                    <mt-button
+                                        size="small"
+                                        variant="primary"
+                                        @click="saveEdit(index)">
+                                        {{ $tc('ai-image-tools.configModal.done') }}
+                                    </mt-button>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div v-if="currentOptions.length === 0" class="ai-image-tools-config-modal__empty">
+                            {{ $tc('ai-image-tools.configModal.noOptions') }}
+                        </div>
+                    </div>
+
+                    {# Add New Option #}
+                    <div class="ai-image-tools-config-modal__add-option">
+                        <h4>{{ $tc('ai-image-tools.configModal.addNew') }}</h4>
+
+                        <div class="ai-image-tools-config-modal__add-form">
+                            <sw-text-field
+                                v-model:value="newOption.label"
+                                :label="$tc('ai-image-tools.configModal.labelField')"
+                                :placeholder="$tc('ai-image-tools.configModal.labelPlaceholder')"
+                                size="small">
+                            </sw-text-field>
+
+                            <sw-text-field
+                                v-if="currentCategory?.hasValue"
+                                v-model:value="newOption.value"
+                                :label="$tc('ai-image-tools.configModal.valueField')"
+                                :placeholder="$tc('ai-image-tools.configModal.valuePlaceholder')"
+                                size="small">
+                            </sw-text-field>
+
+                            <sw-textarea-field
+                                v-else
+                                v-model:value="newOption.description"
+                                :label="$tc('ai-image-tools.configModal.descriptionField')"
+                                :placeholder="$tc('ai-image-tools.configModal.descriptionPlaceholder')"
+                                :rows="currentCategory?.isLongDescription ? 4 : 2">
+                            </sw-textarea-field>
+
+                            <mt-button
+                                ghost="true"
+                                :disabled="!canAddOption"
+                                @click="addOption">
+                                <mt-icon name="regular-plus" small></mt-icon>
+                                {{ $tc('ai-image-tools.configModal.add') }}
+                            </mt-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template #modal-footer>
+            <mt-button
+                ghost="true"
+                @click="closeModal">
+                {{ $tc('ai-image-tools.configModal.cancel') }}
+            </mt-button>
+
+            <mt-button
+                variant="primary"
+                :isLoading="isSaving"
+                @click="saveConfig">
+                {{ $tc('ai-image-tools.configModal.save') }}
+            </mt-button>
+        </template>
+    </sw-modal>
+{% endblock %}

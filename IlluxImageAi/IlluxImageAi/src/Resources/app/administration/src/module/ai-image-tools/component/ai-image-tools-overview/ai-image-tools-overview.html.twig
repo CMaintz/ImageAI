@@ -1,0 +1,159 @@
+{% block ai_image_tools_overview %}
+    <div class="ai-image-tools-overview">
+        <mt-loader v-if="isLoading"></mt-loader>
+
+        <template v-else>
+            {# Statistics Cards #}
+            <div class="ai-image-tools-overview__statistics">
+                <mt-card :title="$tc('ai-image-tools.overview.statistics')">
+                    <div class="ai-image-tools-overview__stats-grid">
+                        <div class="ai-image-tools-overview__stat-card ai-image-tools-overview__stat-card--primary">
+                            <div class="ai-image-tools-overview__stat">
+                                <div class="ai-image-tools-overview__stat-icon">
+                                    <mt-icon name="regular-chart-line" size="32px"></mt-icon>
+                                </div>
+                                <div class="ai-image-tools-overview__stat-content">
+                                    <div class="ai-image-tools-overview__stat-label">
+                                        {{ $tc('ai-image-tools.overview.totalAnalyses') }}
+                                    </div>
+                                    <div class="ai-image-tools-overview__stat-value">
+                                        {{ statistics.totalAnalyses }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ai-image-tools-overview__stat-card ai-image-tools-overview__stat-card--warning">
+                            <div class="ai-image-tools-overview__stat">
+                                <div class="ai-image-tools-overview__stat-icon">
+                                    <mt-icon name="regular-clock" size="32px"></mt-icon>
+                                </div>
+                                <div class="ai-image-tools-overview__stat-content">
+                                    <div class="ai-image-tools-overview__stat-label">
+                                        {{ $tc('ai-image-tools.overview.pendingReview') }}
+                                    </div>
+                                    <div class="ai-image-tools-overview__stat-value">
+                                        {{ statistics.pendingReview }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ai-image-tools-overview__stat-card ai-image-tools-overview__stat-card--info">
+                            <div class="ai-image-tools-overview__stat">
+                                <div class="ai-image-tools-overview__stat-icon">
+                                    <mt-icon name="regular-sync" size="32px"></mt-icon>
+                                </div>
+                                <div class="ai-image-tools-overview__stat-content">
+                                    <div class="ai-image-tools-overview__stat-label">
+                                        {{ $tc('ai-image-tools.overview.processing') }}
+                                    </div>
+                                    <div class="ai-image-tools-overview__stat-value">
+                                        {{ statistics.processing }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ai-image-tools-overview__stat-card ai-image-tools-overview__stat-card--success">
+                            <div class="ai-image-tools-overview__stat">
+                                <div class="ai-image-tools-overview__stat-icon">
+                                    <mt-icon name="regular-check-circle" size="32px"></mt-icon>
+                                </div>
+                                <div class="ai-image-tools-overview__stat-content">
+                                    <div class="ai-image-tools-overview__stat-label">
+                                        {{ $tc('ai-image-tools.overview.approved') }}
+                                    </div>
+                                    <div class="ai-image-tools-overview__stat-value">
+                                        {{ statistics.approved }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ai-image-tools-overview__stat-card ai-image-tools-overview__stat-card--success-alt">
+                            <div class="ai-image-tools-overview__stat">
+                                <div class="ai-image-tools-overview__stat-icon">
+                                    <mt-icon name="regular-activity" size="32px"></mt-icon>
+                                </div>
+                                <div class="ai-image-tools-overview__stat-content">
+                                    <div class="ai-image-tools-overview__stat-label">
+                                        {{ $tc('ai-image-tools.overview.autoApproved') }}
+                                    </div>
+                                    <div class="ai-image-tools-overview__stat-value">
+                                        {{ statistics.autoApproved }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ai-image-tools-overview__stat-card ai-image-tools-overview__stat-card--danger">
+                            <div class="ai-image-tools-overview__stat">
+                                <div class="ai-image-tools-overview__stat-icon">
+                                    <mt-icon name="regular-times-circle" size="32px"></mt-icon>
+                                </div>
+                                <div class="ai-image-tools-overview__stat-content">
+                                    <div class="ai-image-tools-overview__stat-label">
+                                        {{ $tc('ai-image-tools.overview.rejected') }}
+                                    </div>
+                                    <div class="ai-image-tools-overview__stat-value">
+                                        {{ statistics.rejected }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ai-image-tools-overview__stat-card ai-image-tools-overview__stat-card--error">
+                            <div class="ai-image-tools-overview__stat">
+                                <div class="ai-image-tools-overview__stat-icon">
+                                    <mt-icon name="regular-exclamation-triangle" size="32px"></mt-icon>
+                                </div>
+                                <div class="ai-image-tools-overview__stat-content">
+                                    <div class="ai-image-tools-overview__stat-label">
+                                        {{ $tc('ai-image-tools.overview.failed') }}
+                                    </div>
+                                    <div class="ai-image-tools-overview__stat-value">
+                                        {{ statistics.failed }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-image-tools-overview__summary">
+                        <div class="ai-image-tools-overview__summary-item">
+                            <mt-icon name="regular-calendar" size="20px"></mt-icon>
+                            <span>
+                                <strong>{{ $tc('ai-image-tools.overview.lastAnalysis') }}:</strong>
+                                {{ lastAnalysisFormatted }}
+                            </span>
+                        </div>
+                        <div class="ai-image-tools-overview__summary-item">
+                            <mt-icon name="regular-analytics" size="20px"></mt-icon>
+                            <span>
+                                <strong>{{ $tc('ai-image-tools.overview.successRate') }}:</strong>
+                                {{ statistics.successRate }}%
+                            </span>
+                        </div>
+                        <div class="ai-image-tools-overview__summary-item ai-image-tools-overview__summary-item--highlight"
+                             @mouseenter="showTimeSavedHover($event)"
+                             @mouseleave="onCellMouseLeave"
+                             style="cursor: help;">
+                            <mt-icon name="regular-clock" size="20px"></mt-icon>
+                            <span>
+                                <strong>{{ $tc('ai-image-tools.overview.timeSaved') }}:</strong>
+                                {{ timeSavedFormatted }}
+                            </span>
+                        </div>
+                    </div>
+                </mt-card>
+            </div>
+
+            {# Hover card for time saved breakdown #}
+            <div v-if="hoverVisible"
+                 class="ai-image-tools-overview__hover-card"
+                 :style="{ left: hoverX + 'px', top: hoverY + 'px' }"
+                 v-html="hoverHtml">
+            </div>
+        </template>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+@import './../../../../scss/_ai-image-tools-common.scss';
+
+.ai-image-tools-index {
+  .sw-tabs__custom-content {
+    padding-bottom: 24px;
+  }
+
+  .sw-card-view .sw-card-view__content {
+    overflow: visible;
+    padding-top: 0;
+  }
+}
+
+.ai-image-tools-index .sw-tabs-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  .mt-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0;
+
+    svg {
+      width: 16px !important;
+      height: 16px !important;
+    }
+  }
+}
+

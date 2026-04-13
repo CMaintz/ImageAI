@@ -1,0 +1,219 @@
+{% block ai_image_tools_generate %}
+    <div class="ai-image-tools-generate">
+        {# API Configuration Status #}
+        <mt-loader v-if="configLoading || optionsLoading"></mt-loader>
+
+        <mt-card v-if="!apiKey && !configLoading" variant="warning">
+            <sw-alert variant="warning" :showIcon="true">
+                Please configure your Gemini API key in the Configuration tab first.
+            </sw-alert>
+        </mt-card>
+
+        <mt-card v-if="apiKey && !configLoading && !optionsLoading" :title="$tc('ai-image-tools.generate.title')">
+            <sw-alert variant="info" class="ai-image-tools-generate__info">
+                {{ $tc('ai-image-tools.generate.infoText') }}
+            </sw-alert>
+
+            {# Room Type Selection - Full Width #}
+            <div class="ai-image-tools-generate__section ai-image-tools-generate__section--full">
+                <h3>{{ $tc('ai-image-tools.generate.sceneTypes') }}</h3>
+                <sw-multi-select
+                    v-model:value="selectedSceneTypes"
+                    :label="$tc('ai-image-tools.generate.selectRoomTypes')"
+                    :options="sceneTypeSelectOptions"
+                    valueProperty="value"
+                    labelProperty="label">
+                </sw-multi-select>
+            </div>
+
+            {# Settings Grid #}
+            <div class="ai-image-tools-generate__grid">
+
+                {# Lighting & Mood #}
+                <div class="ai-image-tools-generate__group">
+                    <h3>{{ $tc('ai-image-tools.generate.atmosphereSettings') }}</h3>
+                    <div class="ai-image-tools-generate__fields">
+                        <sw-single-select
+                            v-model:value="selectedLighting"
+                            :label="$tc('ai-image-tools.generate.lighting')"
+                            :options="lightingSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+
+                        <sw-single-select
+                            v-model:value="selectedMood"
+                            :label="$tc('ai-image-tools.generate.mood')"
+                            :options="moodSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+
+                        <sw-single-select
+                            v-if="colorPaletteSelectOptions.length > 0"
+                            v-model:value="selectedColorPalette"
+                            :label="$tc('ai-image-tools.generate.colorPalette')"
+                            :options="colorPaletteSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+                    </div>
+                </div>
+
+                {# Interior & Visual Style #}
+                <div class="ai-image-tools-generate__group">
+                    <h3>{{ $tc('ai-image-tools.generate.styleSettings') }}</h3>
+                    <div class="ai-image-tools-generate__fields">
+                        <sw-single-select
+                            v-model:value="selectedInteriorStyle"
+                            :label="$tc('ai-image-tools.generate.interiorStyle')"
+                            :options="interiorStyleSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+
+                        <sw-single-select
+                            v-model:value="selectedStyle"
+                            :label="$tc('ai-image-tools.generate.visualStyle')"
+                            :options="styleSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+
+                        <sw-single-select
+                            v-model:value="selectedStyling"
+                            :label="$tc('ai-image-tools.generate.styling')"
+                            :options="stylingSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+                    </div>
+                </div>
+
+                {# Camera Settings #}
+                <div class="ai-image-tools-generate__group">
+                    <h3>{{ $tc('ai-image-tools.generate.cameraSettings') }}</h3>
+                    <div class="ai-image-tools-generate__fields">
+                        <sw-single-select
+                            v-model:value="selectedCameraLens"
+                            :label="$tc('ai-image-tools.generate.cameraLens')"
+                            :options="cameraLensSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+
+                        <sw-single-select
+                            v-model:value="selectedPerspective"
+                            :label="$tc('ai-image-tools.generate.perspective')"
+                            :options="perspectiveSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+
+                        <sw-single-select
+                            v-model:value="selectedCameraAngle"
+                            :label="$tc('ai-image-tools.generate.cameraAngle')"
+                            :options="cameraAngleSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+                    </div>
+                </div>
+
+                {# Composition & Technical #}
+                <div class="ai-image-tools-generate__group">
+                    <h3>{{ $tc('ai-image-tools.generate.technicalSettings') }}</h3>
+                    <div class="ai-image-tools-generate__fields">
+                        <sw-single-select
+                            v-model:value="selectedComposition"
+                            :label="$tc('ai-image-tools.generate.composition')"
+                            :options="compositionSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+
+                        <sw-single-select
+                            v-model:value="selectedAspectRatio"
+                            :label="$tc('ai-image-tools.generate.aspectRatio')"
+                            :options="aspectRatioSelectOptions"
+                            valueProperty="value"
+                            labelProperty="label">
+                        </sw-single-select>
+                    </div>
+                </div>
+            </div>
+
+            {# Additional Details - Full Width #}
+            <div class="ai-image-tools-generate__section ai-image-tools-generate__section--full">
+                <sw-textarea-field
+                    v-model="additionalDetails"
+                    :label="$tc('ai-image-tools.generate.additionalDetails')"
+                    :placeholder="$tc('ai-image-tools.generate.additionalDetailsPlaceholder')"
+                    rows="3">
+                </sw-textarea-field>
+            </div>
+
+            {# Actions #}
+            <div class="ai-image-tools-generate__actions">
+                <mt-button
+                    variant="primary"
+                    :disabled="!canGenerate"
+                    @click="generateScenes">
+                    {{ $tc('ai-image-tools.generate.generate') }}
+                </mt-button>
+
+                <mt-button
+                    ghost="true"
+                    @click="togglePromptPreview">
+                    {{ showPromptPreview ? $tc('ai-image-tools.generate.hidePreview') : $tc('ai-image-tools.generate.showPreview') }}
+                </mt-button>
+
+                <mt-button
+                    ghost="true"
+                    size="small"
+                    @click="openConfigModal">
+                    <mt-icon name="regular-cog" small></mt-icon>
+                    {{ $tc('ai-image-tools.generate.manageOptions') }}
+                </mt-button>
+            </div>
+
+            <mt-loader v-if="isLoading"></mt-loader>
+        </mt-card>
+
+        {# Prompt Preview #}
+        <mt-card
+            v-if="showPromptPreview"
+            :title="$tc('ai-image-tools.generate.promptPreview')"
+            class="ai-image-tools-generate__preview">
+
+            <mt-loader v-if="isLoadingPreview"></mt-loader>
+
+            <pre v-else-if="promptPreview"
+                 class="ai-image-tools-generate__preview-text">{{ promptPreview.prompt }}</pre>
+
+            <sw-alert v-else-if="selectedSceneTypes.length === 0" variant="info">
+                {{ $tc('ai-image-tools.generate.selectSceneTypeForPreview') }}
+            </sw-alert>
+        </mt-card>
+
+        {# Generation Success Message #}
+        <mt-card
+            v-if="generatedImages.length > 0"
+            :title="$tc('ai-image-tools.generate.generationComplete')"
+            class="ai-image-tools-generate__results">
+
+            <sw-alert variant="success" :showIcon="true">
+                {{ $tc('ai-image-tools.generate.generationSuccessMessage', generatedImages.length) }}
+            </sw-alert>
+
+            <p>{{ $tc('ai-image-tools.generate.viewInApprovalTab') }}</p>
+        </mt-card>
+
+        {# Config Management Modal #}
+        <ai-image-tools-config-modal
+            :isOpen="showConfigModal"
+            @close="closeConfigModal"
+            @config-saved="onConfigSaved">
+        </ai-image-tools-config-modal>
+    </div>
+{% endblock %}

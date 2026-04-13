@@ -1,0 +1,60 @@
+{
+  "illux": {
+    "ai-composition": {
+      "room-selector": {
+        "description": "Upplev bilden i olika rumsmiljöer med vårt visualiseringsverktyg",
+        "select-rooms": "Välj rum",
+        "selected": "vald",
+        "no-rooms": "Inga rumstyper tillgängliga",
+        "or": "eller",
+        "upload-own": "Ladda upp ditt eget rum"
+      },
+      "button": {
+        "see-in-room": "Visualisera i flera rum",
+        "generate": "Generera rumsbilder"
+      },
+      "rooms": {
+        "commercial office": "Affärskontor",
+        "lobby": "Lobby",
+        "kitchen": "Kök",
+        "home office": "Hemmakontor",
+        "cafeteria": "Kafeteria",
+        "restaurant": "Restaurang",
+        "living room": "Vardagsrum",
+        "bedroom": "Sovrum",
+        "dining room": "Matsal",
+        "hallway": "Hall",
+        "reading nook": "Läshörna",
+        "loft": "Loft",
+        "cafe": "Kafé",
+        "café": "Kafé",
+        "bathroom": "Badrum",
+        "bath": "Badrum",
+        "entryway": "Entré",
+        "entry": "Entré",
+        "childrens room": "Barnrum",
+        "kids room": "Barnrum",
+        "nursery": "Barnkammare",
+        "guest room": "Gästrum",
+        "study": "Arbetsrum",
+        "library": "Bibliotek",
+        "gallery": "Galleri",
+        "lounge": "Lounge",
+        "hotel room": "Hotellrum",
+        "waiting room": "Väntrum",
+        "conference room": "Konferensrum",
+        "meeting room": "Mötesrum",
+        "reception": "Reception",
+        "foyer": "Foajé",
+        "stairway": "Trapphall",
+        "staircase": "Trapphall",
+        "attic": "Vindsvåning",
+        "studio": "Ateljé",
+        "sunroom": "Uterum",
+        "conservatory": "Vinterträdgård",
+        "office": "Kontor",
+        "custom environment": "Anpassad miljö"
+      }
+    }
+  }
+}

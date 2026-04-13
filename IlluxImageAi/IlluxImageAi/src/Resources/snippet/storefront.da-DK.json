@@ -1,0 +1,60 @@
+{
+  "illux": {
+    "ai-composition": {
+      "room-selector": {
+        "description": "Oplev billedet i flere miljøer med vores visualiseringsværktøj",
+        "select-rooms": "Vælg rum",
+        "selected": "valgt",
+        "no-rooms": "Ingen rumtyper tilgængelige",
+        "or": "eller",
+        "upload-own": "Upload dit eget rum"
+      },
+      "button": {
+        "see-in-room": "Visualiser i flere rum",
+        "generate": "Generer miljøbilleder"
+      },
+      "rooms": {
+        "commercial office": "Erhvervskontor",
+        "lobby": "Lobby",
+        "kitchen": "Køkken",
+        "home office": "Hjemmekontor",
+        "cafeteria": "Kantine",
+        "restaurant": "Restaurant",
+        "living room": "Stue",
+        "bedroom": "Soveværelse",
+        "dining room": "Spisestue",
+        "hallway": "Gang",
+        "reading nook": "Læsekrog",
+        "loft": "Loft",
+        "cafe": "Café",
+        "café": "Café",
+        "bathroom": "Badeværelse",
+        "bath": "Badeværelse",
+        "entryway": "Entré",
+        "entry": "Entré",
+        "childrens room": "Børneværelse",
+        "kids room": "Børneværelse",
+        "nursery": "Børneværelse",
+        "guest room": "Gæsteværelse",
+        "study": "Studieværelse",
+        "library": "Bibliotek",
+        "gallery": "Galleri",
+        "lounge": "Lounge",
+        "hotel room": "Hotelværelse",
+        "waiting room": "Venteværelse",
+        "conference room": "Konferencelokale",
+        "meeting room": "Mødelokale",
+        "reception": "Reception",
+        "foyer": "Foyer",
+        "stairway": "Trappegang",
+        "staircase": "Trappegang",
+        "attic": "Loftsrum",
+        "studio": "Atelier",
+        "sunroom": "Orangeri",
+        "conservatory": "Vinterhave",
+        "office": "Kontor",
+        "custom environment": "Brugerdefineret miljø"
+      }
+    }
+  }
+}
