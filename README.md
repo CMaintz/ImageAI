@@ -5,6 +5,7 @@ A Shopware 6 plugin that automates product enrichment for artwork using Google G
 **Version:** 3.2.1 · **Compatibility:** Shopware 6.6 – 6.7 · **Developer:** Christoffer Maintz, for [WEXO A/S](https://www.wexo.dk)
 
 > Built as a final exam project.
+> This is the version that I handed in for my exam, and not the final, polished version shipped to the customer.
 
 ---
 
@@ -33,7 +34,7 @@ A Shopware 6 plugin that automates product enrichment for artwork using Google G
 
 ## Installation
 
-1. Copy the `ImageAi` folder into `custom/static-plugins/` on your Shopware instance.
+1. Copy the contents of this repository into `custom/static-plugins/ImageAi` on your Shopware instance.
 2. Run:
    ```bash
    bin/console plugin:refresh
