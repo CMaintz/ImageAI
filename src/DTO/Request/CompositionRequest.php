@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\DTO\Request;
+namespace CMaintz\ImageAi\DTO\Request;
 
-use Illux\ImageAi\DTO\FrameData;
+use CMaintz\ImageAi\DTO\FrameData;
 use InvalidArgumentException;
 
 /**

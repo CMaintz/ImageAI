@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Approval;
+namespace CMaintz\ImageAi\Service\Approval;
 
 use DateTime;
-use Illux\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageCollection;
-use Illux\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageEntity;
-use Illux\ImageAi\Service\Media\MediaFolderScanner;
+use CMaintz\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageCollection;
+use CMaintz\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageEntity;
+use CMaintz\ImageAi\Service\Media\MediaFolderScanner;
 use Shopware\Core\Content\Media\File\FileFetcher;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\MediaCollection;

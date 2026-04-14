@@ -9,9 +9,9 @@
             <name>eligibleProductTypes</name>
             <label>Eligible Product Types</label>
             <label lang="da-DK">Kvalificerede produkttyper</label>
-            <defaultValue>Illux Artwork</defaultValue>
-            <helpText>Comma-separated list of "Product Type" property group option names that should be included in AI analysis. Example: Illux Artwork,Photo Print,Canvas Art</helpText>
-            <helpText lang="da-DK">Kommasepareret liste over "Product Type" egenskabsgruppeindstillingsnavne, der skal inkluderes i AI-analyse. Eksempel: Illux Artwork,Photo Print,Canvas Art</helpText>
+            <defaultValue>Wexo Artwork</defaultValue>
+            <helpText>Comma-separated list of "Product Type" property group option names that should be included in AI analysis. Example: Wexo Artwork,Photo Print,Canvas Art</helpText>
+            <helpText lang="da-DK">Kommasepareret liste over "Product Type" egenskabsgruppeindstillingsnavne, der skal inkluderes i AI-analyse. Eksempel: Wexo Artwork,Photo Print,Canvas Art</helpText>
         </input-field>
 
         <input-field type="bool">

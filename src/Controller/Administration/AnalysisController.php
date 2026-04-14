@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Controller\Administration;
+namespace CMaintz\ImageAi\Controller\Administration;
 
-use Illux\ImageAi\Config\IlluxConfiguration;
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\Queue\Message\AnalyzeBatchMessage;
-use Illux\ImageAi\Service\Analysis\ProductAnalysisService;
-use Illux\ImageAi\Service\Analysis\SuggestedPropertyOptionsService;
-use Illux\ImageAi\Service\Analysis\TimeStatisticsService;
-use Illux\ImageAi\Service\BatchJobService;
-use Illux\ImageAi\Trait\ControllerResponseTrait;
+use CMaintz\ImageAi\Config\PluginConfiguration;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Queue\Message\AnalyzeBatchMessage;
+use CMaintz\ImageAi\Service\Analysis\ProductAnalysisService;
+use CMaintz\ImageAi\Service\Analysis\SuggestedPropertyOptionsService;
+use CMaintz\ImageAi\Service\Analysis\TimeStatisticsService;
+use CMaintz\ImageAi\Service\BatchJobService;
+use CMaintz\ImageAi\Trait\ControllerResponseTrait;
 use Shopware\Core\Framework\Context;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,7 +26,7 @@ class AnalysisController extends AbstractController
 
     public function __construct(
         private readonly ProductAnalysisService $productAnalysisService,
-        private readonly IlluxConfiguration $illuxConfiguration,
+        private readonly PluginConfiguration $pluginConfiguration,
         private readonly LoggerInterface $logger,
         private readonly TimeStatisticsService $timeStatisticsService,
         private readonly BatchJobService $batchJobService,
@@ -41,8 +41,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/analyze-product/{productId}',
-        name: 'api.action.illux_ai_tools.analyze_product',
+        path: '/api/_action/image-ai-tools/analyze-product/{productId}',
+        name: 'api.action.image_ai_tools.analyze_product',
         methods: ['POST']
     )]
     public function analyzeProduct(string $productId, Context $context): JsonResponse
@@ -71,8 +71,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/analyze-products',
-        name: 'api.action.illux_ai_tools.analyze_products',
+        path: '/api/_action/image-ai-tools/analyze-products',
+        name: 'api.action.image_ai_tools.analyze_products',
         methods: ['POST']
     )]
     public function analyzeProducts(Request $request, Context $context): JsonResponse
@@ -117,8 +117,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/analyze-all-products',
-        name: 'api.action.illux_ai_tools.analyze_all_products',
+        path: '/api/_action/image-ai-tools/analyze-all-products',
+        name: 'api.action.image_ai_tools.analyze_all_products',
         methods: ['POST']
     )]
     public function analyzeAllProducts(Request $request, Context $context): JsonResponse
@@ -146,7 +146,7 @@ class AnalysisController extends AbstractController
                 ]);
             }
 
-            $contentConfig = $this->illuxConfiguration->getContentConfig();
+            $contentConfig = $this->pluginConfiguration->getContentConfig();
             $metadataFilters = [
                 'includeDescription' =>
                     $overrideFilters['includeDescription'] ?? $contentConfig->includeProductDescription,
@@ -189,8 +189,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/batch-job/{id}',
-        name: 'api.action.illux_ai_tools.batch_job_status',
+        path: '/api/_action/image-ai-tools/batch-job/{id}',
+        name: 'api.action.image_ai_tools.batch_job_status',
         methods: ['GET']
     )]
     public function getBatchJobStatus(string $id, Context $context): JsonResponse
@@ -229,8 +229,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/analysis-stats',
-        name: 'api.action.illux_ai_tools.analysis_stats',
+        path: '/api/_action/image-ai-tools/analysis-stats',
+        name: 'api.action.image_ai_tools.analysis_stats',
         methods: ['GET']
     )]
     public function getAnalysisStats(Context $context): JsonResponse
@@ -244,8 +244,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/active-job',
-        name: 'api.action.illux_ai_tools.active_job',
+        path: '/api/_action/image-ai-tools/active-job',
+        name: 'api.action.image_ai_tools.active_job',
         methods: ['GET']
     )]
     public function getActiveJob(Context $context): JsonResponse
@@ -283,8 +283,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/suggested-options',
-        name: 'api.action.illux_ai_tools.suggested_options',
+        path: '/api/_action/image-ai-tools/suggested-options',
+        name: 'api.action.image_ai_tools.suggested_options',
         methods: ['GET']
     )]
     public function getSuggestedOptions(Context $context): JsonResponse
@@ -302,8 +302,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/suggested-options/approve',
-        name: 'api.action.illux_ai_tools.approve_suggested_options',
+        path: '/api/_action/image-ai-tools/suggested-options/approve',
+        name: 'api.action.image_ai_tools.approve_suggested_options',
         methods: ['POST']
     )]
     public function approveSuggestedOptions(Request $request, Context $context): JsonResponse
@@ -329,8 +329,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/suggested-options/reject',
-        name: 'api.action.illux_ai_tools.reject_suggested_option',
+        path: '/api/_action/image-ai-tools/suggested-options/reject',
+        name: 'api.action.image_ai_tools.reject_suggested_option',
         methods: ['POST']
     )]
     public function rejectSuggestedOption(Request $request, Context $context): JsonResponse
@@ -353,8 +353,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/time-statistics',
-        name: 'api.action.illux_ai_tools.time_statistics',
+        path: '/api/_action/image-ai-tools/time-statistics',
+        name: 'api.action.image_ai_tools.time_statistics',
         methods: ['GET']
     )]
     public function getTimeStatistics(Context $context): JsonResponse
@@ -369,8 +369,8 @@ class AnalysisController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/stop-analysis/{batchJobId}',
-        name: 'api.action.illux_ai_tools.stop_analysis',
+        path: '/api/_action/image-ai-tools/stop-analysis/{batchJobId}',
+        name: 'api.action.image_ai_tools.stop_analysis',
         methods: ['POST']
     )]
     public function stopAnalysis(string $batchJobId, Context $context): JsonResponse

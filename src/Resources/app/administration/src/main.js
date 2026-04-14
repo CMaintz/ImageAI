@@ -1,9 +1,9 @@
 import './services/ai-analysis-api.service';
 import './services/scene-generation-api.service';
 
-import illuxAiAnalysisStore from './module/ai-image-tools/state/illux-ai-analysis.store';
+import imageAiAnalysisStore from './module/ai-image-tools/state/image-ai-analysis.store';
 
-Shopware.State.registerModule('illuxAiAnalysis', illuxAiAnalysisStore);
+Shopware.State.registerModule('imageAiAnalysis', imageAiAnalysisStore);
 
 import './module/ai-image-tools';
 

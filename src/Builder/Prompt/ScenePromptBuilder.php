@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Builder\Prompt;
+namespace CMaintz\ImageAi\Builder\Prompt;
 
 use RuntimeException;
 

@@ -51,7 +51,7 @@ export default class AiCompositorPlugin extends Plugin {
             parseInt(this.el.dataset.maxRooms || '5', 10),
             this.options.selectedClass
         );
-        this.productType = (this.el.dataset.productType as ProductType) || 'Illux Artwork';
+        this.productType = (this.el.dataset.productType as ProductType) || 'Wexo Artwork';
         console.log('[AiCompositor] Product type:', this.productType);
         this._registerEvents();
     }

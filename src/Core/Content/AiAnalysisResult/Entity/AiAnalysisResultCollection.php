@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Core\Content\AiAnalysisResult\Entity;
+namespace CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 

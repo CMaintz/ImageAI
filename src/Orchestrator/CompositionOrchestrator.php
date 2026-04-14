@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Orchestrator;
+namespace CMaintz\ImageAi\Orchestrator;
 
-use Illux\ImageAi\Api\Gemini\GeminiClient;
-use Illux\ImageAi\DTO\FrameData;
-use Illux\ImageAi\DTO\Request\CompositionRequest;
-use Illux\ImageAi\Service\Composition\CompositionJobStore;
-use Illux\ImageAi\Service\Composition\EnvironmentSceneSelector;
-use Illux\ImageAi\Service\Frame\FrameCornerImageResolver;
-use Illux\ImageAi\Service\Media\MediaFileReader;
-use Illux\ImageAi\Service\Prompt\PromptDirector;
-use Illux\ImageAi\Trait\RetryWithBackoffTrait;
+use CMaintz\ImageAi\Api\Gemini\GeminiClient;
+use CMaintz\ImageAi\DTO\FrameData;
+use CMaintz\ImageAi\DTO\Request\CompositionRequest;
+use CMaintz\ImageAi\Service\Composition\CompositionJobStore;
+use CMaintz\ImageAi\Service\Composition\EnvironmentSceneSelector;
+use CMaintz\ImageAi\Service\Frame\FrameCornerImageResolver;
+use CMaintz\ImageAi\Service\Media\MediaFileReader;
+use CMaintz\ImageAi\Service\Prompt\PromptDirector;
+use CMaintz\ImageAi\Trait\RetryWithBackoffTrait;
 use RuntimeException;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Product\ProductEntity;

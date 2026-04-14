@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\DTO\Image;
+namespace CMaintz\ImageAi\DTO\Image;
 
 /**
  * DTO representing a product image with pre-resolved base64 data

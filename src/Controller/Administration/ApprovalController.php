@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Controller\Administration;
+namespace CMaintz\ImageAi\Controller\Administration;
 
-use Illux\ImageAi\Service\Approval\AnalysisApprovalService;
-use Illux\ImageAi\Service\Approval\SceneImageApprovalService;
-use Illux\ImageAi\Trait\ControllerResponseTrait;
+use CMaintz\ImageAi\Service\Approval\AnalysisApprovalService;
+use CMaintz\ImageAi\Service\Approval\SceneImageApprovalService;
+use CMaintz\ImageAi\Trait\ControllerResponseTrait;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
@@ -39,8 +39,8 @@ class ApprovalController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/approval/analysis/approve',
-        name: 'api.action.illux_ai_tools.approval.analysis.approve',
+        path: '/api/_action/image-ai-tools/approval/analysis/approve',
+        name: 'api.action.image_ai_tools.approval.analysis.approve',
         methods: ['POST']
     )]
     public function approveAnalysisResults(Request $request, Context $context): JsonResponse
@@ -64,8 +64,8 @@ class ApprovalController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/approval/analysis/reject',
-        name: 'api.action.illux_ai_tools.approval.analysis.reject',
+        path: '/api/_action/image-ai-tools/approval/analysis/reject',
+        name: 'api.action.image_ai_tools.approval.analysis.reject',
         methods: ['POST']
     )]
     public function rejectAnalysisResults(Request $request, Context $context): JsonResponse
@@ -85,8 +85,8 @@ class ApprovalController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/approval/scene-image/approve',
-        name: 'api.action.illux_ai_tools.approval.scene_image.approve',
+        path: '/api/_action/image-ai-tools/approval/scene-image/approve',
+        name: 'api.action.image_ai_tools.approval.scene_image.approve',
         methods: ['POST']
     )]
     public function approveSceneImage(Request $request, Context $context): JsonResponse
@@ -115,8 +115,8 @@ class ApprovalController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/approval/scene-image/reject',
-        name: 'api.action.illux_ai_tools.approval.scene_image.reject',
+        path: '/api/_action/image-ai-tools/approval/scene-image/reject',
+        name: 'api.action.image_ai_tools.approval.scene_image.reject',
         methods: ['POST']
     )]
     public function rejectSceneImage(Request $request, Context $context): JsonResponse
@@ -136,8 +136,8 @@ class ApprovalController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/approval/scene-image/batch-approve',
-        name: 'api.action.illux_ai_tools.approval.scene_image.batch_approve',
+        path: '/api/_action/image-ai-tools/approval/scene-image/batch-approve',
+        name: 'api.action.image_ai_tools.approval.scene_image.batch_approve',
         methods: ['POST']
     )]
     public function batchApproveSceneImages(Request $request, Context $context): JsonResponse
@@ -161,8 +161,8 @@ class ApprovalController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/illux-ai-tools/approval/scene-image/batch-reject',
-        name: 'api.action.illux_ai_tools.approval.scene_image.batch_reject',
+        path: '/api/_action/image-ai-tools/approval/scene-image/batch-reject',
+        name: 'api.action.image_ai_tools.approval.scene_image.batch_reject',
         methods: ['POST']
     )]
     public function batchRejectSceneImages(Request $request, Context $context): JsonResponse

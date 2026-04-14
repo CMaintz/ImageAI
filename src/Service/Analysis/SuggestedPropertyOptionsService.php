@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Analysis;
+namespace CMaintz\ImageAi\Service\Analysis;
 
-use Illux\ImageAi\Model\Enum\AiAnalysisStatusEnum;
-use Illux\ImageAi\Service\Property\PropertyLookupService;
-use Illux\ImageAi\Service\Property\PropertyMutationService;
+use CMaintz\ImageAi\Model\Enum\AiAnalysisStatusEnum;
+use CMaintz\ImageAi\Service\Property\PropertyLookupService;
+use CMaintz\ImageAi\Service\Property\PropertyMutationService;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
-use Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
-use Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultEntity;
+use CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
+use CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultEntity;
 use Throwable;
 
 /**

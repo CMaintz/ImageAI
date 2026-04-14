@@ -23,7 +23,7 @@ Component.register(
                 availableLanguages: [],
                 localConfig: {
                     // Analysis Configuration
-                    eligibleProductTypes: 'Illux Artwork',
+                    eligibleProductTypes: 'Wexo Artwork',
                     metaTitleMaxLength: 56,
                     metaDescriptionMaxLength: 160,
                     keywordCount: 5,
@@ -269,10 +269,10 @@ Component.register(
 
         async loadConfig() {
             try {
-                const raw = await this.systemConfigApiService.getValues('IlluxImageAi.config');
+                const raw = await this.systemConfigApiService.getValues('CMaintzImageAi.config');
 
                 Object.keys(this.localConfig).forEach(key => {
-                    const full = `IlluxImageAi.config.${key}`;
+                    const full = `CMaintzImageAi.config.${key}`;
                     let v = raw[full];
 
                     // Convert percentage fields from 0-1 decimals to 0-100 integers
@@ -299,7 +299,7 @@ Component.register(
             try {
                 const payload = {};
                 Object.keys(this.localConfig).forEach(key => {
-                    const full = `IlluxImageAi.config.${key}`;
+                    const full = `CMaintzImageAi.config.${key}`;
                     let value = this.localConfig[key];
 
                     // Convert percentage fields from 0-100 integers back to 0-1 decimals for storage

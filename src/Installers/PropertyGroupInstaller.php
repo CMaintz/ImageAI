@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Installers;
+namespace CMaintz\ImageAi\Installers;
 
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionEntity;
@@ -60,7 +60,7 @@ class PropertyGroupInstaller
                     $groupTranslations[$languageId] = [
                         'name' => $groupData['translations'][$locale]['group_name'],
                         'customFields' => [
-                            'illux_ai_managed' => true,
+                            'image_ai_managed' => true,
                         ],
                     ];
                 }
@@ -174,7 +174,7 @@ class PropertyGroupInstaller
         // Search for AI-managed property groups and check their en-GB translation
         $criteria = new Criteria();
         $criteria->addAssociation('translations');
-        $criteria->addFilter(new EqualsFilter('customFields.illux_ai_managed', true));
+        $criteria->addFilter(new EqualsFilter('customFields.image_ai_managed', true));
 
         $propertyGroups = $this->propertyGroupRepository->search($criteria, $context);
 

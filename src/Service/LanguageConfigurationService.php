@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service;
+namespace CMaintz\ImageAi\Service;
 
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\Config\IlluxConfiguration;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Config\PluginConfiguration;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -47,7 +47,7 @@ class LanguageConfigurationService
      * @param EntityRepository<LanguageCollection> $languageRepository
      */
     public function __construct(
-        private readonly IlluxConfiguration $config,
+        private readonly PluginConfiguration $config,
         private readonly EntityRepository $languageRepository
     ) {
     }

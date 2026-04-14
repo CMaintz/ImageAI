@@ -11,7 +11,7 @@ const {Component, Mixin, Data: {Criteria}} = Shopware;
 Component.register('ai-image-tools-approval', {
     template,
 
-    inject: ['repositoryFactory', 'illuxAiAnalysisApiService', 'sceneGenerationApiService', 'systemConfigApiService'],
+    inject: ['repositoryFactory', 'imageAiAnalysisApiService', 'sceneGenerationApiService', 'systemConfigApiService'],
 
     mixins: [
         Mixin.getByName('notification'),
@@ -118,7 +118,7 @@ Component.register('ai-image-tools-approval', {
 
             try {
                 const ids = this.approveSelection.map(item => item.id);
-                const response = await this.illuxAiAnalysisApiService.approveAnalysisResults(ids);
+                const response = await this.imageAiAnalysisApiService.approveAnalysisResults(ids);
 
                 if (this.$refs.aiImageToolsApprovalGrid) {
                     this.$refs.aiImageToolsApprovalGrid.selectAll(false);
@@ -173,7 +173,7 @@ Component.register('ai-image-tools-approval', {
 
             try {
                 const ids = this.rejectSelection.map(item => item.id);
-                const response = await this.illuxAiAnalysisApiService.rejectAnalysisResults(ids);
+                const response = await this.imageAiAnalysisApiService.rejectAnalysisResults(ids);
 
                 if (this.$refs.aiImageToolsApprovalGrid) {
                     this.$refs.aiImageToolsApprovalGrid.selectAll(false);

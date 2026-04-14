@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\DTO\Request;
+namespace CMaintz\ImageAi\DTO\Request;
 
-use Illux\ImageAi\DTO\Image\ResolvedProductImage;
+use CMaintz\ImageAi\DTO\Image\ResolvedProductImage;
 
 /**
  * Simple DTO for Gemini API batch analysis requests

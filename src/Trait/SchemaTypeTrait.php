@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Trait;
+namespace CMaintz\ImageAi\Trait;
 
 use stdClass;
 

@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\ScheduledTask;
+namespace CMaintz\ImageAi\ScheduledTask;
 
 use DateTimeImmutable;
-use Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
-use Illux\ImageAi\Model\Enum\AiAnalysisStatusEnum;
-use Illux\ImageAi\Model\Enum\BatchJobStatusEnum;
+use CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
+use CMaintz\ImageAi\Model\Enum\AiAnalysisStatusEnum;
+use CMaintz\ImageAi\Model\Enum\BatchJobStatusEnum;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -16,8 +16,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
-use Illux\ImageAi\Core\Content\AiBatchJob\AiBatchJobCollection;
-use Illux\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageCollection;
+use CMaintz\ImageAi\Core\Content\AiBatchJob\AiBatchJobCollection;
+use CMaintz\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageCollection;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**
@@ -52,7 +52,7 @@ class JobCleanupTaskHandler extends ScheduledTaskHandler
 
     public function run(): void
     {
-        $this->logger->info('[IlluxImageAi] Starting job cleanup task');
+        $this->logger->info('[CMaintzImageAi] Starting job cleanup task');
 
         $context = Context::createCLIContext();
 
@@ -60,7 +60,7 @@ class JobCleanupTaskHandler extends ScheduledTaskHandler
         $pendingImagesDeleted = $this->cleanupPendingSceneImages($context);
         $staleResultsMarkedFailed = $this->markStaleProcessingResultsAsFailed($context);
 
-        $this->logger->info('[IlluxImageAi] Job cleanup task completed', [
+        $this->logger->info('[CMaintzImageAi] Job cleanup task completed', [
             'batchJobsDeleted' => $batchJobsDeleted,
             'pendingImagesDeleted' => $pendingImagesDeleted,
             'staleResultsMarkedFailed' => $staleResultsMarkedFailed,
@@ -112,7 +112,7 @@ class JobCleanupTaskHandler extends ScheduledTaskHandler
             $this->batchJobRepository->delete($deleteData, $context);
             $deletedCount += count($ids);
 
-            $this->logger->debug('[IlluxImageAi] Deleted batch of old jobs', [
+            $this->logger->debug('[CMaintzImageAi] Deleted batch of old jobs', [
                 'count' => count($ids),
             ]);
 
@@ -145,7 +145,7 @@ class JobCleanupTaskHandler extends ScheduledTaskHandler
             $this->pendingSceneImageRepository->delete($deleteData, $context);
             $deletedCount += count($ids);
 
-            $this->logger->debug('[IlluxImageAi] Deleted batch of old pending images', [
+            $this->logger->debug('[CMaintzImageAi] Deleted batch of old pending images', [
                 'count' => count($ids),
             ]);
 
@@ -193,7 +193,7 @@ class JobCleanupTaskHandler extends ScheduledTaskHandler
             $this->analysisResultRepository->update($updateData, $context);
             $updatedCount += count($ids);
 
-            $this->logger->debug('[IlluxImageAi] Marked stale processing results as failed', [
+            $this->logger->debug('[CMaintzImageAi] Marked stale processing results as failed', [
                 'count' => count($ids),
             ]);
 

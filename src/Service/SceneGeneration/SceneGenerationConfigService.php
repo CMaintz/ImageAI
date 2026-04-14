@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\SceneGeneration;
+namespace CMaintz\ImageAi\Service\SceneGeneration;
 
-use Illux\ImageAi\Core\Content\AiSceneGenerationConfig\AiSceneGenerationConfigCollection;
-use Illux\ImageAi\Core\Content\AiSceneGenerationConfig\AiSceneGenerationConfigEntity;
-use Illux\ImageAi\Service\Media\MediaFolderScanner;
+use CMaintz\ImageAi\Core\Content\AiSceneGenerationConfig\AiSceneGenerationConfigCollection;
+use CMaintz\ImageAi\Core\Content\AiSceneGenerationConfig\AiSceneGenerationConfigEntity;
+use CMaintz\ImageAi\Service\Media\MediaFolderScanner;
 use RuntimeException;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;

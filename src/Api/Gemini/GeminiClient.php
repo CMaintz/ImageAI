@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Api\Gemini;
+namespace CMaintz\ImageAi\Api\Gemini;
 
-use Illux\ImageAi\Config\IlluxConfiguration;
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\DTO\Request\AnalysisRequest;
-use Illux\ImageAi\DTO\Request\CompositionRequest;
-use Illux\ImageAi\DTO\Request\GenerationRequest;
-use Illux\ImageAi\Trait\RetryWithBackoffTrait;
+use CMaintz\ImageAi\Config\PluginConfiguration;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\DTO\Request\AnalysisRequest;
+use CMaintz\ImageAi\DTO\Request\CompositionRequest;
+use CMaintz\ImageAi\DTO\Request\GenerationRequest;
+use CMaintz\ImageAi\Trait\RetryWithBackoffTrait;
 use RuntimeException;
 use SplObjectStorage;
 use Symfony\Component\HttpClient\HttpClient;
@@ -28,7 +28,7 @@ class GeminiClient
     private HttpClientInterface $client;
 
     public function __construct(
-        private readonly IlluxConfiguration $config,
+        private readonly PluginConfiguration $config,
         private readonly GeminiResponseParser $responseParser,
         ?HttpClientInterface $client = null,
     ) {

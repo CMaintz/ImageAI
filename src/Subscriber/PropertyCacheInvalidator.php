@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Subscriber;
+namespace CMaintz\ImageAi\Subscriber;
 
-use Illux\ImageAi\Service\Property\PropertyLookupService;
+use CMaintz\ImageAi\Service\Property\PropertyLookupService;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
 use Shopware\Core\Content\Property\PropertyGroupDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityDeletedEvent;

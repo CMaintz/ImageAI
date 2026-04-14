@@ -325,7 +325,7 @@ export default class AiAnalysisApiService extends ApiService {
         });
     }
 }
-Shopware.Application.addServiceProvider('illuxAiAnalysisApiService', (container) => {
+Shopware.Application.addServiceProvider('imageAiAnalysisApiService', (container) => {
     return new AiAnalysisApiService(
         Shopware.Application.getContainer('init').httpClient,
         Shopware.Service('loginService')

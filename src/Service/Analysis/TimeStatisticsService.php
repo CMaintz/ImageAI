@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Analysis;
+namespace CMaintz\ImageAi\Service\Analysis;
 
 use Doctrine\DBAL\Connection;
-use Illux\ImageAi\Config\IlluxConfiguration;
+use CMaintz\ImageAi\Config\PluginConfiguration;
 use Shopware\Core\Framework\Context;
 
 /**
@@ -24,7 +24,7 @@ class TimeStatisticsService
 {
     public function __construct(
         private readonly Connection $connection,
-        private readonly IlluxConfiguration $config,
+        private readonly PluginConfiguration $config,
     ) {
     }
 

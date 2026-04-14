@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Analysis;
+namespace CMaintz\ImageAi\Service\Analysis;
 
-use Illux\ImageAi\Config\ConfidenceConfiguration;
-use Illux\ImageAi\Config\IlluxConfiguration;
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\DTO\Analysis\AnalysisResultDTO;
-use Illux\ImageAi\DTO\Analysis\ConfidenceResult;
-use Illux\ImageAi\DTO\Analysis\DescriptionDataDTO;
-use Illux\ImageAi\DTO\Analysis\LanguageAnalysisDTO;
-use Illux\ImageAi\DTO\Analysis\MetaDataDTO;
+use CMaintz\ImageAi\Config\ConfidenceConfiguration;
+use CMaintz\ImageAi\Config\PluginConfiguration;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\DTO\Analysis\AnalysisResultDTO;
+use CMaintz\ImageAi\DTO\Analysis\ConfidenceResult;
+use CMaintz\ImageAi\DTO\Analysis\DescriptionDataDTO;
+use CMaintz\ImageAi\DTO\Analysis\LanguageAnalysisDTO;
+use CMaintz\ImageAi\DTO\Analysis\MetaDataDTO;
 
 /**
  * Calculates comprehensive confidence scores for AI analysis results
@@ -24,7 +24,7 @@ use Illux\ImageAi\DTO\Analysis\MetaDataDTO;
 class ConfidenceCalculator
 {
     public function __construct(
-        private readonly IlluxConfiguration $config
+        private readonly PluginConfiguration $config
     ) {
     }
 

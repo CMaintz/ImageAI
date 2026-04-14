@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Analysis;
+namespace CMaintz\ImageAi\Service\Analysis;
 
-use Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
-use Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultEntity;
-use Illux\ImageAi\Model\Enum\AiAnalysisStatusEnum;
+use CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
+use CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultEntity;
+use CMaintz\ImageAi\Model\Enum\AiAnalysisStatusEnum;
 use RuntimeException;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\ProductEntity;

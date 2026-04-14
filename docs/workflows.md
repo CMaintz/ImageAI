@@ -1,4 +1,4 @@
-# IlluxImageAi - Workflows
+# CMaintzImageAi - Workflows
 
 > **Navigation:** [Overview](./overview.md) | [Architecture](./architecture.md) | [API Integration](./api-integration.md) | **Workflows** | [Admin UI](./admin-ui.md) | [Development](./development.md)
 

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Builder\Schema;
+namespace CMaintz\ImageAi\Builder\Schema;
 
-use Illux\ImageAi\Config\ContentConfiguration;
-use Illux\ImageAi\Trait\SchemaTypeTrait;
+use CMaintz\ImageAi\Config\ContentConfiguration;
+use CMaintz\ImageAi\Trait\SchemaTypeTrait;
 use RuntimeException;
 use Shopware\Core\Content\Property\PropertyGroupEntity;
 
@@ -162,7 +162,7 @@ class AnalysisSchemaBuilder
         if (empty($this->propertyGroups)) {
             throw new RuntimeException(
                 'No AI-managed property groups found. Please ensure property groups are installed ' .
-                'and have the "illux_ai_managed" custom field set to true.'
+                'and have the "image_ai_managed" custom field set to true.'
             );
         }
 

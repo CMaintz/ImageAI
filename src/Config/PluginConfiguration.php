@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Config;
+namespace CMaintz\ImageAi\Config;
 
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 /**
- * Centralized configuration service for IlluxImageAi plugin
+ * Centralized configuration service for CMaintzImageAi plugin
  * Single source of truth for all configuration access
  *
  * Provides typed configuration value objects and caches them for performance
  */
-class IlluxConfiguration
+class PluginConfiguration
 {
     private ?ApiConfiguration $apiConfig = null;
     private ?ContentConfiguration $contentConfig = null;
@@ -83,7 +83,7 @@ class IlluxConfiguration
             $eligibleTypesString = $this->sysConfig->getString(ConfigKeys::ELIGIBLE_PRODUCT_TYPES);
             $eligibleProductTypes = !empty($eligibleTypesString)
                 ? array_map('trim', explode(',', $eligibleTypesString))
-                : ['Illux Artwork'];
+                : ['Wexo Artwork'];
 
             $enableApproval = $this->sysConfig->getBool(ConfigKeys::ENABLE_APPROVAL_WORKFLOW);
             $enableScheduled = $this->sysConfig->getBool(ConfigKeys::SCHEDULED_TASK_ENABLED);

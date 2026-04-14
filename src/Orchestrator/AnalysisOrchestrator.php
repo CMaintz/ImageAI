@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Orchestrator;
+namespace CMaintz\ImageAi\Orchestrator;
 
-use Illux\ImageAi\Api\Gemini\GeminiClient;
-use Illux\ImageAi\Config\ContentConfiguration;
-use Illux\ImageAi\Config\IlluxConfiguration;
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\DTO\Image\ResolvedProductImage;
-use Illux\ImageAi\Factory\AnalysisRequestFactory;
-use Illux\ImageAi\Model\Enum\AiAnalysisStatusEnum;
-use Illux\ImageAi\Service\Analysis\AnalysisPersistenceService;
-use Illux\ImageAi\Service\Analysis\ProductAnalysisService;
-use Illux\ImageAi\Service\Media\ProductImageResolver;
-use Illux\ImageAi\Service\Property\PropertyLookupService;
-use Illux\ImageAi\Trait\RetryWithBackoffTrait;
+use CMaintz\ImageAi\Api\Gemini\GeminiClient;
+use CMaintz\ImageAi\Config\ContentConfiguration;
+use CMaintz\ImageAi\Config\PluginConfiguration;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\DTO\Image\ResolvedProductImage;
+use CMaintz\ImageAi\Factory\AnalysisRequestFactory;
+use CMaintz\ImageAi\Model\Enum\AiAnalysisStatusEnum;
+use CMaintz\ImageAi\Service\Analysis\AnalysisPersistenceService;
+use CMaintz\ImageAi\Service\Analysis\ProductAnalysisService;
+use CMaintz\ImageAi\Service\Media\ProductImageResolver;
+use CMaintz\ImageAi\Service\Property\PropertyLookupService;
+use CMaintz\ImageAi\Trait\RetryWithBackoffTrait;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -38,7 +38,7 @@ class AnalysisOrchestrator
         private readonly ProductAnalysisService $productAnalysisService,
         private readonly AnalysisPersistenceService $resultPersistence,
         private readonly EntityRepository $productRepository,
-        private readonly IlluxConfiguration $config,
+        private readonly PluginConfiguration $config,
         private readonly AnalysisRequestFactory $requestFactory,
         private readonly ProductImageResolver $productImageResolver,
         private readonly PropertyLookupService $propertyLookupService

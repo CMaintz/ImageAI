@@ -1,4 +1,4 @@
-# IlluxImageAi - Development & TODOs
+# CMaintzImageAi - Development & TODOs
 
 > **Navigation:** [Overview](./overview.md) | [Architecture](./architecture.md) | [API Integration](./api-integration.md) | [Workflows](./workflows.md) | [Admin UI](./admin-ui.md) | **Development**
 
@@ -6,11 +6,11 @@
 
 ```bash
 # Analyze all unanalyzed products
-bin/console illux:analyze-products
+bin/console image-ai:analyze-products
 
 # With options
-bin/console illux:analyze-products --batch-size=50
-bin/console illux:analyze-products --force  # Re-analyze already analyzed
+bin/console image-ai:analyze-products --batch-size=50
+bin/console image-ai:analyze-products --force  # Re-analyze already analyzed
 
 # Dev commands (remove post-testing)
 bin/console illux:dev:generate-test-products

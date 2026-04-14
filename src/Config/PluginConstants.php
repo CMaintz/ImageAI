@@ -1,22 +1,22 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Config;
+namespace CMaintz\ImageAi\Config;
 
 /**
- * Centralized constants for IlluxImageAi plugin
+ * Centralized constants for CMaintzImageAi plugin
  * Single source of truth for all plugin-wide constants
  */
 class PluginConstants
 {
-    public const string CONFIG_PREFIX = 'IlluxImageAi.config.';
+    public const string CONFIG_PREFIX = 'CMaintzImageAi.config.';
 
     // Language
     public const string PRIMARY_ANALYSIS_LANGUAGE = 'da-DK';
 
     // Cache Configuration
     public const int PROPERTY_CACHE_TTL_SECONDS = 3600;
-    public const string CACHE_KEY_PROPERTY_OPTIONS = 'illux_ai_property_options';
-    public const string CACHE_KEY_PROPERTY_GROUPS = 'illux_ai_property_groups';
+    public const string CACHE_KEY_PROPERTY_OPTIONS = 'image_ai_property_options';
+    public const string CACHE_KEY_PROPERTY_GROUPS = 'image_ai_property_groups';
 
     // Request Limits
     public const int MAX_PRODUCTS_PER_ADMIN_REQUEST = 500;
@@ -29,12 +29,12 @@ class PluginConstants
     public const float CM_PER_INCH = 2.54;
 
     // Custom Fields
-    public const string CUSTOM_FIELD_SET_NAME = 'illux_ai_property_group_set';
-    public const string CUSTOM_FIELD_AI_MANAGED = 'illux_ai_managed';
+    public const string CUSTOM_FIELD_SET_NAME = 'image_ai_property_group_set';
+    public const string CUSTOM_FIELD_AI_MANAGED = 'image_ai_managed';
 
     // Media Folders
     public const string SCENE_PARENT_FOLDER_NAME = 'AI Environment Scenes';
-    public const string SCENE_FOLDER_TECHNICAL_NAME = 'illux_ai_environment_scenes';
+    public const string SCENE_FOLDER_TECHNICAL_NAME = 'image_ai_environment_scenes';
 
     // User Upload Paths
     public const string GRAPHICAL_ASSISTANCE_UPLOAD_PATH = 'graphical-assistance/uploads';

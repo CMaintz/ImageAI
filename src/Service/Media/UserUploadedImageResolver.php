@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Media;
+namespace CMaintz\ImageAi\Service\Media;
 
-use Illux\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Config\PluginConstants;
 use League\Flysystem\FilesystemOperator;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -1,4 +1,4 @@
-# IlluxImageAi - Architecture
+# CMaintzImageAi - Architecture
 
 > **Navigation:** [Overview](./overview.md) | **Architecture** | [API Integration](./api-integration.md) | [Workflows](./workflows.md) | [Admin UI](./admin-ui.md) | [Development](./development.md)
 
@@ -17,7 +17,7 @@ The plugin follows a **unified architecture** - all functionality lives in one S
 ## File Structure
 
 ```
-IlluxImageAi/
+CMaintzImageAi/
 ├── src/
 │   ├── Api/
 │   │   └── Gemini/
@@ -34,7 +34,7 @@ IlluxImageAi/
 │   │       └── AnalysisSchemaBuilder.php         # Builds response JSON schema
 │   │
 │   ├── Command/
-│   │   ├── AnalyzeAllProductsCommand.php         # CLI: bin/console illux:analyze-products
+│   │   ├── AnalyzeAllProductsCommand.php         # CLI: bin/console image-ai:analyze-products
 │   │   └── Dev/                                  # Dev commands (remove post-testing)
 │   │
 │   ├── Config/

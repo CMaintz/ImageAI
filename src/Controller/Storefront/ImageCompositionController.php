@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Controller\Storefront;
+namespace CMaintz\ImageAi\Controller\Storefront;
 
-use Illux\ImageAi\Orchestrator\CompositionOrchestrator;
-use Illux\ImageAi\Service\Media\UserUploadedImageResolver;
-use Illux\ImageAi\Trait\ControllerResponseTrait;
+use CMaintz\ImageAi\Orchestrator\CompositionOrchestrator;
+use CMaintz\ImageAi\Service\Media\UserUploadedImageResolver;
+use CMaintz\ImageAi\Trait\ControllerResponseTrait;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
@@ -400,7 +400,7 @@ class ImageCompositionController extends StorefrontController
                     }
                 }
             } catch (Throwable $e) {
-                $this->logger->error('[IlluxImageAi] SSE stream error', [
+                $this->logger->error('[CMaintzImageAi] SSE stream error', [
                     'jobId' => $jobId,
                     'error' => $e->getMessage(),
                 ]);

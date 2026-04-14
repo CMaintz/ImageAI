@@ -1,6 +1,6 @@
 {
-    "name": "illux/image-ai",
-    "description": "Illux Image AI Plugin for Shopware",
+    "name": "cmaintz/image-ai",
+    "description": "Image AI Plugin for Shopware",
     "type": "shopware-platform-plugin",
     "license": "proprietary",
     "version": "3.2.1",
@@ -12,14 +12,14 @@
     ],
     "autoload": {
         "psr-4": {
-            "Illux\\ImageAi\\": "src/"
+            "CMaintz\\ImageAi\\": "src/"
         }
     },
     "require": {
         "shopware/core": "~6.6 || ~6.7"
     },
     "extra": {
-        "shopware-plugin-class": "Illux\\ImageAi\\IlluxImageAi",
+        "shopware-plugin-class": "CMaintz\\ImageAi\\CMaintzImageAi",
         "plugin-icon": "src/Resources/config/plugin.png",
         "copyright": "(c) by WEXO A/S",
         "label": {

@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Approval;
+namespace CMaintz\ImageAi\Service\Approval;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
-use Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultEntity;
-use Illux\ImageAi\Model\Enum\AiAnalysisStatusEnum;
-use Illux\ImageAi\Service\Analysis\ProductUpdateAssembler;
-use Illux\ImageAi\Service\Property\PropertyLookupService;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
+use CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultEntity;
+use CMaintz\ImageAi\Model\Enum\AiAnalysisStatusEnum;
+use CMaintz\ImageAi\Service\Analysis\ProductUpdateAssembler;
+use CMaintz\ImageAi\Service\Property\PropertyLookupService;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\Context;

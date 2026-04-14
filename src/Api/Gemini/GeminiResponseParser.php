@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Api\Gemini;
+namespace CMaintz\ImageAi\Api\Gemini;
 
 use RuntimeException;
 

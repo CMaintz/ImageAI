@@ -196,7 +196,7 @@ export default {
         async loadTimeStatistics({commit})
         {
             try {
-                const apiService = Shopware.Service('illuxAiAnalysisApiService');
+                const apiService = Shopware.Service('imageAiAnalysisApiService');
                 const response = await apiService.getTimeStatistics();
 
                 if (response.success && response.data) {
@@ -219,7 +219,7 @@ export default {
         async loadStatusCounts({commit})
         {
             try {
-                const apiService = Shopware.Service('illuxAiAnalysisApiService');
+                const apiService = Shopware.Service('imageAiAnalysisApiService');
                 const response = await apiService.getAnalysisStats();
 
                 if (response.success && response.stats) {

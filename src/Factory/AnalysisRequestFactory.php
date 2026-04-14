@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Factory;
+namespace CMaintz\ImageAi\Factory;
 
-use Illux\ImageAi\Config\ContentConfiguration;
-use Illux\ImageAi\DTO\Image\ResolvedProductImage;
-use Illux\ImageAi\DTO\Request\AnalysisRequest;
-use Illux\ImageAi\Service\LanguageConfigurationService;
-use Illux\ImageAi\Service\Prompt\PromptDirector;
+use CMaintz\ImageAi\Config\ContentConfiguration;
+use CMaintz\ImageAi\DTO\Image\ResolvedProductImage;
+use CMaintz\ImageAi\DTO\Request\AnalysisRequest;
+use CMaintz\ImageAi\Service\LanguageConfigurationService;
+use CMaintz\ImageAi\Service\Prompt\PromptDirector;
 use InvalidArgumentException;
 use Shopware\Core\Framework\Context;
 

@@ -1,4 +1,4 @@
-# IlluxImageAi - API Integration
+# CMaintzImageAi - API Integration
 
 > **Navigation:** [Overview](./overview.md) | [Architecture](./architecture.md) | **API Integration** | [Workflows](./workflows.md) | [Admin UI](./admin-ui.md) | [Development](./development.md)
 
@@ -117,7 +117,7 @@ Exponential backoff via `RetryWithBackoffTrait`:
 
 ## Controller Endpoints
 
-All endpoints prefixed with `/api/_action/illux-ai-tools/`.
+All endpoints prefixed with `/api/_action/image-ai-tools/`.
 
 ### AnalysisController (11 Endpoints)
 
@@ -158,13 +158,13 @@ All endpoints prefixed with `/api/_action/illux-ai-tools/`.
 
 **Start batch analysis:**
 ```bash
-curl -X POST /api/_action/illux-ai-tools/analyze-all-products \
+curl -X POST /api/_action/image-ai-tools/analyze-all-products \
   -H "Authorization: Bearer <token>"
 ```
 
 **Check job progress:**
 ```bash
-curl -X GET /api/_action/illux-ai-tools/batch-job/{jobId} \
+curl -X GET /api/_action/image-ai-tools/batch-job/{jobId} \
   -H "Authorization: Bearer <token>"
 ```
 

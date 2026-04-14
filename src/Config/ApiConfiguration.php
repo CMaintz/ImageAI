@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Config;
+namespace CMaintz\ImageAi\Config;
 
 /**
  * Value object for API configuration

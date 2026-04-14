@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Twig;
+namespace CMaintz\ImageAi\Twig;
 
-use Illux\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Config\PluginConstants;
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderCollection;
 use Shopware\Core\Content\Media\MediaCollection;
 use Shopware\Core\Content\Product\ProductCollection;
@@ -29,22 +29,22 @@ class AiCompositorTwigExtension extends AbstractExtension
 {
     /** Product types where button should NEVER be shown (case-insensitive match against property name) */
     private const array HIDDEN_TYPES = [
-        'Illux Gift Card',
-        'Illux Poster Frame',
-        'Illux Pop Art',
+        'Wexo Gift Card',
+        'Wexo Poster Frame',
+        'Wexo Pop Art',
     ];
 
     /** Product types that use product cover image (case-insensitive match against property name) */
     private const array ARTWORK_TYPES = [
-        'Illux Artwork',
-        'Illux Wallpaper Customizable',
+        'Wexo Artwork',
+        'Wexo Wallpaper Customizable',
     ];
 
     /** Product types that require user upload (case-insensitive match against property name) */
     private const array UPLOAD_TYPES = [
-        'Illux Photo',
-        'Illux Your Wallpaper',
-        'Illux Collage Product',
+        'Wexo Photo',
+        'Wexo Your Wallpaper',
+        'Wexo Collage Product',
     ];
 
     /**

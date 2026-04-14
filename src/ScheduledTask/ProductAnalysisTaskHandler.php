@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\ScheduledTask;
+namespace CMaintz\ImageAi\ScheduledTask;
 
-use Illux\ImageAi\Config\IlluxConfiguration;
-use Illux\ImageAi\Orchestrator\AnalysisOrchestrator;
+use CMaintz\ImageAi\Config\PluginConfiguration;
+use CMaintz\ImageAi\Orchestrator\AnalysisOrchestrator;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -22,7 +22,7 @@ class ProductAnalysisTaskHandler extends ScheduledTaskHandler
         EntityRepository $scheduledTaskRepository,
         private readonly LoggerInterface $logger,
         private readonly AnalysisOrchestrator $batchOrchestrationService,
-        private readonly IlluxConfiguration $config
+        private readonly PluginConfiguration $config
     ) {
         parent::__construct($scheduledTaskRepository, $this->logger);
     }

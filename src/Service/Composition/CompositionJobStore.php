@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Composition;
+namespace CMaintz\ImageAi\Service\Composition;
 
 use RuntimeException;
 use Symfony\Component\HttpFoundation\RequestStack;

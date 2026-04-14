@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Core\Content\AiAnalysisResult\Entity;
+namespace CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity;
 
-use Illux\ImageAi\Core\Content\AiBatchJob\AiBatchJobEntity;
-use Illux\ImageAi\Model\Enum\AiAnalysisStatusEnum;
+use CMaintz\ImageAi\Core\Content\AiBatchJob\AiBatchJobEntity;
+use CMaintz\ImageAi\Model\Enum\AiAnalysisStatusEnum;
 use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Attribute\Entity as EntityAttribute;
 use Shopware\Core\Framework\DataAbstractionLayer\Attribute\Field;

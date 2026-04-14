@@ -1,4 +1,4 @@
-# IlluxImageAi - Administration UI
+# CMaintzImageAi - Administration UI
 
 > **Navigation:** [Overview](./overview.md) | [Architecture](./architecture.md) | [API Integration](./api-integration.md) | [Workflows](./workflows.md) | **Admin UI** | [Development](./development.md)
 

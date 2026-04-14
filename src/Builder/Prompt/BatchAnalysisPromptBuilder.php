@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Builder\Prompt;
+namespace CMaintz\ImageAi\Builder\Prompt;
 
-use Illux\ImageAi\Config\ContentConfiguration;
+use CMaintz\ImageAi\Config\ContentConfiguration;
 use RuntimeException;
 
 // phpcs:disable Generic.Files.LineLength.TooLong

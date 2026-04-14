@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Prompt;
+namespace CMaintz\ImageAi\Service\Prompt;
 
-use Illux\ImageAi\Builder\Prompt\BatchAnalysisPromptBuilder;
-use Illux\ImageAi\Builder\Prompt\CompositionPromptBuilder;
-use Illux\ImageAi\Builder\Prompt\ScenePromptBuilder;
-use Illux\ImageAi\Builder\Prompt\SystemInstructionBuilder;
-use Illux\ImageAi\Config\ContentConfiguration;
-use Illux\ImageAi\DTO\FrameData;
-use Illux\ImageAi\Service\LanguageConfigurationService;
+use CMaintz\ImageAi\Builder\Prompt\BatchAnalysisPromptBuilder;
+use CMaintz\ImageAi\Builder\Prompt\CompositionPromptBuilder;
+use CMaintz\ImageAi\Builder\Prompt\ScenePromptBuilder;
+use CMaintz\ImageAi\Builder\Prompt\SystemInstructionBuilder;
+use CMaintz\ImageAi\Config\ContentConfiguration;
+use CMaintz\ImageAi\DTO\FrameData;
+use CMaintz\ImageAi\Service\LanguageConfigurationService;
 
 /**
  * Director for all prompt building operations.

@@ -8,7 +8,7 @@ const { Criteria } = Shopware.Data;
 Component.register('ai-image-tools-properties', {
     template,
 
-    inject: ['repositoryFactory', 'systemConfigApiService', 'illuxAiAnalysisApiService'],
+    inject: ['repositoryFactory', 'systemConfigApiService', 'imageAiAnalysisApiService'],
 
     mixins: [
         Mixin.getByName('notification'),
@@ -405,7 +405,7 @@ Component.register('ai-image-tools-properties', {
             });
 
             // Call backend API to create property group
-            await this.illuxAiAnalysisApiService.createPropertyGroup({
+            await this.imageAiAnalysisApiService.createPropertyGroup({
                 name: this.newProperty.name,
                 displayType: this.newProperty.displayType,
                 sortingType: this.newProperty.sortingType,
@@ -574,7 +574,7 @@ Component.register('ai-image-tools-properties', {
         async loadSuggestedOptions() {
             this.suggestedOptionsLoading = true;
             try {
-                const response = await this.illuxAiAnalysisApiService.getSuggestedOptions();
+                const response = await this.imageAiAnalysisApiService.getSuggestedOptions();
                 const data = response?.data || response;
 
                 if (data?.success) {
@@ -718,7 +718,7 @@ Component.register('ai-image-tools-properties', {
                     };
                 });
 
-                const response = await this.illuxAiAnalysisApiService.approveSuggestedOptions(
+                const response = await this.imageAiAnalysisApiService.approveSuggestedOptions(
                     optionsWithTranslations
                 );
                 const data = response?.data || response;
@@ -759,7 +759,7 @@ Component.register('ai-image-tools-properties', {
             try {
                 for (const suggestion of [...this.selectedSuggestions]) {
                     try {
-                        const response = await this.illuxAiAnalysisApiService.rejectSuggestedOption(
+                        const response = await this.imageAiAnalysisApiService.rejectSuggestedOption(
                             suggestion.propertyGroup,
                             suggestion.optionName
                         );

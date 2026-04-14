@@ -8,7 +8,7 @@ const { Component, Mixin, Data: { Criteria } } = Shopware;
 Component.register('ai-image-tools-detail', {
     template,
 
-    inject: ['repositoryFactory', 'illuxAiAnalysisApiService'],
+    inject: ['repositoryFactory', 'imageAiAnalysisApiService'],
 
     mixins: [
         Mixin.getByName('notification'),
@@ -201,7 +201,7 @@ Component.register('ai-image-tools-detail', {
                 await this.aiAnalysisRepository.save(this.analysisResult, Shopware.Context.api);
 
                 // Then call the approval API to apply changes to the product
-                const response = await this.illuxAiAnalysisApiService.approveAnalysisResults([this.analysisId]);
+                const response = await this.imageAiAnalysisApiService.approveAnalysisResults([this.analysisId]);
 
                 if (response.success) {
                     this.createNotificationSuccess({

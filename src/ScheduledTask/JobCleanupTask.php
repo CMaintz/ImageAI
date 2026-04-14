@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\ScheduledTask;
+namespace CMaintz\ImageAi\ScheduledTask;
 
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 
@@ -17,7 +17,7 @@ class JobCleanupTask extends ScheduledTask
 {
     public static function getTaskName(): string
     {
-        return 'illux.image_ai.job_cleanup_task';
+        return 'image_ai.job_cleanup_task';
     }
 
     public static function getDefaultInterval(): int

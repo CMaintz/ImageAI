@@ -1,4 +1,4 @@
-# IlluxImageAi - Overview
+# CMaintzImageAi - Overview
 
 > **Navigation:** **Overview** | [Architecture](./architecture.md) | [API Integration](./api-integration.md) | [Workflows](./workflows.md) | [Admin UI](./admin-ui.md) | [Development](./development.md)
 
@@ -7,7 +7,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **Purpose** | AI-powered image analysis, SEO generation, and scene composition for artwork products |
-| **Location** | `/custom/static-plugins/IlluxImageAi` |
+| **Location** | `/custom/static-plugins/CMaintzImageAi` |
 | **Version** | 3.2.0 |
 | **Compatibility** | Shopware 6.6 - 6.7 |
 | **Developer** | WEXO A/S |
@@ -17,7 +17,7 @@
 ### Key Files
 | File | Purpose |
 |------|---------|
-| `src/IlluxImageAi.php` | Plugin entry point (install/uninstall) |
+| `src/CMaintzImageAi.php` | Plugin entry point (install/uninstall) |
 | `src/Api/Gemini/GeminiClient.php` | Direct Gemini API communication |
 | `src/Orchestrator/AnalysisOrchestrator.php` | Batch analysis workflow coordination |
 | `src/Orchestrator/CompositionOrchestrator.php` | Artwork-into-scene composition |
@@ -43,15 +43,15 @@
 
 ### Entry Points
 - **Admin UI:** Content menu → AI Image Tools (`/admin#/sw/extension/ai-tools/dashboard`)
-- **API:** `/api/_action/illux-ai-tools/*`
-- **CLI:** `bin/console illux:analyze-products`
+- **API:** `/api/_action/image-ai-tools/*`
+- **CLI:** `bin/console image-ai:analyze-products`
 - **Scheduled Task:** `ProductAnalysisTask` (configurable interval)
 
 ---
 
 ## What This Plugin Does
 
-IlluxImageAi is an AI-powered plugin that automates the tedious work of writing product descriptions, SEO metadata, and assigning properties to artwork products. Instead of manually describing each piece of art, the plugin sends product images to Google's Gemini AI, which analyzes the artwork and returns structured data ready to be applied to the product.
+CMaintzImageAi is an AI-powered plugin that automates the tedious work of writing product descriptions, SEO metadata, and assigning properties to artwork products. Instead of manually describing each piece of art, the plugin sends product images to Google's Gemini AI, which analyzes the artwork and returns structured data ready to be applied to the product.
 
 ### In Simple Terms
 
@@ -119,7 +119,7 @@ Generates entirely new room environment photos from scratch using AI:
 
 ## Summary
 
-IlluxImageAi is a comprehensive plugin that automates artwork product enrichment using Google's Gemini AI. Key architectural decisions include:
+CMaintzImageAi is a comprehensive plugin that automates artwork product enrichment using Google's Gemini AI. Key architectural decisions include:
 
 1. **Batch-First Design:** All processing is batched for efficiency
 2. **Confidence Scoring:** Quality scoring system catches low-quality AI outputs

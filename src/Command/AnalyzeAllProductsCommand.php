@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Command;
+namespace CMaintz\ImageAi\Command;
 
-use Illux\ImageAi\Orchestrator\AnalysisOrchestrator;
+use CMaintz\ImageAi\Orchestrator\AnalysisOrchestrator;
 use Shopware\Core\Framework\Context;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -14,7 +14,7 @@ use Throwable;
 
 #[AsCommand(
     name: 'img-ai:analyze:all',
-    description: 'Analyze all unanalyzed "Illux Artwork" products using AI',
+    description: 'Analyze all unanalyzed "Wexo Artwork" products using AI',
     aliases: ['img-ai:aa']
 )]
 class AnalyzeAllProductsCommand extends Command
@@ -41,7 +41,7 @@ class AnalyzeAllProductsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $context = Context::createDefaultContext();
 
-        $io->title('IlluxImageAi - Analyze All Products');
+        $io->title('CMaintzImageAi - Analyze All Products');
 
         $includeAnalyzed = (bool)$input->getOption('include-analyzed');
 

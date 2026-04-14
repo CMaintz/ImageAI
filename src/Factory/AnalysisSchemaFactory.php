@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Factory;
+namespace CMaintz\ImageAi\Factory;
 
-use Illux\ImageAi\Builder\Schema\AnalysisSchemaBuilder;
-use Illux\ImageAi\Config\ContentConfiguration;
-use Illux\ImageAi\Service\Property\PropertyLookupService;
+use CMaintz\ImageAi\Builder\Schema\AnalysisSchemaBuilder;
+use CMaintz\ImageAi\Config\ContentConfiguration;
+use CMaintz\ImageAi\Service\Property\PropertyLookupService;
 use Shopware\Core\Framework\Context;
 
 /**

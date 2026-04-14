@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Analysis;
+namespace CMaintz\ImageAi\Service\Analysis;
 
-use Illux\ImageAi\DTO\Analysis\LanguageAnalysisDTO;
+use CMaintz\ImageAi\DTO\Analysis\LanguageAnalysisDTO;
 
 /**
  * Extracts translation data from AI analysis responses for product updates.

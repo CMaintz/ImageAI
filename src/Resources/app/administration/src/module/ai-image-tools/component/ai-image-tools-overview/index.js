@@ -19,7 +19,7 @@ Component.register('ai-image-tools-overview', {
     computed: {
         // Store state
         storeState() {
-            return Shopware.State.get('illuxAiAnalysis');
+            return Shopware.State.get('imageAiAnalysis');
         },
 
         isLoading() {
@@ -27,7 +27,7 @@ Component.register('ai-image-tools-overview', {
         },
 
         counts() {
-            return Shopware.State.getters['illuxAiAnalysis/counts'] ?? {
+            return Shopware.State.getters['imageAiAnalysis/counts'] ?? {
                 total: 0,
                 pendingReview: 0,
                 processing: 0,
@@ -41,14 +41,14 @@ Component.register('ai-image-tools-overview', {
 
         statistics() {
             const counts = this.counts;
-            const timeSaved = Shopware.State.getters['illuxAiAnalysis/timeSaved'] ?? {
+            const timeSaved = Shopware.State.getters['imageAiAnalysis/timeSaved'] ?? {
                 totalMinutes: 0,
                 totalHours: 0,
                 totalDays: 0,
                 breakdown: { properties: 0, seo: 0, description: 0 }
             };
-            const lastAnalysisDate = Shopware.State.getters['illuxAiAnalysis/lastAnalysisDate'] ?? null;
-            const successRate = Shopware.State.getters['illuxAiAnalysis/successRate'] ?? 0;
+            const lastAnalysisDate = Shopware.State.getters['imageAiAnalysis/lastAnalysisDate'] ?? null;
+            const successRate = Shopware.State.getters['imageAiAnalysis/successRate'] ?? 0;
 
             return {
                 totalAnalyses: counts.total,
@@ -105,11 +105,11 @@ Component.register('ai-image-tools-overview', {
     methods: {
         async initializeStore() {
             if (!this.storeState) {
-                console.warn('illuxAiAnalysis store not available');
+                console.warn('imageAiAnalysis store not available');
                 return;
             }
             try {
-                await Shopware.State.dispatch('illuxAiAnalysis/initialize');
+                await Shopware.State.dispatch('imageAiAnalysis/initialize');
             } catch (error) {
                 this.createNotificationError({
                     message: this.$tc('ai-image-tools.overview.errorLoadingStats')
@@ -119,11 +119,11 @@ Component.register('ai-image-tools-overview', {
 
         async refreshData() {
             if (!this.storeState) {
-                console.warn('illuxAiAnalysis store not available');
+                console.warn('imageAiAnalysis store not available');
                 return;
             }
             try {
-                await Shopware.State.dispatch('illuxAiAnalysis/refresh');
+                await Shopware.State.dispatch('imageAiAnalysis/refresh');
             } catch (error) {
                 this.createNotificationError({
                     message: this.$tc('ai-image-tools.overview.errorLoadingStats')

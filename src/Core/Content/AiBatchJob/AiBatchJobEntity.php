@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Core\Content\AiBatchJob;
+namespace CMaintz\ImageAi\Core\Content\AiBatchJob;
 
 use DateTimeInterface;
-use Illux\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
-use Illux\ImageAi\Model\Enum\BatchJobStatusEnum;
-use Illux\ImageAi\Model\Enum\BatchJobTypeEnum;
+use CMaintz\ImageAi\Core\Content\AiAnalysisResult\Entity\AiAnalysisResultCollection;
+use CMaintz\ImageAi\Model\Enum\BatchJobStatusEnum;
+use CMaintz\ImageAi\Model\Enum\BatchJobTypeEnum;
 use Shopware\Core\Framework\DataAbstractionLayer\Attribute\Entity as EntityAttribute;
 use Shopware\Core\Framework\DataAbstractionLayer\Attribute\Field;
 use Shopware\Core\Framework\DataAbstractionLayer\Attribute\FieldType;

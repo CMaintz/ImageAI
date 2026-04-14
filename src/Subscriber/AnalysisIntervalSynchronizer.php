@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Subscriber;
+namespace CMaintz\ImageAi\Subscriber;
 
-use Illux\ImageAi\Config\ConfigKeys;
-use Illux\ImageAi\Config\IlluxConfiguration;
-use Illux\ImageAi\ScheduledTask\ProductAnalysisTask;
+use CMaintz\ImageAi\Config\ConfigKeys;
+use CMaintz\ImageAi\Config\PluginConfiguration;
+use CMaintz\ImageAi\ScheduledTask\ProductAnalysisTask;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -21,7 +21,7 @@ class AnalysisIntervalSynchronizer implements EventSubscriberInterface
      */
     public function __construct(
         protected EntityRepository $scheduledTaskRepository,
-        protected IlluxConfiguration $config,
+        protected PluginConfiguration $config,
     ) {
     }
 

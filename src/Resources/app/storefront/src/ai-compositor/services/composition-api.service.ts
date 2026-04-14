@@ -10,7 +10,7 @@ import type {
 } from '../types';
 
 const ENDPOINT_MAP: Record<ProductType, string> = {
-    'Illux Artwork': '/ai/compose/artwork',
+    'Wexo Artwork': '/ai/compose/artwork',
     'Illux Wallpaper Customizable': '/ai/compose/artwork', // Uses product images like artwork
     'Illux Your Wallpaper': '/ai/compose/wallpaper',
     'Illux Photo': '/ai/compose/photo',

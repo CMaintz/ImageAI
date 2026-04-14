@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\ScheduledTask;
+namespace CMaintz\ImageAi\ScheduledTask;
 
-use Illux\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Config\PluginConstants;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 
 class ProductAnalysisTask extends ScheduledTask
 {
     public static function getTaskName(): string
     {
-        return 'illux.image_ai.scheduled_analysis_task';
+        return 'image_ai.scheduled_analysis_task';
     }
 
     public static function getDefaultInterval(): int

@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Queue\Handler;
+namespace CMaintz\ImageAi\Queue\Handler;
 
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\Queue\Message\AnalyzeBatchMessage;
-use Illux\ImageAi\Orchestrator\AnalysisOrchestrator;
-use Illux\ImageAi\Service\BatchJobService;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Queue\Message\AnalyzeBatchMessage;
+use CMaintz\ImageAi\Orchestrator\AnalysisOrchestrator;
+use CMaintz\ImageAi\Service\BatchJobService;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -31,7 +31,7 @@ final class AnalyzeBatchHandler
             $collected = gc_collect_cycles();
             $newMemoryMb = memory_get_usage(true) / 1024 / 1024;
 
-            $this->logger->debug('[IlluxImageAi] Memory cleanup triggered', [
+            $this->logger->debug('[CMaintzImageAi] Memory cleanup triggered', [
                 'beforeMb' => round($memoryUsageMb, 2),
                 'afterMb' => round($newMemoryMb, 2),
                 'freedMb' => round($memoryUsageMb - $newMemoryMb, 2),
@@ -69,7 +69,7 @@ final class AnalyzeBatchHandler
         // This prevents message redelivery from reprocessing completed/cancelled jobs
         $batchJob = $this->batchJobService->get($batchJobId, $context);
         if ($batchJob === null) {
-            $this->logger->warning('[IlluxImageAi] Batch job not found, skipping', [
+            $this->logger->warning('[CMaintzImageAi] Batch job not found, skipping', [
                 'batchJobId' => $batchJobId,
             ]);
             return;
@@ -77,7 +77,7 @@ final class AnalyzeBatchHandler
 
         $status = $batchJob->status->value;
         if (!in_array($status, ['queued', 'processing'], true)) {
-            $this->logger->warning('[IlluxImageAi] Batch job is not in processable state, skipping', [
+            $this->logger->warning('[CMaintzImageAi] Batch job is not in processable state, skipping', [
                 'batchJobId' => $batchJobId,
                 'status' => $status,
             ]);
@@ -96,7 +96,7 @@ final class AnalyzeBatchHandler
 
             foreach ($chunks as $chunkIndex => $chunk) {
                 if ($this->batchJobService->isCancelled($batchJobId, $context)) {
-                    $this->logger->debug('[IlluxImageAi] Batch analysis job cancelled', [
+                    $this->logger->debug('[CMaintzImageAi] Batch analysis job cancelled', [
                         'batchJobId' => $batchJobId,
                         'processedChunks' => $chunkIndex,
                         'totalChunks' => count($chunks),
@@ -130,7 +130,7 @@ final class AnalyzeBatchHandler
 
             $this->batchJobService->markCompleted($batchJobId, $context);
         } catch (Throwable $e) {
-            $this->logger->error('[IlluxImageAi] Batch analysis job failed', [
+            $this->logger->error('[CMaintzImageAi] Batch analysis job failed', [
                 'batchJobId' => $batchJobId,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),

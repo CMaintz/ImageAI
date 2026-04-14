@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Config;
+namespace CMaintz\ImageAi\Config;
 
 /**
- * Centralized configuration keys for IlluxImageAi plugin
+ * Centralized configuration keys for CMaintzImageAi plugin
  * Single source of truth for all system config keys
  */
 class ConfigKeys

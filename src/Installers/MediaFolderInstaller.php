@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Installers;
+namespace CMaintz\ImageAi\Installers;
 
-use Illux\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Config\PluginConstants;
 use RuntimeException;
 use Shopware\Core\Content\Media\Aggregate\MediaDefaultFolder\MediaDefaultFolderCollection;
 use Shopware\Core\Content\Media\Aggregate\MediaDefaultFolder\MediaDefaultFolderEntity;

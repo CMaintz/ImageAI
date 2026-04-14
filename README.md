@@ -34,11 +34,11 @@ A Shopware 6 plugin that automates product enrichment for artwork using Google G
 
 ## Installation
 
-1. Copy the contents of this repository into `custom/static-plugins/ImageAi` on your Shopware instance.
+1. Clone or copy this repository into `custom/static-plugins/ImageAi` on your Shopware instance.
 2. Run:
    ```bash
    bin/console plugin:refresh
-   bin/console plugin:install --activate IlluxImageAi
+   bin/console plugin:install --activate CMaintzImageAi
    bin/console cache:clear
    ```
 
@@ -65,28 +65,28 @@ In the Shopware admin go to **Extensions → My extensions → Image AI → Conf
 
 **CLI:**
 ```bash
-bin/console illux:analyze-products
+bin/console image-ai:analyze-products
 ```
 
 **API:**
 ```
-POST /api/_action/illux-ai-tools/analyze-products
-POST /api/_action/illux-ai-tools/analyze-all-products
-GET  /api/_action/illux-ai-tools/batch-job/{id}
+POST /api/_action/image-ai-tools/analyze-products
+POST /api/_action/image-ai-tools/analyze-all-products
+GET  /api/_action/image-ai-tools/batch-job/{id}
 ```
 
 ---
 
 ## Documentation
 
-Detailed docs are in the [`docs/`](./ImageAi/docs/) folder:
+Detailed docs are in the [`docs/`](./docs/) folder:
 
-- [Overview](./ImageAi/docs/overview.md)
-- [Architecture](./ImageAi/docs/architecture.md)
-- [API Integration](./ImageAi/docs/api-integration.md)
-- [Workflows](./ImageAi/docs/workflows.md)
-- [Admin UI](./ImageAi/docs/admin-ui.md)
-- [Development](./ImageAi/docs/development.md)
+- [Overview](./docs/overview.md)
+- [Architecture](./docs/architecture.md)
+- [API Integration](./docs/api-integration.md)
+- [Workflows](./docs/workflows.md)
+- [Admin UI](./docs/admin-ui.md)
+- [Development](./docs/development.md)
 
 ---
 

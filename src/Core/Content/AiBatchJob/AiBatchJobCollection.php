@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Core\Content\AiBatchJob;
+namespace CMaintz\ImageAi\Core\Content\AiBatchJob;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 

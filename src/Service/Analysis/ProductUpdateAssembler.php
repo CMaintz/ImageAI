@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Analysis;
+namespace CMaintz\ImageAi\Service\Analysis;
 
-use Illux\ImageAi\Service\Property\PropertyLookupService;
+use CMaintz\ImageAi\Service\Property\PropertyLookupService;
 use Shopware\Core\Framework\Context;
 
 /**

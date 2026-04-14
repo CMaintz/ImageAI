@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Property;
+namespace CMaintz\ImageAi\Service\Property;
 
-use Illux\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Config\PluginConstants;
 use RuntimeException;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\ProductEntity;

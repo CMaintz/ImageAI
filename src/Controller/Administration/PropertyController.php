@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Controller\Administration;
+namespace CMaintz\ImageAi\Controller\Administration;
 
-use Illux\ImageAi\Service\Property\PropertyMutationService;
-use Illux\ImageAi\Trait\ControllerResponseTrait;
+use CMaintz\ImageAi\Service\Property\PropertyMutationService;
+use CMaintz\ImageAi\Trait\ControllerResponseTrait;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
@@ -54,8 +54,8 @@ class PropertyController extends AbstractController
      * }
      */
     #[Route(
-        path: '/api/_action/illux-ai-tools/property-group',
-        name: 'api.action.illux_ai_tools.create_property_group',
+        path: '/api/_action/image-ai-tools/property-group',
+        name: 'api.action.image_ai_tools.create_property_group',
         methods: ['POST']
     )]
     public function createPropertyGroup(Request $request, Context $context): JsonResponse

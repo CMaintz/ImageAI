@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi;
+namespace CMaintz\ImageAi;
 
-use Illux\ImageAi\Installers\PropertyGroupInstaller;
-use Illux\ImageAi\Installers\MediaFolderInstaller;
-use Illux\ImageAi\Installers\CustomFieldsInstaller;
+use CMaintz\ImageAi\Installers\PropertyGroupInstaller;
+use CMaintz\ImageAi\Installers\MediaFolderInstaller;
+use CMaintz\ImageAi\Installers\CustomFieldsInstaller;
 use RuntimeException;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
@@ -13,7 +13,7 @@ use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 
-class IlluxImageAi extends Plugin
+class CMaintzImageAi extends Plugin
 {
 
     public function executeComposerCommands(): bool

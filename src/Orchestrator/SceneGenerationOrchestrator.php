@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Orchestrator;
+namespace CMaintz\ImageAi\Orchestrator;
 
-use Illux\ImageAi\DTO\Request\GenerationRequest;
-use Illux\ImageAi\Api\Gemini\GeminiClient;
-use Illux\ImageAi\Service\Prompt\PromptDirector;
+use CMaintz\ImageAi\DTO\Request\GenerationRequest;
+use CMaintz\ImageAi\Api\Gemini\GeminiClient;
+use CMaintz\ImageAi\Service\Prompt\PromptDirector;
 use InvalidArgumentException;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -12,8 +12,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Uuid\Uuid;
-use Illux\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageCollection;
-use Illux\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageEntity;
+use CMaintz\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageCollection;
+use CMaintz\ImageAi\Core\Content\AiPendingSceneImage\AiPendingSceneImageEntity;
 
 /**
  * Service for generating environment/scene images using Gemini 2.5 Flash Image

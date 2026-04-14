@@ -6,7 +6,7 @@ const { Component, Mixin } = Shopware;
 Component.register('ai-image-tools-run', {
     template,
 
-    inject: ['illuxAiAnalysisApiService', 'systemConfigApiService'],
+    inject: ['imageAiAnalysisApiService', 'systemConfigApiService'],
 
     mixins: [
         Mixin.getByName('notification')
@@ -58,11 +58,11 @@ Component.register('ai-image-tools-run', {
     methods: {
         async loadConfigDefaults() {
             try {
-                const config = await this.systemConfigApiService.getValues('IlluxImageAi.config');
+                const config = await this.systemConfigApiService.getValues('CMaintzImageAi.config');
 
                 // Set filter defaults from config
-                this.filters.includeDescription = config['IlluxImageAi.config.includeProductDescription'] ?? true;
-                this.filters.includeSeo = config['IlluxImageAi.config.includeSeoAnalysis'] ?? true;
+                this.filters.includeDescription = config['CMaintzImageAi.config.includeProductDescription'] ?? true;
+                this.filters.includeSeo = config['CMaintzImageAi.config.includeSeoAnalysis'] ?? true;
             } catch (error) {
                 console.error('Failed to load config defaults:', error);
             }
@@ -70,7 +70,7 @@ Component.register('ai-image-tools-run', {
 
         async checkForActiveJob() {
             try {
-                const response = await this.illuxAiAnalysisApiService.getActiveJob();
+                const response = await this.imageAiAnalysisApiService.getActiveJob();
                 const data = response?.data || response;
 
                 if (data?.hasActiveJob && data.job) {
@@ -111,7 +111,7 @@ Component.register('ai-image-tools-run', {
             this.isLoading = true;
 
             try {
-                const response = await this.illuxAiAnalysisApiService.analyzeAllProducts(
+                const response = await this.imageAiAnalysisApiService.analyzeAllProducts(
                     this.filters
                 );
 
@@ -170,7 +170,7 @@ Component.register('ai-image-tools-run', {
                 return;
             }
 
-            this.stopPolling = this.illuxAiAnalysisApiService.pollBatchJobStatus(
+            this.stopPolling = this.imageAiAnalysisApiService.pollBatchJobStatus(
                 this.batchJobId,
                 {
                     onProgress: (job) => {
@@ -238,7 +238,7 @@ Component.register('ai-image-tools-run', {
                     this.stopPolling = null;
                 }
 
-                await this.illuxAiAnalysisApiService.stopAnalysis(this.batchJobId);
+                await this.imageAiAnalysisApiService.stopAnalysis(this.batchJobId);
 
                 this.analysisRunning = false;
                 this.isLoading = false;

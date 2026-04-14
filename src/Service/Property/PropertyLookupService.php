@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Property;
+namespace CMaintz\ImageAi\Service\Property;
 
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\Service\LanguageConfigurationService;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\Service\LanguageConfigurationService;
 use Psr\Cache\CacheItemPoolInterface;
 use RuntimeException;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
@@ -49,7 +49,7 @@ class PropertyLookupService
 
     /**
      * Load all AI-managed property groups from Shopware.
-     * AI property groups are identified by: customFields.illux_ai_managed = true
+     * AI property groups are identified by: customFields.image_ai_managed = true
      *
      * @return PropertyGroupEntity[]
      */

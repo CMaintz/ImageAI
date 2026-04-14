@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Core\Content\AiPendingSceneImage;
+namespace CMaintz\ImageAi\Core\Content\AiPendingSceneImage;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 

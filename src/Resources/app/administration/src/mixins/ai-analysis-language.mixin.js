@@ -151,8 +151,8 @@ export default {
          */
         async loadConfigLanguages() {
             try {
-                const config = await this.systemConfigApiService.getValues('IlluxImageAi.config');
-                const analysisLanguages = config['IlluxImageAi.config.analysisLanguages'];
+                const config = await this.systemConfigApiService.getValues('CMaintzImageAi.config');
+                const analysisLanguages = config['CMaintzImageAi.config.analysisLanguages'];
 
                 if (Array.isArray(analysisLanguages)) {
                     this.configLanguages = analysisLanguages;

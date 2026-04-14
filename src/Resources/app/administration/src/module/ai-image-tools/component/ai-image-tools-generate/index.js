@@ -4,7 +4,7 @@ import '../ai-image-tools-config-modal';
 
 const { Component, Mixin } = Shopware;
 
-const STORAGE_KEY = 'illuxAi.sceneGeneration.lastUsed';
+const STORAGE_KEY = 'imageAi.sceneGeneration.lastUsed';
 
 Component.register('ai-image-tools-generate', {
     template,
@@ -218,8 +218,8 @@ Component.register('ai-image-tools-generate', {
         async loadConfig() {
             this.configLoading = true;
             try {
-                const config = await this.systemConfigApiService.getValues('IlluxImageAi.config');
-                this.apiKey = config['IlluxImageAi.config.apiKey'];
+                const config = await this.systemConfigApiService.getValues('CMaintzImageAi.config');
+                this.apiKey = config['CMaintzImageAi.config.apiKey'];
 
                 if (!this.apiKey) {
                     this.createNotificationWarning({

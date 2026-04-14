@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\DTO;
+namespace CMaintz\ImageAi\DTO;
 
 /**
  * DTO containing frame reference data for AI composition.

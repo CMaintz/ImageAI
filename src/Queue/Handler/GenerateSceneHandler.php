@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Queue\Handler;
+namespace CMaintz\ImageAi\Queue\Handler;
 
-use Illux\ImageAi\Queue\Message\GenerateSceneMessage;
-use Illux\ImageAi\Service\BatchJobService;
-use Illux\ImageAi\Orchestrator\SceneGenerationOrchestrator;
+use CMaintz\ImageAi\Queue\Message\GenerateSceneMessage;
+use CMaintz\ImageAi\Service\BatchJobService;
+use CMaintz\ImageAi\Orchestrator\SceneGenerationOrchestrator;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -49,13 +49,13 @@ final class GenerateSceneHandler
 
                 $this->batchJobService->markFailed($batchJobId, $errorMessage, $context);
 
-                $this->logger->error('[IlluxImageAi] Scene generation job failed', [
+                $this->logger->error('[CMaintzImageAi] Scene generation job failed', [
                     'batchJobId' => $batchJobId,
                     'errors' => $errors,
                 ]);
             }
         } catch (Throwable $e) {
-            $this->logger->error('[IlluxImageAi] Scene generation job exception', [
+            $this->logger->error('[CMaintzImageAi] Scene generation job exception', [
                 'batchJobId' => $batchJobId,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),

@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service;
+namespace CMaintz\ImageAi\Service;
 
 use DateTimeImmutable;
 use Doctrine\DBAL\Connection;
-use Illux\ImageAi\Core\Content\AiBatchJob\AiBatchJobCollection;
-use Illux\ImageAi\Core\Content\AiBatchJob\AiBatchJobEntity;
-use Illux\ImageAi\Model\Enum\BatchJobStatusEnum;
-use Illux\ImageAi\Model\Enum\BatchJobTypeEnum;
-use Illux\ImageAi\Service\Analysis\AnalysisPersistenceService;
+use CMaintz\ImageAi\Core\Content\AiBatchJob\AiBatchJobCollection;
+use CMaintz\ImageAi\Core\Content\AiBatchJob\AiBatchJobEntity;
+use CMaintz\ImageAi\Model\Enum\BatchJobStatusEnum;
+use CMaintz\ImageAi\Model\Enum\BatchJobTypeEnum;
+use CMaintz\ImageAi\Service\Analysis\AnalysisPersistenceService;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -253,7 +253,7 @@ class BatchJobService
         Context $context,
         ?array $metadataFilters = null
     ): ?array {
-        $lockName = 'illux_ai_create_analysis_job';
+        $lockName = 'image_ai_create_analysis_job';
         $acquired = (bool) $this->connection->fetchOne('SELECT GET_LOCK(?, 5)', [$lockName]);
 
         if (!$acquired) {

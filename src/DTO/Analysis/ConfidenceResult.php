@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\DTO\Analysis;
+namespace CMaintz\ImageAi\DTO\Analysis;
 
 /**
  * DTO for calculated confidence result with warnings

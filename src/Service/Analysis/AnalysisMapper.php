@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Analysis;
+namespace CMaintz\ImageAi\Service\Analysis;
 
-use Illux\ImageAi\DTO\Analysis\AnalysisResultDTO;
-use Illux\ImageAi\DTO\Analysis\LanguageAnalysisDTO;
-use Illux\ImageAi\Model\Enum\AiAnalysisStatusEnum;
+use CMaintz\ImageAi\DTO\Analysis\AnalysisResultDTO;
+use CMaintz\ImageAi\DTO\Analysis\LanguageAnalysisDTO;
+use CMaintz\ImageAi\Model\Enum\AiAnalysisStatusEnum;
 use Throwable;
 
 /**

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Builder\Prompt;
+namespace CMaintz\ImageAi\Builder\Prompt;
 
-use Illux\ImageAi\Config\PluginConstants;
-use Illux\ImageAi\DTO\FrameData;
+use CMaintz\ImageAi\Config\PluginConstants;
+use CMaintz\ImageAi\DTO\FrameData;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 

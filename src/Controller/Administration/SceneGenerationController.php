@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Controller\Administration;
+namespace CMaintz\ImageAi\Controller\Administration;
 
-use Illux\ImageAi\Queue\Message\GenerateSceneMessage;
-use Illux\ImageAi\Service\BatchJobService;
-use Illux\ImageAi\Orchestrator\SceneGenerationOrchestrator;
-use Illux\ImageAi\Service\Media\MediaFolderScanner;
-use Illux\ImageAi\Service\SceneGeneration\SceneGenerationConfigService;
-use Illux\ImageAi\Trait\ControllerResponseTrait;
+use CMaintz\ImageAi\Queue\Message\GenerateSceneMessage;
+use CMaintz\ImageAi\Service\BatchJobService;
+use CMaintz\ImageAi\Orchestrator\SceneGenerationOrchestrator;
+use CMaintz\ImageAi\Service\Media\MediaFolderScanner;
+use CMaintz\ImageAi\Service\SceneGeneration\SceneGenerationConfigService;
+use CMaintz\ImageAi\Trait\ControllerResponseTrait;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,8 +41,8 @@ class SceneGenerationController extends AbstractController
      * Get available scene types from media folder structure
      */
     #[Route(
-        path: '/api/_action/illux-ai-tools/scene-types',
-        name: 'api.action.illux_ai_tools.scene_types',
+        path: '/api/_action/image-ai-tools/scene-types',
+        name: 'api.action.image_ai_tools.scene_types',
         methods: ['GET']
     )]
     public function getSceneTypes(Context $context): JsonResponse
@@ -60,8 +60,8 @@ class SceneGenerationController extends AbstractController
      * Get configuration options for scene generation
      */
     #[Route(
-        path: '/api/_action/illux-ai-tools/scene-generation-options',
-        name: 'api.action.illux_ai_tools.scene_generation_options',
+        path: '/api/_action/image-ai-tools/scene-generation-options',
+        name: 'api.action.image_ai_tools.scene_generation_options',
         methods: ['GET']
     )]
     public function getGenerationOptions(Context $context): JsonResponse
@@ -96,8 +96,8 @@ class SceneGenerationController extends AbstractController
      * Returns immediately with a batchJobId for progress polling.
      */
     #[Route(
-        path: '/api/_action/illux-ai-tools/generate-scene-images',
-        name: 'api.action.illux_ai_tools.generate_scenes',
+        path: '/api/_action/image-ai-tools/generate-scene-images',
+        name: 'api.action.image_ai_tools.generate_scenes',
         methods: ['POST']
     )]
     public function generateSceneImages(Request $request, Context $context): JsonResponse
@@ -137,8 +137,8 @@ class SceneGenerationController extends AbstractController
      * Get all pending scene images
      */
     #[Route(
-        path: '/api/_action/illux-ai-tools/pending-scene-images',
-        name: 'api.action.illux_ai_tools.pending_scene_images',
+        path: '/api/_action/image-ai-tools/pending-scene-images',
+        name: 'api.action.image_ai_tools.pending_scene_images',
         methods: ['GET']
     )]
     public function getPendingImages(Context $context): JsonResponse
@@ -156,8 +156,8 @@ class SceneGenerationController extends AbstractController
      * Get scene generation configuration (for editing in admin)
      */
     #[Route(
-        path: '/api/_action/illux-ai-tools/scene-generation-config',
-        name: 'api.action.illux_ai_tools.get_scene_generation_config',
+        path: '/api/_action/image-ai-tools/scene-generation-config',
+        name: 'api.action.image_ai_tools.get_scene_generation_config',
         methods: ['GET']
     )]
     public function getConfig(Context $context): JsonResponse
@@ -191,8 +191,8 @@ class SceneGenerationController extends AbstractController
      * Update scene generation configuration
      */
     #[Route(
-        path: '/api/_action/illux-ai-tools/scene-generation-config',
-        name: 'api.action.illux_ai_tools.update_scene_generation_config',
+        path: '/api/_action/image-ai-tools/scene-generation-config',
+        name: 'api.action.image_ai_tools.update_scene_generation_config',
         methods: ['POST']
     )]
     public function updateConfig(Request $request, Context $context): JsonResponse
@@ -214,8 +214,8 @@ class SceneGenerationController extends AbstractController
      * to Gemini, ensuring the preview stays in sync with actual generation.
      */
     #[Route(
-        path: '/api/_action/illux-ai-tools/prompt-preview',
-        name: 'api.action.illux_ai_tools.prompt_preview',
+        path: '/api/_action/image-ai-tools/prompt-preview',
+        name: 'api.action.image_ai_tools.prompt_preview',
         methods: ['POST']
     )]
     public function getPromptPreview(Request $request): JsonResponse

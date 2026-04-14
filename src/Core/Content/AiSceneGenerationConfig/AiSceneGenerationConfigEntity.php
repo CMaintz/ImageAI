@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Core\Content\AiSceneGenerationConfig;
+namespace CMaintz\ImageAi\Core\Content\AiSceneGenerationConfig;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Attribute\Entity as EntityAttribute;
 use Shopware\Core\Framework\DataAbstractionLayer\Attribute\Field;

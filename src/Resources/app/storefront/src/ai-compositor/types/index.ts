@@ -1,5 +1,5 @@
 export type ProductType =
-    | 'Illux Artwork'
+    | 'Wexo Artwork'
     | 'Illux Your Wallpaper'
     | 'Illux Wallpaper Customizable'
     | 'Illux Photo'

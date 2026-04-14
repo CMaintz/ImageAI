@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Illux\ImageAi\Service\Frame;
+namespace CMaintz\ImageAi\Service\Frame;
 
-use Illux\ImageAi\Service\Media\MediaFileReader;
+use CMaintz\ImageAi\Service\Media\MediaFileReader;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\Context;

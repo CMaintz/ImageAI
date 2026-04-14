@@ -24,7 +24,7 @@ Shopware.Module.register('ai-image-tools', {
 
     navigation: [
         {
-            id: 'illux-ai-image-tools',
+            id: 'image-ai-image-tools',
             label: 'ai-image-tools.general.mainMenuItemGeneral',
             path: 'ai.image.tools.index',
             icon: 'regular-artificial-intelligence',
