@@ -1,2 +1,46 @@
 {
+    "name": "illux/image-ai",
+    "description": "Illux Image AI Plugin for Shopware",
+    "type": "shopware-platform-plugin",
+    "license": "proprietary",
+    "version": "3.2.1",
+    "authors": [
+        {
+            "name": "WEXO A/S",
+            "homepage": "https://www.wexo.dk/"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Illux\\ImageAi\\": "src/"
+        }
+    },
+    "require": {
+        "shopware/core": "~6.6 || ~6.7"
+    },
+    "extra": {
+        "shopware-plugin-class": "Illux\\ImageAi\\IlluxImageAi",
+        "plugin-icon": "src/Resources/config/plugin.png",
+        "copyright": "(c) by WEXO A/S",
+        "label": {
+            "da-DK": "Billede AI",
+            "en-GB": "Image AI",
+            "de-DE": "Bild AI"
+        },
+        "description": {
+            "da-DK": "Alt i én AI-løsning til automatisk generering, analysering og redigering af billeder direkte i Shopware admin.",
+            "en-GB": "All-in-one AI solution for automatic generation, analysis, and editing of images directly in Shopware admin.",
+            "de-DE": "All-in-One KI-Lösung für die automatische Generierung, Analyse und Bearbeitung von Bildern direkt im Shopware-Admin."
+        },
+        "manufacturerLink": {
+            "dk-DK": "https://www.wexo.dk",
+            "en-GB": "https://www.wexo.dk",
+            "de-DE": "https://www.wexo.dk"
+        },
+        "supportLink": {
+            "da-DK": "https://www.wexo.dk/shopware-support",
+            "en-GB": "https://www.wexo.dk/shopware-support",
+            "de-DE": "https://www.wexo.dk/shopware-support"
+        }
+    }
 }
