@@ -10,7 +10,7 @@ A Shopware 6 plugin that automates product enrichment for artwork using Google G
 
 ## Features
 
-- **Batch image analysis** — up to 6 products per API call with retry and exponential backoff
+- **Batch image analysis** - up to 6 products per API call with retry and exponential backoff
 - **Multi-language content** — generates da-DK, en-GB, nn-NO and sv-SE output simultaneously
 - **SEO metadata** — meta title, meta description, and keywords per language
 - **Product descriptions** — customer-facing copy generated from the product image
